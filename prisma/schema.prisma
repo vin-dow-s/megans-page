@@ -1,0 +1,79 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id                 String    @id
+  userId             String
+  providerType       String
+  providerId         String
+  providerAccountId  String
+  refreshToken       String?
+  accessToken        String?
+  accessTokenExpires DateTime?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime
+  User               User      @relation(fields: [userId], references: [id], map: "Account_userId_fk")
+
+  @@unique([providerId, providerAccountId])
+  @@index([userId])
+}
+
+model Category {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  Post Post[]
+}
+
+model Post {
+  id          Int      @id @unique(map: "id") @default(autoincrement())
+  title       String
+  slug        String   @unique @db.VarChar(255)
+  categoryId  Int
+  description String
+  content     String
+  publishedAt DateTime? @db.Date
+  isPublished Boolean  @default(false)
+  Category    Category @relation(fields: [categoryId], references: [id])
+}
+
+model Session {
+  id           String   @id
+  userId       String
+  expires      DateTime
+  sessionToken String   @unique
+  accessToken  String   @unique
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime
+  User         User     @relation(fields: [userId], references: [id], map: "Session_userId_fk")
+
+  @@index([userId])
+}
+
+model User {
+  id            String    @id
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime
+  Account       Account[]
+  Session       Session[]
+}
+
+model VerificationRequest {
+  id         String   @id
+  identifier String
+  token      String   @unique
+  expires    DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime
+
+  @@unique([identifier, token])
+}

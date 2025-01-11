@@ -1,0 +1,37 @@
+pnpm dlx shadcn@latest init -d 
+pnpm install
+pnpm up -i --latest
+
+//Copy .prettierrc
+//Copy eslint.config.mjs
+
+pnpm dlx eslint --init  
+
+pnpm i --save-dev prettier eslint-config-prettier 
+pnpm i @eslint/compat @eslint/js eslint-plugin-react-hooks eslint-plugin-react eslint-plugin-tailwindcss globals
+pnpm i typescript-eslint
+pnpm i -D prettier prettier-plugin-tailwindcss
+pnpm i zod
+pnpm i prisma @prisma/client
+
+npx prisma init
+
+pnpm dlx shadcn@latest add button input card
+pnpm dlx shadcn@latest add table
+pnpm dlx shadcn@latest add form
+pnpm dlx shadcn@latest add select
+pnpm dlx shadcn@latest add radio-group
+pnpm dlx shadcn@latest add dropdown-menu
+pnpm dlx shadcn@latest add sidebar
+
+pnpm prisma db pull
+pnpm prisma generate
+
+pnpm i @auth/prisma-adapter
+
+pnpm add -D @eslint/compat eslint-plugin-react-hooks eslint-plugin-tailwindcss prisma @hookform/resolvers
+
+pnpm up -i --latest
+
+pnpm add next-safe-action zod
+pnpm i slugify
