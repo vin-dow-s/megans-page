@@ -27,7 +27,8 @@ model Account {
 model Category {
   id   Int    @id @default(autoincrement())
   name String @unique
-  Post Post[]
+  color String @default("#FFFFFF")
+  Posts Post[]
 }
 
 model Post {
@@ -37,8 +38,8 @@ model Post {
   categoryId  Int
   description String
   content     String
-  publishedAt DateTime? @db.Date
   isPublished Boolean  @default(false)
+  publishedAt DateTime? @db.Date
   Category    Category @relation(fields: [categoryId], references: [id])
 }
 

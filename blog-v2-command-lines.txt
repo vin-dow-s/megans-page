@@ -35,3 +35,8 @@ pnpm up -i --latest
 
 pnpm add next-safe-action zod
 pnpm i slugify
+pnpm i @radix-ui/react-icons
+pnpm i html-react-parser dompurify
+pnpm i react-quilljs
+pnpm add react-quilljs quill
+pnpm add -D @types/quill

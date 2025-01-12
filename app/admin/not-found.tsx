@@ -1,5 +1,3 @@
-import Link from 'next/link'
-
 export default async function RoutePage() {
     return (
         <div className="flex flex-col items-center justify-center py-20">
@@ -8,9 +6,9 @@ export default async function RoutePage() {
             </h1>
             <p className="mt-2">
                 Return{' '}
-                <Link href="/blog" className="text-primary hover:underline">
+                <a href="/blog" className="text-primary hover:underline">
                     Home
-                </Link>
+                </a>
             </p>
         </div>
     )

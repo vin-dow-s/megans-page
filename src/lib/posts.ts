@@ -1,41 +1,55 @@
 'use server'
 
-import { z } from 'zod'
-import { prisma } from './prisma'
+import { prisma } from '@/lib/prisma'
+import { PostFormValues } from './types'
 import { actionClient } from './safe-action'
-import { CreatePostFormSchema, UpdatePostFormSchema } from './schemas'
-import slugify from 'slugify'
+import { z } from 'zod'
+import { postSchema } from './schemas'
 
 export const getPosts = actionClient.action(async () => {
     try {
-        return await prisma.post.findMany({
+        const posts = await prisma.post.findMany({
             include: {
                 Category: true,
             },
         })
+
+        if (!posts || posts.length === 0) {
+            console.log('No posts found')
+            return []
+        }
+
+        return posts
     } catch (error) {
         console.error('Error fetching posts:', error)
-        throw error
+        throw new Error('Failed to get posts')
     }
 })
 
 export const getPublishedPosts = actionClient.action(async () => {
     try {
-        return await prisma.post.findMany({
+        const posts = await prisma.post.findMany({
             where: { isPublished: true },
             include: {
                 Category: true,
             },
         })
+
+        if (!posts || posts.length === 0) {
+            console.log('No posts found')
+            return []
+        }
+
+        return posts
     } catch (error) {
         console.error('Error fetching published posts:', error)
-        throw error
+        throw new Error('Failed to get published posts')
     }
 })
 
 export const getPostById = actionClient
     .schema(z.number())
-    .action(async ({ parsedInput }: { parsedInput: number }) => {
+    .action(async ({ parsedInput }) => {
         const id = parsedInput
 
         try {
@@ -54,13 +68,13 @@ export const getPostById = actionClient
             return post
         } catch (error) {
             console.error('Error fetching post by ID:', error)
-            throw error
+            throw new Error('Failed to get post by ID')
         }
     })
 
 export const getPostBySlug = actionClient
     .schema(z.string())
-    .action(async ({ parsedInput }: { parsedInput: string }) => {
+    .action(async ({ parsedInput }) => {
         const slug = parsedInput
 
         try {
@@ -79,69 +93,34 @@ export const getPostBySlug = actionClient
             return post
         } catch (error) {
             console.error('Error fetching post by slug:', error)
-            throw error
+            throw new Error('Failed to get post by slug')
         }
     })
 
 export const createPost = actionClient
-    .schema(CreatePostFormSchema)
+    .schema(postSchema)
     .action(async ({ parsedInput }) => {
-        const { title, categoryId, description, content, isPublished } =
-            parsedInput
-
-        const slug = slugify(title, { lower: true, strict: true })
-        const publishedAt = isPublished ? new Date() : ''
-
         try {
-            const newPost = await prisma.post.create({
-                data: {
-                    title,
-                    categoryId,
-                    description,
-                    content,
-                    isPublished,
-                    slug,
-                    publishedAt,
-                },
-            })
-
-            return newPost
-        } catch (error) {
-            console.error('Error creating post:', error)
-            throw error
-        }
-    })
-
-export const updatePost = actionClient
-    .schema(UpdatePostFormSchema)
-    .action(async ({ parsedInput }) => {
-        const { id, data } = parsedInput
-
-        try {
-            return await prisma.post.update({
-                where: { id },
-                data,
+            const createdPost = await prisma.post.create({
+                data: parsedInput,
                 include: { Category: true },
             })
+
+            return createdPost
         } catch (error) {
-            console.error('Error updating post:', error)
-            throw error
+            console.error('Error in createPost:', error)
+            throw new Error('Failed to create post')
         }
     })
 
-export const deletePost = actionClient
-    .schema(z.number())
-    .action(async ({ parsedInput }: { parsedInput: number }) => {
-        try {
-            const id = parsedInput
-
-            const deletedPost = await prisma.post.delete({
-                where: { id },
-            })
-
-            return deletedPost
-        } catch (error) {
-            console.error('Error deleting post:', error)
-            throw error
-        }
+export const updatePost = async (id: number, data: Partial<PostFormValues>) => {
+    return prisma.post.update({
+        where: { id },
+        data,
+        include: { Category: true },
     })
+}
+
+export const deletePost = async (id: number) => {
+    return prisma.post.delete({ where: { id }, include: { Category: true } })
+}
