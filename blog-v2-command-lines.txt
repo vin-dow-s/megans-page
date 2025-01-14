@@ -23,6 +23,9 @@ pnpm dlx shadcn@latest add select
 pnpm dlx shadcn@latest add radio-group
 pnpm dlx shadcn@latest add dropdown-menu
 pnpm dlx shadcn@latest add sidebar
+pnpm dlx shadcn@latest add badge
+pnpm dlx shadcn@latest add toast
+
 
 pnpm prisma db pull
 pnpm prisma generate

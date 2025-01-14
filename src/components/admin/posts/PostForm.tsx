@@ -1,6 +1,7 @@
 'use client'
 
 import TextEditor from '@/components/admin/TextEditor'
+import { useCustomToast } from '@/hooks/useSuccessToast'
 import { createPost, updatePost } from '@/lib/posts'
 import { postFormSchema } from '@/lib/schemas'
 import { Category, PostFormValues } from '@/lib/types'
@@ -39,6 +40,7 @@ export const CreatePostFormWrapper = ({
     categories,
 }: CreatePostFormWrapperProps) => {
     const router = useRouter()
+    const { displaySuccessToast, displayErrorToast } = useCustomToast()
 
     const addSlugAndDate = (formData: PostFormValues) => {
         const slug = slugify(formData.title, {
@@ -62,9 +64,12 @@ export const CreatePostFormWrapper = ({
 
             await createPost(postData)
 
+            displaySuccessToast('Post successfully created.')
+
             router.push('/admin/posts')
         } catch (error) {
             console.error('Error creating post:', error)
+            displayErrorToast('Failed to create post.')
         }
     }
 
@@ -93,6 +98,7 @@ export const EditPostFormWrapper = ({
     categories,
 }: EditPostFormWrapperProps) => {
     const router = useRouter()
+    const { displaySuccessToast, displayErrorToast } = useCustomToast()
 
     const handleFormSubmit = async (formData: PostFormValues) => {
         try {
@@ -101,9 +107,12 @@ export const EditPostFormWrapper = ({
 
             await updatePost(postId, sanitizedFormData)
 
+            displaySuccessToast('Post successfully updated.')
+
             router.push('/admin/posts')
         } catch (error) {
             console.error('Error updating post:', error)
+            displayErrorToast('Failed to update post.')
         }
     }
 
@@ -148,6 +157,8 @@ export const PostForm = ({
             isPublished: false,
         },
     })
+
+    console.log(form.formState.errors)
 
     const titleLength =
         useWatch({

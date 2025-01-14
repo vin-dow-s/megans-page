@@ -49,16 +49,16 @@ const PostsTable = ({ posts }: PostsTableProps) => {
     }
 
     return (
-        <Table>
+        <Table className="min-h-56">
             <TableHeader>
                 <TableRow>
-                    <TableHead>#</TableHead>
-                    <TableHead>Title</TableHead>
-                    <TableHead>Category</TableHead>
-                    <TableHead className="w-80">Description</TableHead>
-                    <TableHead className="w-36">Publication Date</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead></TableHead>
+                    <TableHead className="w-10">#</TableHead>
+                    <TableHead className="w-16">Category</TableHead>
+                    <TableHead className="w-80">Title</TableHead>
+                    <TableHead className="w-40">Description</TableHead>
+                    <TableHead className="w-16">Publication Date</TableHead>
+                    <TableHead className="w-20">Status</TableHead>
+                    <TableHead className="w-16"></TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>
@@ -68,6 +68,12 @@ const PostsTable = ({ posts }: PostsTableProps) => {
                         .map((post) => (
                             <TableRow key={post.id}>
                                 <TableCell>{post.id}</TableCell>
+                                <TableCell>
+                                    <Badge
+                                        color={post.Category.color}
+                                        label={post.Category.name}
+                                    />
+                                </TableCell>
                                 <TableCell
                                     onClick={() => handleRowClick(post.id)}
                                     className="cursor-pointer hover:underline"
@@ -75,20 +81,24 @@ const PostsTable = ({ posts }: PostsTableProps) => {
                                     {post.title}
                                 </TableCell>
                                 <TableCell>
-                                    <Badge
-                                        color={post.Category.color}
-                                        label={post.Category.name}
-                                    />
-                                </TableCell>
-                                <TableCell>
                                     {post.description.substring(0, 40)}
                                 </TableCell>
                                 <TableCell>
                                     {post.publishedAt?.toLocaleDateString()}
                                 </TableCell>
-                                <TableCell>
-                                    {post.isPublished ? 'Published' : 'Draft'}
-                                </TableCell>
+                                {post.isPublished && (
+                                    <TableCell>
+                                        <Badge
+                                            color="green"
+                                            label="Published"
+                                        />
+                                    </TableCell>
+                                )}
+                                {!post.isPublished && (
+                                    <TableCell>
+                                        <Badge color="darkgrey" label="Draft" />
+                                    </TableCell>
+                                )}
                                 <TableCell>
                                     <PostsTableDropdown
                                         post={post}

@@ -2,6 +2,7 @@ import { cn } from '@/lib/utils'
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import './globals.css'
+import { Toaster } from '@/components/ui/toaster'
 
 const geistSans = localFont({
     src: './public/fonts/GeistVF.woff',
@@ -32,6 +33,7 @@ const RootLayout = ({
                 )}
             >
                 {children}
+                <Toaster />
             </body>
         </html>
     )

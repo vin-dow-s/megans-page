@@ -1,7 +1,7 @@
-import { getPosts } from '@/lib/posts'
-import { Button } from '@/components/ui/button'
-import Link from 'next/link'
 import PostsTable from '@/components/admin/posts/PostsTable'
+import { Button } from '@/components/ui/button'
+import { getPosts } from '@/lib/posts'
+import Link from 'next/link'
 
 const PostsPage = async () => {
     const postsResult = await getPosts()

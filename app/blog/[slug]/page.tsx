@@ -1,3 +1,4 @@
+import Badge from '@/components/Badge'
 import { Button } from '@/components/ui/button'
 import { getPostBySlug } from '@/lib/posts'
 import parse from 'html-react-parser'
@@ -5,7 +6,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import testImage from '../../public/assets/test.png'
-import Badge from '@/components/Badge'
 
 const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
     const { slug } = await params

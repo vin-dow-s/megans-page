@@ -1,6 +1,6 @@
 import '../globals.css'
-import { Header } from '@/components/Header'
-import { Footer } from '@/components/Footer'
+import { Header } from '@/components/blog/Header'
+import { Footer } from '@/components/blog/Footer'
 
 const BlogLayout = ({
     children,

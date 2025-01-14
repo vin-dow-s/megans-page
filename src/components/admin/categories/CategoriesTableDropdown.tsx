@@ -8,6 +8,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { useCustomToast } from '@/hooks/useSuccessToast'
 import { deleteCategory } from '@/lib/categories'
 import { Category } from '@/lib/types'
 import { DotsHorizontalIcon } from '@radix-ui/react-icons'
@@ -23,12 +24,18 @@ const CategoriesTableDropdown = ({
     category,
     onCategoryDelete,
 }: CategoriesTableDropdownProps) => {
+    const { displaySuccessToast, displayErrorToast } = useCustomToast()
+
     const handleDeleteCategory = async () => {
-        try {
-            const deletedCategory = await deleteCategory(category.id)
-            onCategoryDelete(deletedCategory)
-        } catch (error) {
-            console.error('Error deleting category:', error)
+        if (confirm('Are you sure you want to delete this category?')) {
+            try {
+                const deletedCategory = await deleteCategory(category.id)
+                onCategoryDelete(deletedCategory)
+                displaySuccessToast(`Category successfully deleted.`)
+            } catch (error) {
+                console.error('Error deleting category:', error)
+                displayErrorToast(`Failed to delete the category.`)
+            }
         }
     }
 

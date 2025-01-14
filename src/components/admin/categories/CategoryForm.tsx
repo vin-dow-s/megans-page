@@ -1,9 +1,12 @@
 'use client'
 
+import { useCustomToast } from '@/hooks/useSuccessToast'
 import { createCategory, updateCategory } from '@/lib/categories'
 import { categorySchema } from '@/lib/schemas'
 import { Category, CategoryFormValues } from '@/lib/types'
 import { zodResolver } from '@hookform/resolvers/zod'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { Button } from '../../ui/button'
 import {
@@ -15,19 +18,21 @@ import {
     FormMessage,
 } from '../../ui/form'
 import { Input } from '../../ui/input'
-import { useRouter } from 'next/navigation'
-import Link from 'next/link'
 
 export const CreateCategoryFormWrapper = () => {
     const router = useRouter()
+    const { displaySuccessToast, displayErrorToast } = useCustomToast()
 
     const handleFormSubmit = async (formData: CategoryFormValues) => {
         try {
             await createCategory(formData)
 
+            displaySuccessToast('Category successfully created.')
+
             router.push('/admin/categories')
         } catch (error) {
             console.error('Error creating category:', error)
+            displayErrorToast('Failed to create the category.')
         }
     }
 
@@ -52,6 +57,7 @@ export const EditCategoryFormWrapper = ({
     categoryData,
 }: EditCategoryFormWrapperProps) => {
     const router = useRouter()
+    const { displaySuccessToast, displayErrorToast } = useCustomToast()
 
     const handleUpdateCategory = async (formData: CategoryFormValues) => {
         try {
@@ -60,9 +66,12 @@ export const EditCategoryFormWrapper = ({
                 color: formData.color,
             })
 
+            displaySuccessToast('Category successfully updated.')
+
             router.push('/admin/categories')
         } catch (error) {
             console.error('Error updating category:', error)
+            displayErrorToast('Failed to update the category.')
         }
     }
 

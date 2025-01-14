@@ -1,6 +1,6 @@
-import '../globals.css'
-import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
 import { AdminSidebar } from '@/components/admin/AdminSidebar'
+import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
+import '../globals.css'
 
 const AdminLayout = ({
     children,

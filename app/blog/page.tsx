@@ -1,67 +1,25 @@
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from '@/components/ui/card'
+import { getCategories } from '@/lib/categories'
 import { getPublishedPosts } from '@/lib/posts'
-import Image from 'next/image'
-import Link from 'next/link'
-import testImage from '../public/assets/test.png'
+import HomeClient from '@/components/blog/HomeClient'
 
 const Home = async () => {
-    const result = await getPublishedPosts()
+    const [postsResult, categoriesResult] = await Promise.all([
+        getPublishedPosts(),
+        getCategories(),
+    ])
 
-    if (!result) {
+    if (!postsResult || !categoriesResult) {
         return (
             <section className="mx-4 rounded-lg border px-4">
-                <h2 className="text-lg font-bold">Failed to load posts</h2>
+                <h2 className="text-lg font-bold">Failed to load data</h2>
             </section>
         )
     }
 
-    const posts = result?.data || []
+    const posts = postsResult.data || []
+    const categories = categoriesResult || []
 
-    return (
-        <section className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-10">
-            {posts
-                ?.toSorted((a, b) => b.id - a.id)
-                .map((post) => (
-                    <Card key={post.title}>
-                        <CardHeader>
-                            <div>
-                                <p className="text-xs text-muted-foreground">
-                                    {post.publishedAt?.toLocaleDateString()}
-                                </p>
-                            </div>
-                            <Image
-                                src={testImage}
-                                alt={'Test image'}
-                                width={250}
-                                height={250}
-                            />
-                            <p>Category {post.Category?.name}</p>
-                        </CardHeader>
-                        <CardContent>
-                            <CardTitle>Title {post.title}</CardTitle>
-                            <CardDescription>
-                                {post.description}
-                            </CardDescription>
-                        </CardContent>
-                        <CardFooter>
-                            <Link
-                                className="text-blue-500 hover:underline"
-                                href={`/blog/${post.slug}`}
-                            >
-                                Read more
-                            </Link>
-                        </CardFooter>
-                    </Card>
-                ))}
-        </section>
-    )
+    return <HomeClient posts={posts} categories={categories} />
 }
 
 export default Home

@@ -8,6 +8,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { useCustomToast } from '@/hooks/useSuccessToast'
 import { deletePost, updatePost } from '@/lib/posts'
 import { Post } from '@/lib/types'
 import { DotsHorizontalIcon } from '@radix-ui/react-icons'
@@ -25,14 +26,21 @@ const PostsTableDropdown = ({
     onStatusChange,
     onPostDelete,
 }: PostsTableDropdownProps) => {
+    const { displaySuccessToast, displayErrorToast } = useCustomToast()
+
     const handlePublishToggle = async () => {
         try {
             const updatedPost = await updatePost(post.id, {
                 isPublished: !post.isPublished,
             })
             onStatusChange(updatedPost)
+
+            displaySuccessToast(
+                `Post successfully ${post.isPublished ? 'unpublished' : 'published'}.`,
+            )
         } catch (error) {
             console.error('Error updating post status:', error)
+            displayErrorToast(`Failed to update the post status.`)
         }
     }
 
@@ -41,8 +49,11 @@ const PostsTableDropdown = ({
             try {
                 const deletedPost = await deletePost(post.id)
                 onPostDelete(deletedPost)
+
+                displaySuccessToast(`Post successfully deleted.`)
             } catch (error) {
                 console.error('Error deleting post:', error)
+                displayErrorToast(`Failed to delete the post.`)
             }
         }
     }

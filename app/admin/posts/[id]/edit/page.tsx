@@ -1,7 +1,7 @@
-import { notFound } from 'next/navigation'
 import { EditPostFormWrapper } from '@/components/admin/posts/PostForm'
-import { getPostById } from '@/lib/posts'
 import { getCategories } from '@/lib/categories'
+import { getPostById } from '@/lib/posts'
+import { notFound } from 'next/navigation'
 
 const EditPostPage = async ({
     params,
