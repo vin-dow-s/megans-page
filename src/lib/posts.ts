@@ -114,13 +114,26 @@ export const createPost = actionClient
     })
 
 export const updatePost = async (id: number, data: Partial<PostFormValues>) => {
-    return prisma.post.update({
-        where: { id },
-        data,
-        include: { Category: true },
-    })
+    try {
+        return await prisma.post.update({
+            where: { id },
+            data,
+            include: { Category: true },
+        })
+    } catch (error) {
+        console.error('Error updating post:', error)
+        throw new Error('Failed to update post')
+    }
 }
 
 export const deletePost = async (id: number) => {
-    return prisma.post.delete({ where: { id }, include: { Category: true } })
+    try {
+        return await prisma.post.delete({
+            where: { id },
+            include: { Category: true },
+        })
+    } catch (error) {
+        console.error('Error deleting post:', error)
+        throw new Error('Failed to delete post')
+    }
 }
