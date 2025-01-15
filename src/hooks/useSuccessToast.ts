@@ -11,6 +11,14 @@ export const useCustomToast = () => {
         })
     }
 
+    const displayWarningToast = (description: string) => {
+        toast({
+            description,
+            className:
+                'bg-yellow-50 border-yellow-600 text-yellow-950 top-0 right-0 flex fixed max-w-[420px] top-4 right-4',
+        })
+    }
+
     const displayErrorToast = (description: string) => {
         toast({
             description,
@@ -19,5 +27,5 @@ export const useCustomToast = () => {
         })
     }
 
-    return { displaySuccessToast, displayErrorToast }
+    return { displaySuccessToast, displayWarningToast, displayErrorToast }
 }

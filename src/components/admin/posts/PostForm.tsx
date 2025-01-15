@@ -31,6 +31,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from '../../ui/select'
+import { isActionSuccessful } from '@/lib/safe-action'
 
 type CreatePostFormWrapperProps = {
     categories: Category[]
@@ -59,18 +60,18 @@ export const CreatePostFormWrapper = ({
     }
 
     const handleFormSubmit = async (formData: PostFormValues) => {
-        try {
-            const postData = addSlugAndDate(formData)
+        const postData = addSlugAndDate(formData)
 
-            await createPost(postData)
+        const result = await createPost(postData)
 
-            displaySuccessToast('Post successfully created.')
-
-            router.push('/admin/posts')
-        } catch (error) {
-            console.error('Error creating post:', error)
-            displayErrorToast('Failed to create post.')
+        if (!isActionSuccessful(result)) {
+            console.error('Error creating post:', result?.serverError)
+            displayErrorToast(result?.serverError ?? 'Failed to create post.')
+            return
         }
+
+        router.push('/admin/posts')
+        displaySuccessToast('Post successfully created.')
     }
 
     return (
@@ -220,6 +221,7 @@ export const PostForm = ({
                             <FormMessage />
                         </FormItem>
                     )}
+                    disabled
                 />
                 <FormField
                     control={form.control}

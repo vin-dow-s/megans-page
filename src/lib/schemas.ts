@@ -12,18 +12,26 @@ export const postSchema = z.object({
 })
 
 export const postFormSchema = z.object({
-    title: z.string(),
-    categoryId: z.number(),
-    description: z.string(),
-    content: z.string(),
+    title: z
+        .string()
+        .trim()
+        .nonempty('Title is required.')
+        .min(3, 'Title is too short (3 characters minimum).'),
+    categoryId: z.number().min(1, 'Category is required.'),
+    description: z
+        .string()
+        .trim()
+        .nonempty('Description is required.')
+        .min(3, 'Description is too short (3 characters minimum).'),
+    content: z.string().trim().nonempty('Content is required.'),
     isPublished: z.boolean().default(false),
     thumbnail: z.string().optional(),
 })
 
 export const categorySchema = z.object({
-    name: z.string().min(1, 'Category name is required'),
+    name: z.string().min(1, 'Category name is required.'),
     color: z
         .string()
-        .regex(/^#[0-9A-F]{6}$/i, 'Invalid color format')
+        .regex(/^#[0-9A-F]{6}$/i, 'Invalid color format.')
         .default('#FFFFFF'),
 })
