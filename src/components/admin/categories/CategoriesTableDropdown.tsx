@@ -36,7 +36,8 @@ const CategoriesTableDropdown = ({
                 console.error('Error deleting category:', error)
 
                 const errorMessage =
-                    (error as Error)?.message ?? 'Failed to delete the category'
+                    (error as Error)?.message ??
+                    'Failed to delete the category.'
 
                 displayErrorToast(errorMessage)
             }

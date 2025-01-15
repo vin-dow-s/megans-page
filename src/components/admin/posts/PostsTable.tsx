@@ -53,8 +53,8 @@ const PostsTable = ({ posts }: PostsTableProps) => {
             <TableHeader>
                 <TableRow>
                     <TableHead className="w-10">#</TableHead>
-                    <TableHead className="w-16">Category</TableHead>
                     <TableHead className="w-80">Title</TableHead>
+                    <TableHead className="w-16">Category</TableHead>
                     <TableHead className="w-48">Description</TableHead>
                     <TableHead className="w-16">Publication Date</TableHead>
                     <TableHead className="w-12">Status</TableHead>
@@ -68,17 +68,17 @@ const PostsTable = ({ posts }: PostsTableProps) => {
                         .map((post) => (
                             <TableRow key={post.id}>
                                 <TableCell>{post.id}</TableCell>
-                                <TableCell>
-                                    <Badge
-                                        color={post.Category.color}
-                                        label={post.Category.name}
-                                    />
-                                </TableCell>
                                 <TableCell
                                     onClick={() => handleRowClick(post.id)}
                                     className="cursor-pointer hover:underline"
                                 >
                                     {post.title}
+                                </TableCell>
+                                <TableCell>
+                                    <Badge
+                                        color={post.Category.color}
+                                        label={post.Category.name}
+                                    />
                                 </TableCell>
                                 <TableCell>
                                     {post.description.substring(0, 40)}

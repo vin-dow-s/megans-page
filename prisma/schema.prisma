@@ -33,7 +33,7 @@ model Category {
 
 model Post {
   id          Int       @id @unique(map: "id") @default(autoincrement())
-  title       String
+  title       String    @unique
   slug        String    @unique @db.VarChar(255)
   categoryId  Int
   description String

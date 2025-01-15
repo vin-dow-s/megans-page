@@ -32,7 +32,11 @@ export const CreateCategoryFormWrapper = () => {
             router.push('/admin/categories')
         } catch (error) {
             console.error('Error creating category:', error)
-            displayErrorToast('Failed to create the category.')
+
+            const errorMessage =
+                (error as Error)?.message ?? 'Failed to create the category.'
+
+            displayErrorToast(errorMessage)
         }
     }
 

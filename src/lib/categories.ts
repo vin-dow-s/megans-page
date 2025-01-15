@@ -16,7 +16,7 @@ export const getCategories = async () => {
         })
     } catch (error) {
         console.error('Error fetching categories:', error)
-        throw new Error('Failed to get categories')
+        throw new Error('Failed to get categories.')
     }
 }
 
@@ -25,16 +25,27 @@ export const getCategoryById = async (id: number) => {
         return await prisma.category.findUnique({ where: { id } })
     } catch (error) {
         console.error(`Error fetching category with id ${id}:`, error)
-        throw new Error('Failed to get category by ID posts')
+        throw new Error('Failed to get category by ID posts.')
     }
 }
 
 export const createCategory = async (data: { name: string; color: string }) => {
     try {
+        const existingCategory = await prisma.category.findFirst({
+            where: { name: data.name },
+        })
+
+        if (existingCategory) throw new Error('Category already exists.')
+
         return await prisma.category.create({ data })
     } catch (error) {
         console.error('Error creating category:', error)
-        throw new Error('Failed to create category')
+
+        if (error instanceof Error) {
+            throw error
+        }
+
+        throw new Error('Failed to create category.')
     }
 }
 
@@ -75,6 +86,6 @@ export const deleteCategory = async (id: number) => {
             throw error
         }
 
-        throw new Error('Failed to delete category')
+        throw new Error('Failed to delete category.')
     }
 }
