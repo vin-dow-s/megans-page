@@ -18,8 +18,9 @@ export type Post = {
     categoryId: number
     description: string
     content: string
-    isPublished: boolean
     publishedAt?: Date | null
+    isPublished: boolean
+    thumbnail?: string | null
     Category: Category
 }
 

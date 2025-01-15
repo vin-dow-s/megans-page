@@ -29,16 +29,16 @@ const PostOverviewPage = async ({
                     <Link href="/admin/posts">Back to Posts</Link>
                 </Button>
             </nav>
-            <div className="prose px-2">
+            <div className="prose mb-4 px-2">
                 <div>
-                    <p className="text-xs text-muted-foreground">
-                        {post?.publishedAt?.toLocaleDateString()}
+                    <div className="mb-4 flex items-center text-xs text-muted-foreground">
+                        {post?.publishedAt?.toLocaleDateString()} - &nbsp;
                         {post?.isPublished ? (
-                            <span> - Published</span>
+                            <Badge color="green" label="Published" />
                         ) : (
-                            <span> - DRAFT</span>
+                            <Badge color="darkgrey" label="Draft" />
                         )}
-                    </p>
+                    </div>
                 </div>
                 <h1>{post?.title}</h1>
                 <Image

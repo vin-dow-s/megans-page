@@ -59,7 +59,7 @@ const HomeClient = ({ posts, categories }: HomeClientProps) => {
                                     </p>
                                 </div>
                                 <Image
-                                    src={testImage}
+                                    src={post.image ?? testImage}
                                     alt={'Test image'}
                                     width={250}
                                     height={250}

@@ -6,8 +6,9 @@ export const postSchema = z.object({
     categoryId: z.number(),
     description: z.string(),
     content: z.string(),
-    isPublished: z.boolean().default(false),
     publishedAt: z.date().optional(),
+    isPublished: z.boolean().default(false),
+    thumbnail: z.string().optional(),
 })
 
 export const postFormSchema = z.object({
@@ -16,6 +17,7 @@ export const postFormSchema = z.object({
     description: z.string(),
     content: z.string(),
     isPublished: z.boolean().default(false),
+    thumbnail: z.string().optional(),
 })
 
 export const categorySchema = z.object({

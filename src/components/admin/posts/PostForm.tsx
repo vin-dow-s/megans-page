@@ -151,6 +151,7 @@ export const PostForm = ({
         resolver: zodResolver(postFormSchema),
         defaultValues: {
             title: postData?.title ?? '',
+            thumbnail: postData?.thumbnail ?? '',
             categoryId: postData?.categoryId ?? 1,
             description: postData?.description ?? '',
             content: postData?.content ?? '',
@@ -198,6 +199,24 @@ export const PostForm = ({
                                 </span>{' '}
                                 Optimised length for SEO: 50-60 characters.
                             </FormDescription>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="thumbnail"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Image</FormLabel>
+                            <FormControl>
+                                <Input
+                                    type="file"
+                                    accept="image/*"
+                                    placeholder="Thumbnail image of the post."
+                                    {...field}
+                                />
+                            </FormControl>
                             <FormMessage />
                         </FormItem>
                     )}

@@ -1,10 +1,10 @@
 'use server'
 
 import { prisma } from '@/lib/prisma'
-import { PostFormValues } from './types'
-import { actionClient } from './safe-action'
 import { z } from 'zod'
+import { actionClient } from './safe-action'
 import { postSchema } from './schemas'
+import { PostFormValues } from './types'
 
 export const getPosts = actionClient.action(async () => {
     try {

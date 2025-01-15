@@ -20,7 +20,7 @@ const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
             <nav className="flex items-center justify-between p-8 px-2 pb-6">
                 <h1 className="text-lg font-bold">{post?.title}</h1>
                 <Button asChild variant="secondary">
-                    <Link href="/admin/posts">Back to Posts</Link>
+                    <Link href="/blog">Back to Posts</Link>
                 </Button>
             </nav>
             <div className="prose prose-sm lg:prose-lg px-2">
@@ -30,7 +30,7 @@ const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
                     </p>
                 </div>
                 <Image
-                    src={testImage}
+                    src={post.thumbnail ?? testImage}
                     alt={'Test image'}
                     width={250}
                     height={250}

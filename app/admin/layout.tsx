@@ -10,7 +10,7 @@ const AdminLayout = ({
     return (
         <SidebarProvider>
             <AdminSidebar />
-            <main className="grow">
+            <main className="mb-4 grow">
                 <SidebarTrigger className="m-4 p-4" />
                 {children}
             </main>
