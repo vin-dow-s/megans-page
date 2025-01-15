@@ -55,10 +55,10 @@ const PostsTable = ({ posts }: PostsTableProps) => {
                     <TableHead className="w-10">#</TableHead>
                     <TableHead className="w-16">Category</TableHead>
                     <TableHead className="w-80">Title</TableHead>
-                    <TableHead className="w-40">Description</TableHead>
+                    <TableHead className="w-48">Description</TableHead>
                     <TableHead className="w-16">Publication Date</TableHead>
-                    <TableHead className="w-20">Status</TableHead>
-                    <TableHead className="w-16"></TableHead>
+                    <TableHead className="w-12">Status</TableHead>
+                    <TableHead className="w-4"></TableHead>
                 </TableRow>
             </TableHeader>
             <TableBody>

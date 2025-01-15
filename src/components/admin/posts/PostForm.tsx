@@ -149,16 +149,14 @@ export const PostForm = ({
 }: PostFormProps) => {
     const form = useForm({
         resolver: zodResolver(postFormSchema),
-        defaultValues: postData || {
-            title: '',
-            categoryId: 1,
-            description: '',
-            content: '',
-            isPublished: false,
+        defaultValues: {
+            title: postData?.title ?? '',
+            categoryId: postData?.categoryId ?? 1,
+            description: postData?.description ?? '',
+            content: postData?.content ?? '',
+            isPublished: postData?.isPublished ?? false,
         },
     })
-
-    console.log(form.formState.errors)
 
     const titleLength =
         useWatch({

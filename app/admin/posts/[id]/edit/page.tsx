@@ -18,7 +18,6 @@ const EditPostPage = async ({
     ])
 
     const post = postResult?.data
-    console.log('🚀 ~ post:', post)
 
     if (!post || !categories) {
         notFound()

@@ -19,6 +19,16 @@ const TextEditor = ({
         theme: 'snow',
     })
 
+    // Set the initial value of the editor
+    useEffect(() => {
+        if (quill && value !== undefined) {
+            // Prevent re-setting the value if it matches the editor content
+            if (quill.root.innerHTML !== value) {
+                quill.root.innerHTML = value
+            }
+        }
+    }, [quill, value])
+
     // Sync the editor content with the parent component
     useEffect(() => {
         if (quill) {
@@ -27,7 +37,7 @@ const TextEditor = ({
                 onChange(editorValue)
             })
         }
-    }, [quill, value, onChange])
+    }, [quill, onChange])
 
     if (!quillRef) {
         return <div>Loading editor...</div>
