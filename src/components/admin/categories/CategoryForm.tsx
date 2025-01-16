@@ -121,7 +121,7 @@ export const CategoryForm = ({
                 onSubmit={form.handleSubmit(onSubmit)}
                 className="space-y-8 px-2"
             >
-                <div className="grid grid-cols-12 gap-8">
+                <div className="grid grid-cols-12 gap-6">
                     <FormField
                         control={form.control}
                         name="name"

@@ -1,6 +1,6 @@
+import HomeClient from '@/components/blog/HomeClient'
 import { getCategories } from '@/lib/categories'
 import { getPublishedPosts } from '@/lib/posts'
-import HomeClient from '@/components/blog/HomeClient'
 
 const Home = async () => {
     const [postsResult, categoriesResult] = await Promise.all([

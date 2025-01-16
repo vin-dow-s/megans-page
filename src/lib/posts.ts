@@ -53,6 +53,67 @@ export const getPublishedPosts = actionClient.action(async () => {
     }
 })
 
+export const getPublishedPostsByCategory = actionClient
+    .schema(z.string())
+    .action(async ({ parsedInput }) => {
+        const category = parsedInput
+
+        try {
+            const posts = await prisma.post.findMany({
+                where: {
+                    Category: {
+                        name: {
+                            equals: category,
+                            mode: 'insensitive',
+                        },
+                    },
+                    isPublished: true,
+                },
+                include: {
+                    Category: true,
+                },
+            })
+
+            return posts || []
+        } catch (error) {
+            console.error('Error fetching published posts:', error)
+            throw new ActionError(
+                error instanceof Error
+                    ? error.message
+                    : 'Failed to get published posts.',
+            )
+        }
+    })
+
+export const getPublishedPostBySlug = actionClient
+    .schema(z.string())
+    .action(async ({ parsedInput }) => {
+        const slug = parsedInput
+
+        try {
+            const post = await prisma.post.findUnique({
+                where: { slug, isPublished: true },
+                include: {
+                    Category: true,
+                },
+            })
+
+            if (!post) {
+                console.log('Post not found.')
+                throw new ActionError('Post not found.')
+            }
+
+            return post
+        } catch (error) {
+            console.error('Error fetching post by slug:', error)
+            throw new ActionError(
+                error instanceof Error
+                    ? error.message
+                    : 'Failed to get post by slug.',
+            )
+        }
+    })
+
 export const getPostById = actionClient
     .schema(z.number())
     .action(async ({ parsedInput }) => {
@@ -78,35 +139,6 @@ export const getPostById = actionClient
                 error instanceof Error
                     ? error.message
                     : 'Failed to get post by ID.',
-            )
-        }
-    })
-
-export const getPostBySlug = actionClient
-    .schema(z.string())
-    .action(async ({ parsedInput }) => {
-        const slug = parsedInput
-
-        try {
-            const post = await prisma.post.findUnique({
-                where: { slug },
-                include: {
-                    Category: true,
-                },
-            })
-
-            if (!post) {
-                console.log('Post not found.')
-                throw new ActionError('Post not found.')
-            }
-
-            return post
-        } catch (error) {
-            console.error('Error fetching post by slug:', error)
-            throw new ActionError(
-                error instanceof Error
-                    ? error.message
-                    : 'Failed to get post by slug.',
             )
         }
     })

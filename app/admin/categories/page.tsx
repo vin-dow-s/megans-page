@@ -8,7 +8,7 @@ const CategoriesPage = async () => {
 
     return (
         <section className="mx-4 rounded-lg border px-4">
-            <nav className="flex items-center justify-between p-8 px-2 pb-12">
+            <nav className="flex items-center justify-between p-6 px-2 pb-12">
                 <h2 className="text-lg font-bold">Categories</h2>
                 <Button asChild>
                     <Link href="/admin/categories/create">

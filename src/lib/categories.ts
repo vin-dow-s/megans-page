@@ -37,7 +37,9 @@ export const createCategory = async (data: { name: string; color: string }) => {
 
         if (existingCategory) throw new Error('Category already exists.')
 
-        return await prisma.category.create({ data })
+        return await prisma.category.create({
+            data: { name: data.name.toUpperCase(), color: data.color },
+        })
     } catch (error) {
         console.error('Error creating category:', error)
 

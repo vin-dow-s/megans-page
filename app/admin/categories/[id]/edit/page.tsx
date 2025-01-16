@@ -2,7 +2,7 @@ import { EditCategoryFormWrapper } from '@/components/admin/categories/CategoryF
 import { getCategoryById } from '@/lib/categories'
 import { notFound } from 'next/navigation'
 
-const EditCategoryPage = async ({
+const EditFilteredPostsPage = async ({
     params,
 }: {
     params: Promise<{ id: string }>
@@ -20,4 +20,4 @@ const EditCategoryPage = async ({
     return <EditCategoryFormWrapper categoryData={category} />
 }
 
-export default EditCategoryPage
+export default EditFilteredPostsPage

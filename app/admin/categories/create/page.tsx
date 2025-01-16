@@ -2,7 +2,7 @@ import { CreateCategoryFormWrapper } from '@/components/admin/categories/Categor
 import { getCategories } from '@/lib/categories'
 import { notFound } from 'next/navigation'
 
-const CreateCategoryPage = async () => {
+const CreateFilteredPostsPage = async () => {
     const categories = await getCategories()
 
     if (!categories) {
@@ -12,4 +12,4 @@ const CreateCategoryPage = async () => {
     return <CreateCategoryFormWrapper />
 }
 
-export default CreateCategoryPage
+export default CreateFilteredPostsPage
