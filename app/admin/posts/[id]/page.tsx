@@ -2,6 +2,7 @@ import Badge from '@/components/Badge'
 import { Button } from '@/components/ui/button'
 import { getPostById } from '@/lib/posts'
 import parse from 'html-react-parser'
+import DOMPurify from 'isomorphic-dompurify'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -20,6 +21,8 @@ const PostOverviewPage = async ({
     const post = postResult?.data
 
     if (!post) notFound()
+
+    const sanitizedContent = DOMPurify.sanitize(post?.content)
 
     return (
         <section className="mx-4 rounded-lg border px-4">
@@ -57,7 +60,9 @@ const PostOverviewPage = async ({
                 <div className="my-4">Description: {post?.description}</div>
                 <div className="my-4">Slug: {post?.slug}</div>
                 {post?.content && (
-                    <div className="prose">Content: {parse(post?.content)}</div>
+                    <div className="prose">
+                        Content: {parse(sanitizedContent)}
+                    </div>
                 )}
             </div>
         </section>

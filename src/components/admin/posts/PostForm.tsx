@@ -3,10 +3,11 @@
 import TextEditor from '@/components/admin/TextEditor'
 import { useCustomToast } from '@/hooks/useSuccessToast'
 import { createPost, updatePost } from '@/lib/posts'
+import { isActionSuccessful } from '@/lib/safe-action'
 import { postFormSchema } from '@/lib/schemas'
 import { Category, PostFormValues } from '@/lib/types'
 import { zodResolver } from '@hookform/resolvers/zod'
-import DOMPurify from 'dompurify'
+import DOMPurify from 'isomorphic-dompurify'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useForm, useWatch } from 'react-hook-form'
@@ -31,7 +32,6 @@ import {
     SelectTrigger,
     SelectValue,
 } from '../../ui/select'
-import { isActionSuccessful } from '@/lib/safe-action'
 
 type CreatePostFormWrapperProps = {
     categories: Category[]

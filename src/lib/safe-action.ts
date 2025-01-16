@@ -13,6 +13,33 @@ export const actionClient = createSafeActionClient({
     },
 })
 
+/* export const authActionClient = actionClient.use(async ({ next }) => {
+    const currentUser = await getCurrentUser()
+
+    if (!currentUser) {
+        throw new ActionError('You are not allowed to create a user')
+    }
+
+    return next({ ctx: { user: currentUser } })
+})
+
+const createUserAction = authActionClient
+  .schema(Schema)
+  .action(async ({ parsedInput: { name, email }, ctx: { user } }) => {
+    if (!user.isAdmin) {
+      throw new Error('You are not allowed to create a user');
+    }
+
+    const createUser = await prisma.user.create({
+      data: {
+        name: name,
+        email: email,
+      },
+    });
+
+    return createUser;
+  }); */
+
 export const isActionSuccessful = <T extends z.ZodType>(
     action?: SafeActionResult<string, T, readonly [], unknown, unknown>,
 ): action is {
