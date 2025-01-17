@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { useCustomToast } from '@/hooks/useSuccessToast'
 import { deleteCategory } from '@/lib/categories'
+import { isActionSuccessful } from '@/lib/safe-action'
 import { Category } from '@/lib/types'
 import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { Pencil, Trash } from 'lucide-react'
@@ -17,7 +18,7 @@ import Link from 'next/link'
 
 type CategoriesTableDropdownProps = Readonly<{
     category: Category
-    onCategoryDelete: (deletedCategory: Category) => void
+    onCategoryDelete: (deletedCategoryId: number) => void
 }>
 
 const CategoriesTableDropdown = ({
@@ -29,8 +30,20 @@ const CategoriesTableDropdown = ({
     const handleDeleteCategory = async () => {
         if (confirm('Are you sure you want to delete this category?')) {
             try {
-                const deletedCategory = await deleteCategory(category.id)
-                onCategoryDelete(deletedCategory)
+                const result = await deleteCategory(category.id)
+
+                if (!isActionSuccessful(result)) {
+                    console.error(
+                        'Error deleting category:',
+                        result?.serverError,
+                    )
+                    displayErrorToast(
+                        result?.serverError ?? 'Failed to delete category.',
+                    )
+                    return
+                }
+
+                onCategoryDelete(category.id)
                 displaySuccessToast(`Category successfully deleted.`)
             } catch (error) {
                 console.error('Error deleting category:', error)

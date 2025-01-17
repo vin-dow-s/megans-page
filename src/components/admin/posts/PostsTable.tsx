@@ -1,5 +1,6 @@
 'use client'
 
+import Badge from '@/components/Badge'
 import {
     Table,
     TableBody,
@@ -12,7 +13,6 @@ import { Post } from '@/lib/types'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import PostsTableDropdown from './PostsTableDropdown'
-import Badge from '@/components/Badge'
 
 type PostsTableProps = {
     posts: Post[]
@@ -26,11 +26,16 @@ const PostsTable = ({ posts }: PostsTableProps) => {
         router.push(`/admin/posts/${id}`)
     }
 
-    const handleStatusChange = async (updatedPost: Post) => {
+    const handleStatusChange = async (
+        updatedPostId: number,
+        updatedData: Partial<Post>,
+    ) => {
         try {
             setPostList((prevPosts) =>
-                prevPosts.map((p) =>
-                    p.id === updatedPost.id ? updatedPost : p,
+                prevPosts.map((post) =>
+                    post.id === updatedPostId
+                        ? { ...post, ...updatedData }
+                        : post,
                 ),
             )
         } catch (error) {
@@ -38,10 +43,10 @@ const PostsTable = ({ posts }: PostsTableProps) => {
         }
     }
 
-    const handleDeletePost = (deletedPost: Post) => {
+    const handleDeletePost = (deletedPostId: number) => {
         try {
             setPostList((prevPosts) =>
-                prevPosts.filter((p) => p.id !== deletedPost.id),
+                prevPosts.filter((p) => p.id !== deletedPostId),
             )
         } catch (error) {
             console.error('Failed to delete post:', error)

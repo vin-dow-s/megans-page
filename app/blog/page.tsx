@@ -8,6 +8,9 @@ const Home = async () => {
         getCategories(),
     ])
 
+    const posts = postsResult?.data
+    const categories = categoriesResult?.data
+
     if (!postsResult || !categoriesResult) {
         return (
             <section className="mx-4 rounded-lg border px-4">
@@ -15,9 +18,6 @@ const Home = async () => {
             </section>
         )
     }
-
-    const posts = postsResult.data || []
-    const categories = categoriesResult || []
 
     return <HomeClient posts={posts} categories={categories} />
 }

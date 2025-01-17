@@ -12,12 +12,13 @@ const EditPostPage = async ({
 
     const postId = Number(id)
 
-    const [postResult, categories] = await Promise.all([
+    const [postResult, categoriesResult] = await Promise.all([
         getPostById(postId),
         getCategories(),
     ])
 
     const post = postResult?.data
+    const categories = categoriesResult?.data
 
     if (!post || !categories) {
         notFound()

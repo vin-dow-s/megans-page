@@ -1,8 +1,11 @@
 'use server'
 
 import { prisma } from '@/lib/prisma'
+import { z } from 'zod'
+import { actionClient, ActionError } from './safe-action'
+import { categorySchema } from './schemas'
 
-export const getCategories = async () => {
+export const getCategories = actionClient.action(async () => {
     try {
         return await prisma.category.findMany({
             select: {
@@ -16,78 +19,111 @@ export const getCategories = async () => {
         })
     } catch (error) {
         console.error('Error fetching categories:', error)
-        throw new Error('Failed to get categories.')
+        throw new ActionError(
+            error instanceof Error
+                ? error.message
+                : 'Failed to get categories.',
+        )
     }
-}
+})
 
-export const getCategoryById = async (id: number) => {
-    try {
-        return await prisma.category.findUnique({ where: { id } })
-    } catch (error) {
-        console.error(`Error fetching category with id ${id}:`, error)
-        throw new Error('Failed to get category by ID posts.')
-    }
-}
+export const getCategoryById = actionClient
+    .schema(z.number())
+    .action(async ({ parsedInput: id }) => {
+        try {
+            const category = await prisma.category.findUnique({ where: { id } })
 
-export const createCategory = async (data: { name: string; color: string }) => {
-    try {
-        const existingCategory = await prisma.category.findFirst({
-            where: { name: data.name },
-        })
+            if (!category) {
+                throw new ActionError('Category not found.')
+            }
 
-        if (existingCategory) throw new Error('Category already exists.')
-
-        return await prisma.category.create({
-            data: { name: data.name.toUpperCase(), color: data.color },
-        })
-    } catch (error) {
-        console.error('Error creating category:', error)
-
-        if (error instanceof Error) {
-            throw error
-        }
-
-        throw new Error('Failed to create category.')
-    }
-}
-
-export const updateCategory = async (
-    id: number,
-    data: { name: string; color: string },
-) => {
-    try {
-        return await prisma.category.update({ where: { id }, data })
-    } catch (error) {
-        console.error(`Error updating category with id ${id}:`, error)
-        throw new Error('Failed to update category')
-    }
-}
-
-export const deleteCategory = async (id: number) => {
-    try {
-        const category = await prisma.category.findUnique({
-            where: { id },
-            include: { _count: { select: { Posts: true } } },
-        })
-
-        if (!category) {
-            throw new Error('Category not found.')
-        }
-
-        if (category._count.Posts > 0) {
-            throw new Error(
-                'Category has associated posts and cannot be deleted.',
+            return category
+        } catch (error) {
+            console.error(`Error fetching category with id ${id}:`, error)
+            throw new ActionError(
+                error instanceof Error
+                    ? error.message
+                    : 'Failed to get category by ID.',
             )
         }
+    })
 
-        return await prisma.category.delete({ where: { id } })
-    } catch (error) {
-        console.error(`Error deleting category with id ${id}:`, error)
+export const createCategory = actionClient
+    .schema(categorySchema)
+    .action(async ({ parsedInput }) => {
+        const { name, color } = parsedInput
 
-        if (error instanceof Error) {
-            throw error
+        try {
+            const existingCategory = await prisma.category.findFirst({
+                where: {
+                    name: {
+                        equals: parsedInput.name,
+                        mode: 'insensitive',
+                    },
+                },
+            })
+
+            if (existingCategory)
+                throw new ActionError('Category already exists.')
+
+            return await prisma.category.create({
+                data: { name, color },
+            })
+        } catch (error) {
+            console.error('Error creating category:', error)
+
+            throw new ActionError(
+                error instanceof Error
+                    ? error.message
+                    : 'Failed to create category.',
+            )
         }
+    })
 
-        throw new Error('Failed to delete category.')
-    }
-}
+export const updateCategory = actionClient
+    .schema(categorySchema.extend({ id: z.number() }))
+    .action(async ({ parsedInput }) => {
+        const { id, ...data } = parsedInput
+
+        try {
+            return await prisma.category.update({ where: { id }, data })
+        } catch (error) {
+            console.error(`Error updating category with id ${id}:`, error)
+            throw new ActionError(
+                error instanceof Error
+                    ? error.message
+                    : 'Failed to update category.',
+            )
+        }
+    })
+
+export const deleteCategory = actionClient
+    .schema(z.number())
+    .action(async ({ parsedInput: id }) => {
+        try {
+            const category = await prisma.category.findUnique({
+                where: { id },
+                include: { _count: { select: { Posts: true } } },
+            })
+
+            if (!category) {
+                throw new ActionError('Category not found.')
+            }
+
+            if (category._count.Posts > 0) {
+                throw new ActionError(
+                    'Category has associated posts and cannot be deleted.',
+                )
+            }
+
+            return await prisma.category.delete({ where: { id } })
+        } catch (error) {
+            console.error(`Error deleting category with id ${id}:`, error)
+
+            throw new ActionError(
+                error instanceof Error
+                    ? error.message
+                    : 'Failed to delete category.',
+            )
+        }
+    })

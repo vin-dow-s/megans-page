@@ -29,7 +29,7 @@ const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
                         {post?.publishedAt?.toLocaleDateString()}
                     </p>
                 </div>
-                <Image src={post.thumbnail ?? testImage} alt={'Test image'} />
+                <Image src={post.thumbnail || testImage} alt={'Test image'} />
                 <div className="my-4 flex gap-2">
                     <Badge
                         color={post.Category.color}

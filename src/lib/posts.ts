@@ -4,7 +4,6 @@ import { prisma } from '@/lib/prisma'
 import { z } from 'zod'
 import { actionClient, ActionError } from './safe-action'
 import { postSchema } from './schemas'
-import { PostFormValues } from './types'
 
 export const getPosts = actionClient.action(async () => {
     try {
@@ -55,9 +54,7 @@ export const getPublishedPosts = actionClient.action(async () => {
 
 export const getPublishedPostsByCategory = actionClient
     .schema(z.string())
-    .action(async ({ parsedInput }) => {
-        const category = parsedInput
-
+    .action(async ({ parsedInput: category }) => {
         try {
             const posts = await prisma.post.findMany({
                 where: {
@@ -172,49 +169,64 @@ export const createPost = actionClient
         }
     })
 
-export const updatePost = async (id: number, data: Partial<PostFormValues>) => {
-    try {
-        const post = await prisma.post.findUnique({
-            where: { id },
-        })
+export const updatePost = actionClient
+    .schema(
+        z.object({
+            id: z.number(),
+            data: postSchema.partial(),
+        }),
+    )
+    .action(async ({ parsedInput }) => {
+        const { id, data } = parsedInput
 
-        if (!post) {
-            console.log('Post not found')
-            throw new ActionError('Post not found.')
+        try {
+            const post = await prisma.post.findUnique({
+                where: { id },
+            })
+
+            if (!post) {
+                console.log('Post not found')
+                throw new ActionError('Post not found.')
+            }
+
+            return await prisma.post.update({
+                where: { id },
+                data,
+                include: { Category: true },
+            })
+        } catch (error) {
+            console.error('Error updating post:', error)
+            throw new ActionError(
+                error instanceof Error
+                    ? error.message
+                    : 'Failed to update post.',
+            )
         }
+    })
 
-        return await prisma.post.update({
-            where: { id },
-            data,
-            include: { Category: true },
-        })
-    } catch (error) {
-        console.error('Error updating post:', error)
-        throw new ActionError(
-            error instanceof Error ? error.message : 'Failed to update post.',
-        )
-    }
-}
+export const deletePost = actionClient
+    .schema(z.number())
+    .action(async ({ parsedInput: id }) => {
+        try {
+            const post = await prisma.post.findUnique({
+                where: { id },
+            })
 
-export const deletePost = async (id: number) => {
-    try {
-        const post = await prisma.post.findUnique({
-            where: { id },
-        })
+            if (!post) {
+                console.log('Post not found')
+                throw new ActionError('Post not found.')
+            }
 
-        if (!post) {
-            console.log('Post not found')
-            throw new ActionError('Post not found.')
+            return await prisma.post.delete({
+                where: { id },
+                include: { Category: true },
+            })
+        } catch (error) {
+            console.error('Error deleting post:', error)
+            throw new ActionError(
+                error instanceof Error
+                    ? error.message
+                    : 'Failed to delete post.',
+            )
         }
-
-        return await prisma.post.delete({
-            where: { id },
-            include: { Category: true },
-        })
-    } catch (error) {
-        console.error('Error deleting post:', error)
-        throw new ActionError(
-            error instanceof Error ? error.message : 'Failed to delete post.',
-        )
-    }
-}
+    })

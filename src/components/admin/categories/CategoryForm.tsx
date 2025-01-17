@@ -65,7 +65,8 @@ export const EditCategoryFormWrapper = ({
 
     const handleUpdateCategory = async (formData: CategoryFormValues) => {
         try {
-            await updateCategory(categoryData.id, {
+            await updateCategory({
+                id: categoryData.id,
                 name: formData.name,
                 color: formData.color,
             })

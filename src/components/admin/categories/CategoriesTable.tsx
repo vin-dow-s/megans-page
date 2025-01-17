@@ -1,5 +1,6 @@
 'use client'
 
+import Badge from '@/components/Badge'
 import {
     Table,
     TableBody,
@@ -8,10 +9,9 @@ import {
     TableHeader,
     TableRow,
 } from '@/components/ui/table'
-import CategoriesTableDropdown from './CategoriesTableDropdown'
 import { Category } from '@/lib/types'
-import Badge from '@/components/Badge'
 import { useState } from 'react'
+import CategoriesTableDropdown from './CategoriesTableDropdown'
 
 type CategoriesTableProps = Readonly<{
     categories: Category[]
@@ -20,10 +20,10 @@ type CategoriesTableProps = Readonly<{
 const CategoriesTable = ({ categories }: CategoriesTableProps) => {
     const [categoryList, setCategoryList] = useState(categories)
 
-    const handleDeleteCategory = (deletedCategory: Category) => {
+    const handleDeleteCategory = (deletedCategoryId: number) => {
         try {
             setCategoryList((prevCategories) =>
-                prevCategories.filter((c) => c.id !== deletedCategory.id),
+                prevCategories.filter((c) => c.id !== deletedCategoryId),
             )
         } catch (error) {
             console.error('Failed to delete category:', error)

@@ -4,7 +4,17 @@ import { getCategories } from '@/lib/categories'
 import Link from 'next/link'
 
 const CategoriesPage = async () => {
-    const categories = await getCategories()
+    const categoriesResult = await getCategories()
+
+    if (!categoriesResult) {
+        return (
+            <section className="mx-4 rounded-lg border px-4">
+                <h2 className="text-lg font-bold">Failed to load categories</h2>
+            </section>
+        )
+    }
+
+    const categories = categoriesResult?.data || []
 
     return (
         <section className="mx-4 rounded-lg border px-4">

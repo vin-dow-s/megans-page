@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { useCustomToast } from '@/hooks/useSuccessToast'
 import { deletePost, updatePost } from '@/lib/posts'
+import { isActionSuccessful } from '@/lib/safe-action'
 import { Post } from '@/lib/types'
 import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { BookOpenCheck, Pencil, Trash } from 'lucide-react'
@@ -17,8 +18,8 @@ import Link from 'next/link'
 
 type PostsTableDropdownProps = Readonly<{
     post: Post
-    onStatusChange: (updatedPost: Post) => void
-    onPostDelete: (deletedPost: Post) => void
+    onStatusChange: (updatedPostId: number, updatedData: Partial<Post>) => void
+    onPostDelete: (deletedPostId: number) => void
 }>
 
 const PostsTableDropdown = ({
@@ -30,10 +31,23 @@ const PostsTableDropdown = ({
 
     const handlePublishToggle = async () => {
         try {
-            const updatedPost = await updatePost(post.id, {
-                isPublished: !post.isPublished,
+            const result = await updatePost({
+                id: post.id,
+                data: { isPublished: !post.isPublished },
             })
-            onStatusChange(updatedPost)
+
+            if (!isActionSuccessful(result)) {
+                console.error(
+                    'Error updating post status:',
+                    result?.serverError,
+                )
+                displayErrorToast(
+                    result?.serverError ?? 'Failed to update post status.',
+                )
+                return
+            }
+
+            onStatusChange(post.id, { isPublished: !post.isPublished })
 
             displaySuccessToast(
                 `Post successfully ${post.isPublished ? 'unpublished' : 'published'}.`,
@@ -47,8 +61,17 @@ const PostsTableDropdown = ({
     const handleDeletePost = async () => {
         if (confirm('Are you sure you want to delete this post?')) {
             try {
-                const deletedPost = await deletePost(post.id)
-                onPostDelete(deletedPost)
+                const result = await deletePost(post.id)
+
+                if (!isActionSuccessful(result)) {
+                    console.error('Error deleting post:', result?.serverError)
+                    displayErrorToast(
+                        result?.serverError ?? 'Failed to delete post.',
+                    )
+                    return
+                }
+
+                onPostDelete(post.id)
 
                 displaySuccessToast(`Post successfully deleted.`)
             } catch (error) {

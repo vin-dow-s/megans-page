@@ -106,7 +106,18 @@ export const EditPostFormWrapper = ({
             const sanitizedContent = DOMPurify.sanitize(formData.content)
             const sanitizedFormData = { ...formData, content: sanitizedContent }
 
-            await updatePost(postId, sanitizedFormData)
+            const result = await updatePost({
+                id: postId,
+                data: sanitizedFormData,
+            })
+
+            if (!isActionSuccessful(result)) {
+                console.error('Error updating post:', result?.serverError)
+                displayErrorToast(
+                    result?.serverError ?? 'Failed to update post.',
+                )
+                return
+            }
 
             displaySuccessToast('Post successfully updated.')
 
@@ -209,7 +220,9 @@ export const PostForm = ({
                     name="thumbnail"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Image</FormLabel>
+                            <FormLabel className="text-gray-400">
+                                Image
+                            </FormLabel>
                             <FormControl>
                                 <Input
                                     type="file"

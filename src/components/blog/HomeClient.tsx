@@ -71,8 +71,10 @@ const HomeClient = ({
                                         </p>
                                     </div>
                                     <Image
-                                        src={post.thumbnail ?? testImage}
+                                        src={post.thumbnail || testImage}
                                         alt={'Test image'}
+                                        width={250}
+                                        height={250}
                                     />
                                     <p>Category {post.Category?.name}</p>
                                 </CardHeader>

@@ -1,6 +1,7 @@
 import HomeClient from '@/components/blog/HomeClient'
 import { getCategories } from '@/lib/categories'
 import { getPublishedPostsByCategory } from '@/lib/posts'
+import { Category } from '@/lib/types'
 import { notFound } from 'next/navigation'
 
 const FilteredPostsPage = async ({
@@ -15,15 +16,15 @@ const FilteredPostsPage = async ({
         getPublishedPostsByCategory(category),
     ])
 
+    const categories = categoriesResult?.data
+    const posts = filteredPostsResult?.data
+
     if (!categoriesResult || !filteredPostsResult) {
         return notFound()
     }
 
-    const categories = categoriesResult || []
-    const posts = filteredPostsResult.data || []
-
     const currentCategory = categories.find(
-        (cat) => cat.name.toLowerCase() === category.toLowerCase(),
+        (cat: Category) => cat.name.toLowerCase() === category.toLowerCase(),
     )
 
     return (

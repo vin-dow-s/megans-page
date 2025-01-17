@@ -44,7 +44,7 @@ const PostOverviewPage = ({ post }: PostOverviewPageProps) => {
                 </div>
                 <h1>{post?.title}</h1>
                 <Image
-                    src={testImage}
+                    src={post?.thumbnail || testImage}
                     alt={'Test Image'}
                     width={250}
                     height={250}

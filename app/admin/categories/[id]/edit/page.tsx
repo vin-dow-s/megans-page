@@ -2,22 +2,23 @@ import { EditCategoryFormWrapper } from '@/components/admin/categories/CategoryF
 import { getCategoryById } from '@/lib/categories'
 import { notFound } from 'next/navigation'
 
-const EditFilteredPostsPage = async ({
+const EditCategoryPage = async ({
     params,
 }: {
     params: Promise<{ id: string }>
 }) => {
     const { id } = await params
-
     const categoryId = Number(id)
 
-    const category = await getCategoryById(categoryId)
+    const categoryResult = await getCategoryById(categoryId)
 
-    if (!category) {
+    const category = categoryResult?.data
+
+    if (!categoryResult) {
         notFound()
     }
 
     return <EditCategoryFormWrapper categoryData={category} />
 }
 
-export default EditFilteredPostsPage
+export default EditCategoryPage
