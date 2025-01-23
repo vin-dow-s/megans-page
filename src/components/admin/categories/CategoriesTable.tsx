@@ -1,5 +1,12 @@
 'use client'
 
+// Packages
+import { useState } from 'react'
+
+// Types
+import { Category } from '@/lib/types'
+
+// Components
 import Badge from '@/components/Badge'
 import {
     Table,
@@ -9,8 +16,6 @@ import {
     TableHeader,
     TableRow,
 } from '@/components/ui/table'
-import { Category } from '@/lib/types'
-import { useState } from 'react'
 import CategoriesTableDropdown from './CategoriesTableDropdown'
 
 type CategoriesTableProps = Readonly<{

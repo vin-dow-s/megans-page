@@ -8,7 +8,7 @@ export default async function RoutePage() {
             </h1>
             <p className="mt-2">
                 Return{' '}
-                <Link href="/blog" className="text-primary hover:underline">
+                <Link href="/" className="text-primary hover:underline">
                     Home
                 </Link>
             </p>

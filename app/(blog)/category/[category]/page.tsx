@@ -1,8 +1,34 @@
-import HomeClient from '@/components/blog/HomeClient'
+// Packages
+import { Metadata } from 'next'
+import { notFound } from 'next/navigation'
+
+// Types
+import { Category } from '@/lib/types'
+
+// Actions
 import { getCategories } from '@/lib/categories'
 import { getPublishedPostsByCategory } from '@/lib/posts'
-import { Category } from '@/lib/types'
-import { notFound } from 'next/navigation'
+
+// Components
+import HomeClient from '@/components/blog/HomeClient'
+
+type Props = {
+    params: Promise<{ category: string }>
+}
+
+export const generateMetadata = async ({
+    params,
+}: Props): Promise<Metadata> => {
+    const { category } = await params
+    const postResult = await getPublishedPostsByCategory(category)
+
+    const posts = postResult?.data
+
+    return {
+        title: `Posts filtered by category: ${category}`,
+        description: posts?.map((post) => post.title).join(', '),
+    }
+}
 
 const FilteredPostsPage = async ({
     params,
@@ -19,11 +45,11 @@ const FilteredPostsPage = async ({
     const categories = categoriesResult?.data
     const posts = filteredPostsResult?.data
 
-    if (!categoriesResult || !filteredPostsResult) {
+    if (!categories || !posts) {
         return notFound()
     }
 
-    const currentCategory = categories.find(
+    const currentCategory = categories?.find(
         (cat: Category) => cat.name.toLowerCase() === category.toLowerCase(),
     )
 

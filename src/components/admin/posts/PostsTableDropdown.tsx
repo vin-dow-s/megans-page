@@ -1,5 +1,9 @@
 'use client'
 
+// Packages
+import Link from 'next/link'
+
+// Components
 import { Button } from '@/components/ui/button'
 import {
     DropdownMenu,
@@ -8,13 +12,20 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+
+// Types
+import { Post } from '@/lib/types'
+
+// Hooks
 import { useCustomToast } from '@/hooks/useSuccessToast'
+
+// Actions
 import { deletePost, updatePost } from '@/lib/posts'
 import { isActionSuccessful } from '@/lib/safe-action'
-import { Post } from '@/lib/types'
+
+// Icons
 import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { BookOpenCheck, Pencil, Trash } from 'lucide-react'
-import Link from 'next/link'
 
 type PostsTableDropdownProps = Readonly<{
     post: Post

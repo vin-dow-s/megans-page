@@ -1,17 +1,28 @@
 'use client'
 
-import TextEditor from '@/components/admin/TextEditor'
-import { useCustomToast } from '@/hooks/useSuccessToast'
-import { createPost, updatePost } from '@/lib/posts'
-import { isActionSuccessful } from '@/lib/safe-action'
-import { postFormSchema } from '@/lib/schemas'
-import { Category, PostFormValues } from '@/lib/types'
+// Packages
 import { zodResolver } from '@hookform/resolvers/zod'
 import DOMPurify from 'dompurify'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useForm, useWatch } from 'react-hook-form'
 import slugify from 'slugify'
+
+// Actions
+import { createPost, updatePost } from '@/lib/posts'
+import { isActionSuccessful } from '@/lib/safe-action'
+
+// Hooks
+import { useCustomToast } from '@/hooks/useSuccessToast'
+
+// Schemas
+import { postFormSchema } from '@/lib/schemas'
+
+// Types
+import { Category, PostFormValues } from '@/lib/types'
+
+// Components
+import TextEditor from '@/components/admin/TextEditor'
 import { Button } from '../../ui/button'
 import {
     Form,

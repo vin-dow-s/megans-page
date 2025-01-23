@@ -1,7 +1,12 @@
+// Packages
+import Link from 'next/link'
+
+// Actions
+import { getCategories } from '@/lib/categories'
+
+// Components
 import CategoriesTable from '@/components/admin/categories/CategoriesTable'
 import { Button } from '@/components/ui/button'
-import { getCategories } from '@/lib/categories'
-import Link from 'next/link'
 
 const CategoriesPage = async () => {
     const categoriesResult = await getCategories()

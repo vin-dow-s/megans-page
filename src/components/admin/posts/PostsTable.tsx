@@ -1,5 +1,13 @@
 'use client'
 
+// Packages
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+
+// Types
+import { Post } from '@/lib/types'
+
+// Components
 import Badge from '@/components/Badge'
 import {
     Table,
@@ -9,9 +17,6 @@ import {
     TableHeader,
     TableRow,
 } from '@/components/ui/table'
-import { Post } from '@/lib/types'
-import { useRouter } from 'next/navigation'
-import { useState } from 'react'
 import PostsTableDropdown from './PostsTableDropdown'
 
 type PostsTableProps = {

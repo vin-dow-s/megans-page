@@ -1,5 +1,16 @@
 'use client'
 
+// Packages
+import Image from 'next/image'
+import Link from 'next/link'
+
+// Actions
+import { useRouter } from 'next/navigation'
+
+// Types
+import { Category, Post } from '@/lib/types'
+
+// Components
 import { Badge } from '@/components/ui/badge'
 import {
     Card,
@@ -8,10 +19,8 @@ import {
     CardHeader,
     CardTitle,
 } from '@/components/ui/card'
-import { Category, Post } from '@/lib/types'
-import Image from 'next/image'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+
+// Assets
 import testImage from '../../../app/public/assets/test.png'
 
 type HomeClientProps = {
@@ -31,9 +40,9 @@ const HomeClient = ({
         if (
             currentCategory?.name.toLowerCase() === categoryName.toLowerCase()
         ) {
-            router.push('/blog')
+            router.push('/')
         } else {
-            router.push(`/blog/category/${categoryName.toLowerCase()}`)
+            router.push(`/category/${categoryName.toLowerCase()}`)
         }
     }
 
@@ -62,7 +71,7 @@ const HomeClient = ({
                 {posts
                     .toSorted((a, b) => b.id - a.id)
                     .map((post) => (
-                        <Link href={`/blog/${post.slug}`} key={post.id}>
+                        <Link href={`/${post.slug}`} key={post.id}>
                             <Card>
                                 <CardHeader>
                                     <div>

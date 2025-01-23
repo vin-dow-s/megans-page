@@ -1,23 +1,12 @@
 import { z } from 'zod'
 
-export const postSchema = z.object({
-    title: z.string(),
-    slug: z.string(),
-    categoryId: z.number(),
-    description: z.string(),
-    content: z.string(),
-    publishedAt: z.date().optional(),
-    isPublished: z.boolean().default(false),
-    thumbnail: z.string().optional(),
-})
-
-export const postFormSchema = z.object({
+const basePostSchema = z.object({
     title: z
         .string()
         .trim()
         .nonempty('Title is required.')
         .min(3, 'Title is too short (3 characters minimum).'),
-    categoryId: z.number().min(1, 'Category is required.'),
+    categoryId: z.number().int().positive('Category is required.'),
     description: z
         .string()
         .trim()
@@ -27,6 +16,13 @@ export const postFormSchema = z.object({
     isPublished: z.boolean().default(false),
     thumbnail: z.string().optional(),
 })
+
+export const postSchema = basePostSchema.extend({
+    slug: z.string(),
+    publishedAt: z.date().optional(),
+})
+
+export const postFormSchema = basePostSchema
 
 export const categorySchema = z.object({
     name: z.string().min(1, 'Category name is required.'),

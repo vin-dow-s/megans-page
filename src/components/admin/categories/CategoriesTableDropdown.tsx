@@ -1,5 +1,19 @@
 'use client'
 
+// Packages
+import Link from 'next/link'
+
+// Types
+import { Category } from '@/lib/types'
+
+// Actions
+import { deleteCategory } from '@/lib/categories'
+import { isActionSuccessful } from '@/lib/safe-action'
+
+// Hooks
+import { useCustomToast } from '@/hooks/useSuccessToast'
+
+// Components
 import { Button } from '@/components/ui/button'
 import {
     DropdownMenu,
@@ -8,13 +22,10 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { useCustomToast } from '@/hooks/useSuccessToast'
-import { deleteCategory } from '@/lib/categories'
-import { isActionSuccessful } from '@/lib/safe-action'
-import { Category } from '@/lib/types'
+
+// Icons
 import { DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { Pencil, Trash } from 'lucide-react'
-import Link from 'next/link'
 
 type CategoriesTableDropdownProps = Readonly<{
     category: Category

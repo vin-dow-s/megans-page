@@ -5,7 +5,7 @@ export const Header = () => {
     return (
         <header className="m-4 flex items-center rounded-lg border p-4">
             <nav className="flex w-full items-center">
-                <Link href="/blog" className="font-mono">
+                <Link href="/" className="font-mono">
                     <span className="sr-only">Blog Test Home</span>{' '}
                     <h1>Blog Test</h1>{' '}
                 </Link>

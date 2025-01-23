@@ -1,3 +1,7 @@
+// Packages
+import Link from 'next/link'
+
+// Components
 import {
     Sidebar,
     SidebarContent,
@@ -11,8 +15,8 @@ import {
     SidebarMenuItem,
 } from '@/components/ui/sidebar'
 
-import { Home, Tag, Newspaper } from 'lucide-react'
-import Link from 'next/link'
+// Icons
+import { Home, Newspaper, Tag } from 'lucide-react'
 
 const SIDEBAR_ITEMS = [
     {
@@ -29,7 +33,7 @@ const SIDEBAR_ITEMS = [
 
 const footerItem = {
     title: 'Back to Blog',
-    url: '/blog',
+    url: '/',
     icon: Home,
 }
 

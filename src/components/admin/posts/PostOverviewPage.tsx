@@ -1,13 +1,20 @@
 'use client'
 
-import Badge from '@/components/Badge'
-import { Button } from '@/components/ui/button'
-import { Post } from '@/lib/types'
+// Packages
 import DOMPurify from 'dompurify'
 import parse from 'html-react-parser'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+
+// Components
+import Badge from '@/components/Badge'
+import { Button } from '@/components/ui/button'
+
+// Types
+import { Post } from '@/lib/types'
+
+// Assets
 import testImage from '../../../../app/public/assets/test.png'
 
 type PostOverviewPageProps = {

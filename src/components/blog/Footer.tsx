@@ -9,7 +9,7 @@ export const Footer = () => {
                     reserved.
                 </p>
                 <nav aria-label="Footer navigation" className="mt-2">
-                    <Link href="/blog">Privacy Policy</Link>{' '}
+                    <Link href="/">Privacy Policy</Link>{' '}
                 </nav>
             </div>
         </footer>

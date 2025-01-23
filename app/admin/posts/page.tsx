@@ -1,7 +1,12 @@
+// Packages
+import Link from 'next/link'
+
+// Actions
+import { getPosts } from '@/lib/posts'
+
+// Components
 import PostsTable from '@/components/admin/posts/PostsTable'
 import { Button } from '@/components/ui/button'
-import { getPosts } from '@/lib/posts'
-import Link from 'next/link'
 
 const HomeClient = async () => {
     const postsResult = await getPosts()

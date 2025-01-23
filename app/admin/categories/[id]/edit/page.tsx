@@ -14,7 +14,7 @@ const EditCategoryPage = async ({
 
     const category = categoryResult?.data
 
-    if (!categoryResult) {
+    if (!category) {
         notFound()
     }
 

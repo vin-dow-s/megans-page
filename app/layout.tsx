@@ -1,8 +1,8 @@
+import { Toaster } from '@/components/ui/toaster'
 import { cn } from '@/lib/utils'
 import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import './globals.css'
-import { Toaster } from '@/components/ui/toaster'
 
 const geistSans = localFont({
     src: './public/fonts/GeistVF.woff',
@@ -16,7 +16,10 @@ const geistMono = localFont({
 })
 
 export const metadata: Metadata = {
-    title: 'Blog Test',
+    title: {
+        default: 'Blog Test',
+        template: `%s | Blog Test`,
+    },
     description: 'This is a Blog Test',
 }
 

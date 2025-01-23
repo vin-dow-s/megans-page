@@ -1,7 +1,12 @@
-import { EditPostFormWrapper } from '@/components/admin/posts/PostForm'
+// Packages
+import { notFound } from 'next/navigation'
+
+// Actions
 import { getCategories } from '@/lib/categories'
 import { getPostById } from '@/lib/posts'
-import { notFound } from 'next/navigation'
+
+// Components
+import { EditPostFormWrapper } from '@/components/admin/posts/PostForm'
 
 const EditPostPage = async ({
     params,

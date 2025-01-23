@@ -1,6 +1,11 @@
-import PostOverviewPage from '@/components/admin/posts/PostOverviewPage'
-import { getPostById } from '@/lib/posts'
+// Packages
 import { notFound } from 'next/navigation'
+
+// Actions
+import { getPostById } from '@/lib/posts'
+
+// Components
+import PostOverviewPage from '@/components/admin/posts/PostOverviewPage'
 
 const PostPage = async ({ params }: { params: Promise<{ id: string }> }) => {
     const { id } = await params

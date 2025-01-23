@@ -1,7 +1,10 @@
-import 'quill/dist/quill.snow.css'
+// Packages
+import { formats, modules } from '@/lib/quill'
 import { useEffect } from 'react'
 import { useQuill } from 'react-quilljs'
-import { modules, formats } from '@/lib/quill'
+
+// Styles
+import 'quill/dist/quill.snow.css'
 
 type EditorProps = {
     value?: string
@@ -29,7 +32,7 @@ const TextEditor = ({
         }
     }, [quill, value])
 
-    // Sync the editor content with the parent component
+    //  Sync the editor content with the parent component
     useEffect(() => {
         if (quill) {
             quill.on('text-change', () => {
