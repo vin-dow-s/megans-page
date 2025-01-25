@@ -1,6 +1,8 @@
 'use server'
 
 import { prisma } from '@/lib/prisma'
+import { revalidatePath } from 'next/cache'
+import { cache } from 'react'
 import { z } from 'zod'
 import { actionClient, ActionError } from './safe-action'
 import { postSchema } from './schemas'
@@ -27,51 +29,22 @@ export const getPosts = actionClient.action(async () => {
     }
 })
 
-export const getPublishedPosts = actionClient.action(async () => {
-    try {
-        const posts = await prisma.post.findMany({
-            where: { isPublished: true },
-            include: {
-                Category: true,
-            },
-        })
-
-        if (!posts || posts.length === 0) {
-            console.log('No posts found.')
-            return []
-        }
-
-        return posts
-    } catch (error) {
-        console.error('Error fetching published posts:', error)
-        throw new ActionError(
-            error instanceof Error
-                ? error.message
-                : 'Failed to get published posts.',
-        )
-    }
-})
-
-export const getPublishedPostsByCategory = actionClient
-    .schema(z.string())
-    .action(async ({ parsedInput: category }) => {
+export const getPublishedPosts = cache(
+    actionClient.action(async () => {
         try {
             const posts = await prisma.post.findMany({
-                where: {
-                    Category: {
-                        name: {
-                            equals: category,
-                            mode: 'insensitive',
-                        },
-                    },
-                    isPublished: true,
-                },
+                where: { isPublished: true },
                 include: {
                     Category: true,
                 },
             })
 
-            return posts || []
+            if (!posts || posts.length === 0) {
+                console.log('No posts found.')
+                return []
+            }
+
+            return posts
         } catch (error) {
             console.error('Error fetching published posts:', error)
             throw new ActionError(
@@ -80,11 +53,43 @@ export const getPublishedPostsByCategory = actionClient
                     : 'Failed to get published posts.',
             )
         }
-    })
+    }),
+)
 
-export const getPublishedPostBySlug = actionClient
-    .schema(z.string())
-    .action(async ({ parsedInput }) => {
+export const getPublishedPostsByCategory = cache(
+    actionClient
+        .schema(z.string())
+        .action(async ({ parsedInput: category }) => {
+            try {
+                const posts = await prisma.post.findMany({
+                    where: {
+                        Category: {
+                            name: {
+                                equals: category,
+                                mode: 'insensitive',
+                            },
+                        },
+                        isPublished: true,
+                    },
+                    include: {
+                        Category: true,
+                    },
+                })
+
+                return posts || []
+            } catch (error) {
+                console.error('Error fetching published posts:', error)
+                throw new ActionError(
+                    error instanceof Error
+                        ? error.message
+                        : 'Failed to get published posts.',
+                )
+            }
+        }),
+)
+
+export const getPublishedPostBySlug = cache(
+    actionClient.schema(z.string()).action(async ({ parsedInput }) => {
         const slug = parsedInput
 
         try {
@@ -109,7 +114,8 @@ export const getPublishedPostBySlug = actionClient
                     : 'Failed to get post by slug.',
             )
         }
-    })
+    }),
+)
 
 export const getPostById = actionClient
     .schema(z.number())
@@ -158,6 +164,9 @@ export const createPost = actionClient
                 include: { Category: true },
             })
 
+            revalidatePath('/')
+            revalidatePath(`/blog/category/${createdPost.Category?.name}`)
+
             return createdPost
         } catch (error) {
             console.error('Error in createPost:', error)
@@ -189,11 +198,17 @@ export const updatePost = actionClient
                 throw new ActionError('Post not found.')
             }
 
-            return await prisma.post.update({
+            const updatedPost = await prisma.post.update({
                 where: { id },
                 data,
                 include: { Category: true },
             })
+
+            revalidatePath('/')
+            revalidatePath(`/blog/category/${updatedPost.Category?.name}`)
+            revalidatePath(`/blog/${updatedPost.slug}`)
+
+            return updatedPost
         } catch (error) {
             console.error('Error updating post:', error)
             throw new ActionError(
@@ -210,12 +225,17 @@ export const deletePost = actionClient
         try {
             const post = await prisma.post.findUnique({
                 where: { id },
+                include: { Category: true },
             })
 
             if (!post) {
                 console.log('Post not found')
                 throw new ActionError('Post not found.')
             }
+
+            revalidatePath('/')
+            revalidatePath(`/blog/category/${post.Category?.name}`)
+            revalidatePath(`/blog/${post.slug}`)
 
             return await prisma.post.delete({
                 where: { id },

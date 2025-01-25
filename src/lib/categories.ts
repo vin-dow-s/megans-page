@@ -1,31 +1,34 @@
 'use server'
 
 import { prisma } from '@/lib/prisma'
+import { cache } from 'react'
 import { z } from 'zod'
 import { actionClient, ActionError } from './safe-action'
 import { categorySchema } from './schemas'
 
-export const getCategories = actionClient.action(async () => {
-    try {
-        return await prisma.category.findMany({
-            select: {
-                id: true,
-                name: true,
-                color: true,
-                _count: {
-                    select: { Posts: true },
+export const getCategories = cache(
+    actionClient.action(async () => {
+        try {
+            return await prisma.category.findMany({
+                select: {
+                    id: true,
+                    name: true,
+                    color: true,
+                    _count: {
+                        select: { Posts: true },
+                    },
                 },
-            },
-        })
-    } catch (error) {
-        console.error('Error fetching categories:', error)
-        throw new ActionError(
-            error instanceof Error
-                ? error.message
-                : 'Failed to get categories.',
-        )
-    }
-})
+            })
+        } catch (error) {
+            console.error('Error fetching categories:', error)
+            throw new ActionError(
+                error instanceof Error
+                    ? error.message
+                    : 'Failed to get categories.',
+            )
+        }
+    }),
+)
 
 export const getCategoryById = actionClient
     .schema(z.number())

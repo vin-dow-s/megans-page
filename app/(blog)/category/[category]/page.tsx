@@ -12,6 +12,16 @@ import { getPublishedPostsByCategory } from '@/lib/posts'
 // Components
 import HomeClient from '@/components/blog/HomeClient'
 
+// Generate static params for all categories
+export async function generateStaticParams() {
+    const categoriesResult = await getCategories()
+    const categories = categoriesResult?.data || []
+
+    return categories.map((category) => ({
+        category: category.name.toLowerCase(),
+    }))
+}
+
 type Props = {
     params: Promise<{ category: string }>
 }
@@ -61,5 +71,7 @@ const FilteredPostsPage = async ({
         />
     )
 }
+
+export const revalidate = 3600
 
 export default FilteredPostsPage

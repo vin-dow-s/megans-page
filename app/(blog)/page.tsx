@@ -28,4 +28,6 @@ const Home = async () => {
     return <HomeClient posts={posts} categories={categories} />
 }
 
+export const revalidate = 3600
+
 export default Home
