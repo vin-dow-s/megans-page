@@ -3,12 +3,11 @@ import { getCategories } from '@/lib/categories'
 import { getPublishedPosts } from '@/lib/posts'
 
 // Components
-import HomeClient from '@/components/blog/HomeClient'
+import HomeClient from './_components/HomeClient'
 
 const Home = async () => {
     // TODO: static-site generation
     // TODO: components in app/
-    // TODO: GET in app/routes
     const [postsResult, categoriesResult] = await Promise.all([
         getPublishedPosts(),
         getCategories(),

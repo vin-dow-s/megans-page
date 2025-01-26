@@ -6,7 +6,7 @@ import { getCategories } from '@/lib/categories'
 import { getPostById } from '@/lib/posts'
 
 // Components
-import { EditPostFormWrapper } from '@/components/admin/posts/PostForm'
+import { EditPostFormWrapper } from '../../_components/PostForm'
 
 const EditPostPage = async ({
     params,

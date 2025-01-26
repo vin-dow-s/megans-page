@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation'
 import { getPostById } from '@/lib/posts'
 
 // Components
-import PostOverviewPage from '@/components/admin/posts/PostOverviewPage'
+import PostOverviewPage from '../_components/PostOverviewPage'
 
 const PostPage = async ({ params }: { params: Promise<{ id: string }> }) => {
     const { id } = await params

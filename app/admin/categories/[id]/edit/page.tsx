@@ -1,6 +1,6 @@
-import { EditCategoryFormWrapper } from '@/components/admin/categories/CategoryForm'
 import { getCategoryById } from '@/lib/categories'
 import { notFound } from 'next/navigation'
+import { EditCategoryFormWrapper } from '../../_components/CategoryForm'
 
 const EditCategoryPage = async ({
     params,

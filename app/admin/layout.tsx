@@ -2,7 +2,7 @@
 import '../globals.css'
 
 // Components
-import { AdminSidebar } from '@/components/admin/AdminSidebar'
+import { AdminSidebar } from './_components/AdminSidebar'
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
 
 const AdminLayout = ({

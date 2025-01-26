@@ -15,7 +15,7 @@ import { Category, CategoryFormValues } from '@/lib/types'
 import { useCustomToast } from '@/hooks/useSuccessToast'
 
 // Components
-import { Button } from '../../ui/button'
+import { Button } from '../../../../src/components/ui/button'
 import {
     Form,
     FormControl,
@@ -23,8 +23,8 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
-} from '../../ui/form'
-import { Input } from '../../ui/input'
+} from '../../../../src/components/ui/form'
+import { Input } from '../../../../src/components/ui/input'
 
 export const CreateCategoryFormWrapper = () => {
     const router = useRouter()

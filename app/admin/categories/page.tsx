@@ -5,8 +5,8 @@ import Link from 'next/link'
 import { getCategories } from '@/lib/categories'
 
 // Components
-import CategoriesTable from '@/components/admin/categories/CategoriesTable'
 import { Button } from '@/components/ui/button'
+import CategoriesTable from './_components/CategoriesTable'
 
 const CategoriesPage = async () => {
     const categoriesResult = await getCategories()

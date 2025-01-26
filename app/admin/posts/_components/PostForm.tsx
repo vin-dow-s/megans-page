@@ -22,8 +22,8 @@ import { postFormSchema } from '@/lib/schemas'
 import { Category, PostFormValues } from '@/lib/types'
 
 // Components
-import TextEditor from '@/components/admin/TextEditor'
-import { Button } from '../../ui/button'
+import TextEditor from '@/components/TextEditor'
+import { Button } from '../../../../src/components/ui/button'
 import {
     Form,
     FormControl,
@@ -32,17 +32,20 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
-} from '../../ui/form'
-import { Input } from '../../ui/input'
-import { Label } from '../../ui/label'
-import { RadioGroup, RadioGroupItem } from '../../ui/radio-group'
+} from '../../../../src/components/ui/form'
+import { Input } from '../../../../src/components/ui/input'
+import { Label } from '../../../../src/components/ui/label'
+import {
+    RadioGroup,
+    RadioGroupItem,
+} from '../../../../src/components/ui/radio-group'
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from '../../ui/select'
+} from '../../../../src/components/ui/select'
 
 type CreatePostFormWrapperProps = {
     categories: Category[]

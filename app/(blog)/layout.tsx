@@ -2,8 +2,8 @@
 import '../globals.css'
 
 // Components
-import { Footer } from '@/components/blog/Footer'
-import { Header } from '@/components/blog/Header'
+import { Footer } from './_components/Footer'
+import { Header } from './_components/Header'
 
 const BlogLayout = ({
     children,

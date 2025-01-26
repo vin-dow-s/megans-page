@@ -5,8 +5,8 @@ import Link from 'next/link'
 import { getPosts } from '@/lib/posts'
 
 // Components
-import PostsTable from '@/components/admin/posts/PostsTable'
 import { Button } from '@/components/ui/button'
+import PostsTable from './_components/PostsTable'
 
 const HomeClient = async () => {
     const postsResult = await getPosts()

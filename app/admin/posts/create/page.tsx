@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation'
 import { getCategories } from '@/lib/categories'
 
 // Components
-import { CreatePostFormWrapper } from '@/components/admin/posts/PostForm'
+import { CreatePostFormWrapper } from '../_components/PostForm'
 
 const CreatePostPage = async () => {
     const categoriesResult = await getCategories()

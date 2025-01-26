@@ -10,7 +10,7 @@ import { getCategories } from '@/lib/categories'
 import { getPublishedPostsByCategory } from '@/lib/posts'
 
 // Components
-import HomeClient from '@/components/blog/HomeClient'
+import HomeClient from '../../_components/HomeClient'
 
 // Generate static params for all categories
 export async function generateStaticParams() {
