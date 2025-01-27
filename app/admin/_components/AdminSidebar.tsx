@@ -38,6 +38,7 @@ const footerItem = {
 }
 
 export const AdminSidebar = () => {
+    // TODO: usePathname and clsx on nav items
     return (
         <Sidebar>
             <SidebarHeader />

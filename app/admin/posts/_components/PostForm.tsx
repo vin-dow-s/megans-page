@@ -22,6 +22,7 @@ import { postFormSchema } from '@/lib/schemas'
 import { Category, PostFormValues } from '@/lib/types'
 
 // Components
+import Badge from '@/components/Badge'
 import TextEditor from '@/components/TextEditor'
 import { Button } from '../../../../src/components/ui/button'
 import {
@@ -331,14 +332,18 @@ export const PostForm = ({
                         >
                             <div className="flex items-center space-x-2">
                                 <RadioGroupItem value="draft" id="draft" />
-                                <Label htmlFor="draft">Draft</Label>
+                                <Label htmlFor="draft">
+                                    <Badge color="darkgrey" label="Draft" />
+                                </Label>
                             </div>
                             <div className="flex items-center space-x-2">
                                 <RadioGroupItem
                                     value="published"
                                     id="published"
                                 />
-                                <Label htmlFor="published">Published</Label>
+                                <Label htmlFor="published">
+                                    <Badge color="green" label="Published" />
+                                </Label>
                             </div>
                         </RadioGroup>
                     )}

@@ -6,8 +6,12 @@ import { getPublishedPosts } from '@/lib/posts'
 import HomeClient from './_components/HomeClient'
 
 const Home = async () => {
-    // TODO: static-site generation
-    // TODO: components in app/
+    // TODO: check static-site generation
+    // TODO: granular streaming and suspense
+    // ? Search input
+    // ? Pagination
+    // ? Stats and charts analytics dashboard
+
     const [postsResult, categoriesResult] = await Promise.all([
         getPublishedPosts(),
         getCategories(),
