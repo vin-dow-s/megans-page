@@ -2,14 +2,15 @@
 import '../globals.css'
 
 // Components
-import { AdminSidebar } from './_components/AdminSidebar'
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
+import { AdminSidebar } from './_components/AdminSidebar'
 
 const AdminLayout = ({
     children,
 }: Readonly<{
     children: React.ReactNode
 }>) => {
+    // TODO: authentication
     return (
         <SidebarProvider>
             <AdminSidebar />

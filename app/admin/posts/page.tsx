@@ -8,7 +8,7 @@ import { getPosts } from '@/lib/posts'
 import { Button } from '@/components/ui/button'
 import PostsTable from './_components/PostsTable'
 
-const HomeClient = async () => {
+const PostsGrid = async () => {
     const postsResult = await getPosts()
 
     if (!postsResult) {
@@ -34,4 +34,4 @@ const HomeClient = async () => {
     )
 }
 
-export default HomeClient
+export default PostsGrid

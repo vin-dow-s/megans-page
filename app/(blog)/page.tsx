@@ -3,7 +3,8 @@ import { getCategories } from '@/lib/categories'
 import { getPublishedPosts } from '@/lib/posts'
 
 // Components
-import HomeClient from './_components/HomeClient'
+import CategoriesList from './_components/CategoriesList'
+import PostsGrid from './_components/PostsGrid'
 
 const Home = async () => {
     // TODO: check static-site generation
@@ -28,7 +29,12 @@ const Home = async () => {
         )
     }
 
-    return <HomeClient posts={posts} categories={categories} />
+    return (
+        <>
+            <CategoriesList categories={categories} />
+            <PostsGrid posts={posts} />
+        </>
+    )
 }
 
 export const revalidate = 3600

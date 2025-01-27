@@ -10,7 +10,8 @@ import { getCategories } from '@/lib/categories'
 import { getPublishedPostsByCategory } from '@/lib/posts'
 
 // Components
-import HomeClient from '../../_components/HomeClient'
+import CategoriesList from '../../_components/CategoriesList'
+import PostsGrid from '../../_components/PostsGrid'
 
 // Generate static params for all categories
 export async function generateStaticParams() {
@@ -64,11 +65,13 @@ const FilteredPostsPage = async ({
     )
 
     return (
-        <HomeClient
-            posts={posts}
-            categories={categories}
-            currentCategory={currentCategory}
-        />
+        <>
+            <CategoriesList
+                categories={categories}
+                currentCategory={currentCategory}
+            />
+            <PostsGrid posts={posts} />
+        </>
     )
 }
 

@@ -51,7 +51,7 @@ const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
             </nav>
             <div className="prose prose-sm lg:prose-lg mb-4 px-2">
                 <div>
-                    <p className="text-xs text-muted-foreground">
+                    <p className="text-muted-foreground text-xs">
                         {post?.publishedAt?.toLocaleDateString()}
                     </p>
                 </div>
