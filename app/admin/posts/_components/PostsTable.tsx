@@ -59,7 +59,7 @@ const PostsTable = ({ posts }: PostsTableProps) => {
     }
 
     return (
-        <Table className="min-h-56">
+        <Table>
             <TableHeader>
                 <TableRow>
                     <TableHead className="w-10">#</TableHead>
@@ -72,7 +72,7 @@ const PostsTable = ({ posts }: PostsTableProps) => {
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {postList?.length > 0 &&
+                {postList?.length > 0 ? (
                     postList
                         .toSorted((a, b) => b.id - a.id)
                         .map((post) => (
@@ -117,7 +117,17 @@ const PostsTable = ({ posts }: PostsTableProps) => {
                                     />
                                 </TableCell>
                             </TableRow>
-                        ))}
+                        ))
+                ) : (
+                    <TableRow className="h-32">
+                        <TableCell
+                            colSpan={6}
+                            className="pointer-events-none text-center text-gray-500 italic"
+                        >
+                            No posts found.
+                        </TableCell>
+                    </TableRow>
+                )}
             </TableBody>
         </Table>
     )

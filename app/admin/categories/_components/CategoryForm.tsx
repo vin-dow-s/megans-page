@@ -12,7 +12,7 @@ import { categorySchema } from '@/lib/schemas'
 import { Category, CategoryFormValues } from '@/lib/types'
 
 // Hooks
-import { useCustomToast } from '@/hooks/useSuccessToast'
+import { useCustomToast } from '@/hooks/useCustomToast'
 
 // Components
 import { Button } from '../../../../src/components/ui/button'
@@ -153,7 +153,7 @@ export const CategoryForm = ({
                         render={({ field }) => (
                             <FormItem className="col-span-1">
                                 <FormLabel>Color</FormLabel>
-                                <FormControl>
+                                <FormControl className="cursor-pointer">
                                     <Input type="color" {...field} />
                                 </FormControl>
                                 <FormMessage />
@@ -162,7 +162,7 @@ export const CategoryForm = ({
                     />
                 </div>
 
-                <Button type="submit">
+                <Button type="submit" className="cursor-pointer">
                     {isEditing ? 'Update Category' : 'Create Category'}
                 </Button>
             </form>

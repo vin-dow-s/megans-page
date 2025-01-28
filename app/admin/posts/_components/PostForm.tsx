@@ -13,7 +13,7 @@ import { createPost, updatePost } from '@/lib/posts'
 import { isActionSuccessful } from '@/lib/safe-action'
 
 // Hooks
-import { useCustomToast } from '@/hooks/useSuccessToast'
+import { useCustomToast } from '@/hooks/useCustomToast'
 
 // Schemas
 import { postFormSchema } from '@/lib/schemas'
@@ -330,25 +330,30 @@ export const PostForm = ({
                                 field.onChange(value === 'published')
                             }
                         >
-                            <div className="flex items-center space-x-2">
-                                <RadioGroupItem value="draft" id="draft" />
-                                <Label htmlFor="draft">
-                                    <Badge color="darkgrey" label="Draft" />
-                                </Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                                <RadioGroupItem
-                                    value="published"
-                                    id="published"
-                                />
-                                <Label htmlFor="published">
-                                    <Badge color="green" label="Published" />
-                                </Label>
+                            <div className="flex items-center gap-8">
+                                <div className="flex items-center gap-2">
+                                    <RadioGroupItem value="draft" id="draft" />
+                                    <Label htmlFor="draft">
+                                        <Badge color="darkgrey" label="Draft" />
+                                    </Label>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <RadioGroupItem
+                                        value="published"
+                                        id="published"
+                                    />
+                                    <Label htmlFor="published">
+                                        <Badge
+                                            color="green"
+                                            label="Published"
+                                        />
+                                    </Label>
+                                </div>
                             </div>
                         </RadioGroup>
                     )}
                 />
-                <Button type="submit">
+                <Button type="submit" className="cursor-pointer">
                     {isEditing ? 'Update Post' : 'Create Post'}
                 </Button>
             </form>

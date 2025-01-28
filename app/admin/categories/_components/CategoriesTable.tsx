@@ -47,25 +47,36 @@ const CategoriesTable = ({ categories }: CategoriesTableProps) => {
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {categoryList.map((category) => (
-                    <TableRow key={category.id}>
-                        <TableCell>{category.id}</TableCell>
-                        <TableCell>{category.name}</TableCell>
-                        <TableCell>
-                            <Badge
-                                color={category.color}
-                                label={category.color}
-                            />
-                        </TableCell>
-                        <TableCell>{category._count?.Posts}</TableCell>
-                        <TableCell>
-                            <CategoriesTableDropdown
-                                category={category}
-                                onCategoryDelete={handleDeleteCategory}
-                            />
+                {categoryList?.length > 0 ? (
+                    categoryList.map((category) => (
+                        <TableRow key={category.id}>
+                            <TableCell>{category.id}</TableCell>
+                            <TableCell>{category.name}</TableCell>
+                            <TableCell>
+                                <Badge
+                                    color={category.color}
+                                    label={category.color}
+                                />
+                            </TableCell>
+                            <TableCell>{category._count?.Posts}</TableCell>
+                            <TableCell>
+                                <CategoriesTableDropdown
+                                    category={category}
+                                    onCategoryDelete={handleDeleteCategory}
+                                />
+                            </TableCell>
+                        </TableRow>
+                    ))
+                ) : (
+                    <TableRow className="h-32">
+                        <TableCell
+                            colSpan={6}
+                            className="pointer-events-none text-center text-gray-500 italic"
+                        >
+                            No category found.
                         </TableCell>
                     </TableRow>
-                ))}
+                )}
             </TableBody>
         </Table>
     )

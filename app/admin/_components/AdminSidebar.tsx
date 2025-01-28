@@ -1,3 +1,5 @@
+'use client'
+
 // Packages
 import Link from 'next/link'
 
@@ -16,7 +18,9 @@ import {
 } from '@/components/ui/sidebar'
 
 // Icons
+import clsx from 'clsx'
 import { Home, Newspaper, Tag } from 'lucide-react'
+import { usePathname } from 'next/navigation'
 
 const SIDEBAR_ITEMS = [
     {
@@ -38,7 +42,8 @@ const footerItem = {
 }
 
 export const AdminSidebar = () => {
-    // TODO: usePathname and clsx on nav items
+    const pathname = usePathname()
+
     return (
         <Sidebar>
             <SidebarHeader />
@@ -50,7 +55,13 @@ export const AdminSidebar = () => {
                             {SIDEBAR_ITEMS.map((item) => (
                                 <SidebarMenuItem key={item.title}>
                                     <SidebarMenuButton asChild className="py-6">
-                                        <Link href={item.url}>
+                                        <Link
+                                            href={item.url}
+                                            className={clsx(
+                                                pathname === item.url &&
+                                                    'bg-gray-100 text-black',
+                                            )}
+                                        >
                                             <item.icon />
                                             <span>{item.title}</span>
                                         </Link>

@@ -1,5 +1,5 @@
 // Packages
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 
 // Actions
 import { getCategories } from '@/lib/categories'
@@ -13,6 +13,7 @@ const CreatePostPage = async () => {
     const categories = categoriesResult?.data
 
     if (!categories) return notFound()
+    if (categories.length === 0) redirect('/admin/categories/create')
 
     return <CreatePostFormWrapper categories={categories} />
 }
