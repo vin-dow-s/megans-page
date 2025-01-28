@@ -6,10 +6,10 @@ export default async function RoutePage() {
             <h1 className="text-4xl font-bold">404 - Page Not Found</h1>
             <p className="mt-4">
                 <Link
-                    href="/admin/posts"
+                    href="/admin/categories"
                     className="text-primary hover:underline"
                 >
-                    Return to Posts
+                    Return to Categories
                 </Link>
             </p>
         </div>

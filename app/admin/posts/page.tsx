@@ -11,13 +11,7 @@ import PostsTable from './_components/PostsTable'
 const PostsGrid = async () => {
     const postsResult = await getPosts()
 
-    if (!postsResult) {
-        return (
-            <section className="mx-4 rounded-lg border px-4">
-                <h2 className="text-lg font-bold">Failed to load posts</h2>
-            </section>
-        )
-    }
+    if (!postsResult) throw new Error('Failed to load posts.')
 
     const posts = postsResult?.data || []
 

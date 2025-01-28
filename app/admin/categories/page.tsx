@@ -11,13 +11,7 @@ import CategoriesTable from './_components/CategoriesTable'
 const CategoriesPage = async () => {
     const categoriesResult = await getCategories()
 
-    if (!categoriesResult) {
-        return (
-            <section className="mx-4 rounded-lg border px-4">
-                <h2 className="text-lg font-bold">Failed to load categories</h2>
-            </section>
-        )
-    }
+    if (!categoriesResult) throw new Error('Failed to load categories.')
 
     const categories = categoriesResult?.data || []
 

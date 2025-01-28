@@ -56,9 +56,7 @@ const FilteredPostsPage = async ({
     const categories = categoriesResult?.data
     const posts = filteredPostsResult?.data
 
-    if (!categories || !posts) {
-        return notFound()
-    }
+    if (!categories || categories.length === 0 || !posts) return notFound()
 
     const currentCategory = categories?.find(
         (cat: Category) => cat.name.toLowerCase() === category.toLowerCase(),
