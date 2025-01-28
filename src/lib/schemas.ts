@@ -22,7 +22,9 @@ export const postSchema = basePostSchema.extend({
     publishedAt: z.date().optional(),
 })
 
-export const postFormSchema = basePostSchema
+export const postFormSchema = basePostSchema.extend({
+    thumbnailFile: z.instanceof(File).optional(),
+})
 
 export const categorySchema = z.object({
     name: z.string().min(1, 'Category name is required.'),

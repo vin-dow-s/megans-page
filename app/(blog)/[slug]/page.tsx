@@ -43,28 +43,33 @@ const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
 
     return (
         <section className="rounded-lg border px-4">
-            <nav className="flex items-center justify-between p-6 px-2">
-                <h1 className="text-lg font-bold">{post?.title}</h1>
+            <nav className="float-right flex items-center justify-between p-6 px-2">
                 <Button asChild variant="secondary">
                     <Link href="/">Back to Posts</Link>
                 </Button>
             </nav>
+            <div className="my-8 px-2">
+                <p className="text-muted-foreground text-xs">
+                    Published: {post?.publishedAt?.toLocaleDateString()}
+                </p>
+                <h1 className="text-2xl font-bold">{post?.title}</h1>
+            </div>
             <div className="prose prose-sm lg:prose-lg mb-4 px-2">
-                <div>
-                    <p className="text-muted-foreground text-xs">
-                        {post?.publishedAt?.toLocaleDateString()}
-                    </p>
-                </div>
-                <Image src={post.thumbnail || testImage} alt={'Test image'} />
+                <Image
+                    src={post.thumbnail || testImage}
+                    alt={'Test image'}
+                    width={500}
+                    height={500}
+                />
                 <div className="my-4 flex gap-2">
                     <Badge
                         color={post.Category.color}
                         label={post.Category.name}
                     />
                 </div>
-                <div className="my-4">Description: {post?.description}</div>
+                <div className="my-8">{post?.description}</div>
                 {post?.content && (
-                    <div className="prose">Content: {parse(post?.content)}</div>
+                    <div className="prose">{parse(post?.content)}</div>
                 )}
             </div>
         </section>

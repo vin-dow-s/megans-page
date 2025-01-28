@@ -3,6 +3,7 @@
 // Packages
 import { zodResolver } from '@hookform/resolvers/zod'
 import DOMPurify from 'dompurify'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useForm, useWatch } from 'react-hook-form'
@@ -24,6 +25,8 @@ import { Category, PostFormValues } from '@/lib/types'
 // Components
 import Badge from '@/components/Badge'
 import TextEditor from '@/components/TextEditor'
+import { deleteFile, uploadFile } from '@/lib/media'
+import { useState } from 'react'
 import { Button } from '../../../../src/components/ui/button'
 import {
     Form,
@@ -48,6 +51,10 @@ import {
     SelectValue,
 } from '../../../../src/components/ui/select'
 
+type PostFormValuesWithFile = PostFormValues & {
+    thumbnailFile?: File
+}
+
 type CreatePostFormWrapperProps = {
     categories: Category[]
 }
@@ -58,7 +65,7 @@ export const CreatePostFormWrapper = ({
     const router = useRouter()
     const { displaySuccessToast, displayErrorToast } = useCustomToast()
 
-    const addSlugAndDate = (formData: PostFormValues) => {
+    const addSlugAndDate = (formData: PostFormValuesWithFile) => {
         const slug = slugify(formData.title, {
             lower: true,
             strict: true,
@@ -74,8 +81,17 @@ export const CreatePostFormWrapper = ({
         }
     }
 
-    const handleFormSubmit = async (formData: PostFormValues) => {
+    const handleFormSubmit = async (formData: PostFormValuesWithFile) => {
         const postData = addSlugAndDate(formData)
+
+        const file = formData.thumbnailFile
+
+        let thumbnailUrl = ''
+
+        if (file) {
+            thumbnailUrl = await uploadFile(file)
+            postData.thumbnail = thumbnailUrl
+        }
 
         const result = await createPost(postData)
 
@@ -103,7 +119,7 @@ export const CreatePostFormWrapper = ({
 }
 
 type EditPostFormWrapperProps = {
-    postData: PostFormValues
+    postData: PostFormValuesWithFile
     postId: number
     categories: Category[]
 }
@@ -116,10 +132,22 @@ export const EditPostFormWrapper = ({
     const router = useRouter()
     const { displaySuccessToast, displayErrorToast } = useCustomToast()
 
-    const handleFormSubmit = async (formData: PostFormValues) => {
+    const handleFormSubmit = async (formData: PostFormValuesWithFile) => {
         try {
             const sanitizedContent = DOMPurify.sanitize(formData.content)
-            const sanitizedFormData = { ...formData, content: sanitizedContent }
+            const sanitizedFormData = {
+                ...formData,
+                content: sanitizedContent,
+            }
+
+            const existingThumbnailUrl = postData?.thumbnail
+            let newThumbnailUrl = existingThumbnailUrl
+
+            // If a new file is uploaded, upload the new thumbnail
+            if (formData.thumbnailFile) {
+                newThumbnailUrl = await uploadFile(formData.thumbnailFile)
+                sanitizedFormData.thumbnail = newThumbnailUrl
+            }
 
             const result = await updatePost({
                 id: postId,
@@ -133,6 +161,9 @@ export const EditPostFormWrapper = ({
                 )
                 return
             }
+
+            // Delete the old thumbnail
+            if (existingThumbnailUrl) await deleteFile(existingThumbnailUrl)
 
             displaySuccessToast('Post successfully updated.')
 
@@ -162,7 +193,7 @@ export const EditPostFormWrapper = ({
 }
 
 type PostFormProps = {
-    onSubmit: (formData: PostFormValues) => void
+    onSubmit: (formData: PostFormValuesWithFile) => void
     postData?: PostFormValues
     categories?: Category[]
     isEditing?: boolean
@@ -174,17 +205,21 @@ export const PostForm = ({
     categories,
     isEditing,
 }: PostFormProps) => {
-    const form = useForm({
+    const form = useForm<PostFormValuesWithFile>({
         resolver: zodResolver(postFormSchema),
         defaultValues: {
             title: postData?.title ?? '',
-            thumbnail: postData?.thumbnail ?? '',
-            categoryId: postData?.categoryId ?? 1,
+            categoryId: postData?.categoryId ?? categories?.[0].id,
             description: postData?.description ?? '',
             content: postData?.content ?? '',
             isPublished: postData?.isPublished ?? false,
+            thumbnail: postData?.thumbnail ?? '',
         },
     })
+    const { displayWarningToast } = useCustomToast()
+    const [previewThumbnail, setPreviewThumbnail] = useState<string | null>(
+        postData?.thumbnail ?? null,
+    )
 
     const titleLength =
         useWatch({
@@ -194,6 +229,24 @@ export const PostForm = ({
 
     const handleChange = (value: string) => {
         form.setValue('content', value)
+    }
+
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0]
+        if (file) {
+            if (file.size > 5 * 1024 * 1024) {
+                displayWarningToast('File size should be less than 5MB.')
+                return
+            }
+            form.setValue('thumbnailFile', file, { shouldValidate: true })
+
+            // Generate a preview URL
+            const newPreviewUrl = URL.createObjectURL(file)
+            setPreviewThumbnail(newPreviewUrl)
+
+            // Clean up the old preview URL
+            return () => URL.revokeObjectURL(newPreviewUrl)
+        }
     }
 
     return (
@@ -232,24 +285,32 @@ export const PostForm = ({
                 />
                 <FormField
                     control={form.control}
-                    name="thumbnail"
+                    name="thumbnailFile"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel className="text-gray-400">
-                                Image
-                            </FormLabel>
-                            <FormControl>
+                            <FormLabel>Image</FormLabel>
+                            <FormControl className="cursor-pointer gap-8">
                                 <Input
                                     type="file"
+                                    name="thumbnailFile"
                                     accept="image/*"
                                     placeholder="Thumbnail image of the post."
-                                    {...field}
+                                    onChange={handleFileChange}
                                 />
                             </FormControl>
+                            {previewThumbnail && (
+                                <div className="mt-4">
+                                    <Image
+                                        src={previewThumbnail}
+                                        alt="Thumbnail Preview"
+                                        width={250}
+                                        height={250}
+                                    />
+                                </div>
+                            )}
                             <FormMessage />
                         </FormItem>
                     )}
-                    disabled
                 />
                 <FormField
                     control={form.control}

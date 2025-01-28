@@ -40,7 +40,7 @@ const PostOverviewPage = ({ post }: PostOverviewPageProps) => {
             </nav>
             <div className="prose mb-4 px-2">
                 <div>
-                    <div className="mb-4 flex items-center text-xs text-muted-foreground">
+                    <div className="text-muted-foreground flex items-center text-xs">
                         {post?.publishedAt?.toLocaleDateString()} - &nbsp;
                         {post?.isPublished ? (
                             <Badge color="green" label="Published" />
@@ -49,25 +49,31 @@ const PostOverviewPage = ({ post }: PostOverviewPageProps) => {
                         )}
                     </div>
                 </div>
-                <h1>{post?.title}</h1>
+                <h1 className="py-4 text-2xl">{post?.title}</h1>
                 <Image
                     src={post?.thumbnail || testImage}
                     alt={'Test Image'}
-                    width={250}
-                    height={250}
+                    width={500}
+                    height={500}
                 />
                 <div className="my-4 flex gap-2">
-                    Category:
+                    <span className="font-semibold">Category:</span>
                     <Badge
                         color={post.Category.color}
                         label={post.Category.name}
                     />
                 </div>
-                <div className="my-4">Description: {post?.description}</div>
-                <div className="my-4">Slug: {post?.slug}</div>
+                <div className="my-4">
+                    <span className="font-semibold">Description:</span>{' '}
+                    {post?.description}
+                </div>
+                <div className="my-4">
+                    <span className="font-semibold">Slug:</span> {post?.slug}
+                </div>
                 {post?.content && (
                     <div className="prose">
-                        Content: {parse(sanitizedContent)}
+                        <span className="font-semibold">Content:</span>{' '}
+                        {parse(sanitizedContent)}
                     </div>
                 )}
             </div>

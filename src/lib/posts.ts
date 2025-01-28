@@ -4,6 +4,7 @@ import { prisma } from '@/lib/prisma'
 import { revalidatePath } from 'next/cache'
 import { cache } from 'react'
 import { z } from 'zod'
+import { deleteFile } from './media'
 import { actionClient, ActionError } from './safe-action'
 import { postSchema } from './schemas'
 
@@ -233,14 +234,18 @@ export const deletePost = actionClient
                 throw new ActionError('Post not found.')
             }
 
-            revalidatePath('/')
-            revalidatePath(`/blog/category/${post.Category?.name}`)
-            revalidatePath(`/blog/${post.slug}`)
+            const thumbnailToDelete = post.thumbnail
 
-            return await prisma.post.delete({
+            await prisma.post.delete({
                 where: { id },
                 include: { Category: true },
             })
+
+            if (thumbnailToDelete) await deleteFile(thumbnailToDelete)
+
+            revalidatePath('/')
+            revalidatePath(`/blog/category/${post.Category?.name}`)
+            revalidatePath(`/blog/${post.slug}`)
         } catch (error) {
             console.error('Error deleting post:', error)
             throw new ActionError(

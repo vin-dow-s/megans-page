@@ -37,6 +37,7 @@ const EditPostPage = async ({
                 description: post.description,
                 content: post.content,
                 isPublished: post.isPublished,
+                thumbnail: post.thumbnail || '',
             }}
             postId={postId}
             categories={categories}
