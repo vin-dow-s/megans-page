@@ -5,7 +5,7 @@ import { notFound, redirect } from 'next/navigation'
 import { getCategories } from '@/lib/categories'
 
 // Components
-import { CreatePostFormWrapper } from '../_components/PostForm'
+import { CreatePost } from '../_components/CreatePost'
 
 const CreatePostPage = async () => {
     const categoriesResult = await getCategories()
@@ -15,7 +15,7 @@ const CreatePostPage = async () => {
     if (!categories) return notFound()
     if (categories.length === 0) redirect('/admin/categories/create')
 
-    return <CreatePostFormWrapper categories={categories} />
+    return <CreatePost categories={categories} />
 }
 
 export default CreatePostPage

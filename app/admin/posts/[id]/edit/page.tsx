@@ -6,7 +6,7 @@ import { getCategories } from '@/lib/categories'
 import { getPostById } from '@/lib/posts'
 
 // Components
-import { EditPostFormWrapper } from '../../_components/PostForm'
+import { EditPost } from '../../_components/EditPost'
 
 const EditPostPage = async ({
     params,
@@ -30,7 +30,7 @@ const EditPostPage = async ({
     }
 
     return (
-        <EditPostFormWrapper
+        <EditPost
             postData={{
                 title: post.title,
                 categoryId: post.categoryId,

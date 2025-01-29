@@ -9,7 +9,7 @@ const ErrorPage = ({
 }) => {
     return (
         <div className="flex flex-col items-center justify-center py-20">
-            <h2 className="text-4xl font-bold">{error.message}</h2>
+            <h2 className="p-8 text-2xl font-bold">{error.message}</h2>
             <p className="mt-2">
                 <button
                     className="cursor-pointer hover:underline"

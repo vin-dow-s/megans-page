@@ -1,5 +1,13 @@
 import { z } from 'zod'
 
+const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5MB
+const ALLOWED_FILE_TYPES = [
+    'image/jpeg',
+    'image/jpg',
+    'image/png',
+    'image/webp',
+]
+
 const basePostSchema = z.object({
     title: z
         .string()
@@ -14,7 +22,7 @@ const basePostSchema = z.object({
         .min(3, 'Description is too short (3 characters minimum).'),
     content: z.string().trim().nonempty('Content is required.'),
     isPublished: z.boolean().default(false),
-    thumbnail: z.string().optional(),
+    thumbnail: z.string(),
 })
 
 export const postSchema = basePostSchema.extend({
@@ -23,7 +31,21 @@ export const postSchema = basePostSchema.extend({
 })
 
 export const postFormSchema = basePostSchema.extend({
-    thumbnailFile: z.instanceof(File).optional(),
+    thumbnailFile: z
+        .any()
+        .refine(
+            (file) => file instanceof File,
+            'A thumbnail image is required when creating a Post.',
+        )
+        .refine(
+            (file) => file?.size <= MAX_FILE_SIZE,
+            `File size must be less than ${MAX_FILE_SIZE / (1024 * 1024)}MB.`,
+        )
+        .refine(
+            (file) => ALLOWED_FILE_TYPES.includes(file?.type),
+            'Only JPG, PNG, or WEBP images are allowed.',
+        )
+        .optional(),
 })
 
 export const categorySchema = z.object({
