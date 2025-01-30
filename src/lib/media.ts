@@ -1,9 +1,12 @@
 'use server'
 
 import { del, put } from '@vercel/blob'
+import { requireAdmin } from './check-auth'
 
 // Upload a file to Vercel Blob Storage
 export const uploadFile = async (file: File): Promise<string> => {
+    await requireAdmin()
+
     try {
         if (!file) {
             throw new Error('No file provided for upload.')
@@ -26,6 +29,8 @@ export const uploadFile = async (file: File): Promise<string> => {
 
 // Delete a file from Vercel Blob Storage
 export const deleteFile = async (url: string): Promise<void> => {
+    await requireAdmin()
+
     try {
         if (!url) {
             throw new Error('No URL provided for deletion.')

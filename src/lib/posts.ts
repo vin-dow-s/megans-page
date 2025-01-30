@@ -4,31 +4,14 @@ import { prisma } from '@/lib/prisma'
 import { revalidatePath } from 'next/cache'
 import { cache } from 'react'
 import { z } from 'zod'
+import { requireAdmin } from './check-auth'
 import { deleteFile } from './media'
 import { actionClient, ActionError } from './safe-action'
 import { postSchema } from './schemas'
 
-export const getPosts = actionClient.action(async () => {
-    try {
-        const posts = await prisma.post.findMany({
-            include: {
-                Category: true,
-            },
-        })
-
-        if (!posts || posts.length === 0) {
-            console.log('No posts found.')
-            return []
-        }
-
-        return posts
-    } catch (error) {
-        console.error('Error fetching posts:', error)
-        throw new ActionError(
-            error instanceof Error ? error.message : 'Failed to get posts.',
-        )
-    }
-})
+/*
+ * Public actions
+ */
 
 export const getPublishedPosts = cache(
     actionClient.action(async () => {
@@ -40,10 +23,7 @@ export const getPublishedPosts = cache(
                 },
             })
 
-            if (!posts || posts.length === 0) {
-                console.log('No posts found.')
-                return []
-            }
+            if (!posts || posts.length === 0) return []
 
             return posts
         } catch (error) {
@@ -118,9 +98,35 @@ export const getPublishedPostBySlug = cache(
     }),
 )
 
+/*
+ * Admin actions
+ */
+export const getPosts = actionClient.action(async () => {
+    await requireAdmin()
+
+    try {
+        const posts = await prisma.post.findMany({
+            include: {
+                Category: true,
+            },
+        })
+
+        if (!posts || posts.length === 0) return []
+
+        return posts
+    } catch (error) {
+        console.error('Error fetching posts:', error)
+        throw new ActionError(
+            error instanceof Error ? error.message : 'Failed to get posts.',
+        )
+    }
+})
+
 export const getPostById = actionClient
     .schema(z.number())
     .action(async ({ parsedInput }) => {
+        await requireAdmin()
+
         const id = parsedInput
 
         try {
@@ -150,6 +156,8 @@ export const getPostById = actionClient
 export const createPost = actionClient
     .schema(postSchema)
     .action(async ({ parsedInput }) => {
+        await requireAdmin()
+
         try {
             const existingPost = await prisma.post.findFirst({
                 where: { title: parsedInput.title },
@@ -187,6 +195,8 @@ export const updatePost = actionClient
         }),
     )
     .action(async ({ parsedInput }) => {
+        await requireAdmin()
+
         const { id, data } = parsedInput
 
         try {
@@ -223,6 +233,8 @@ export const updatePost = actionClient
 export const deletePost = actionClient
     .schema(z.number())
     .action(async ({ parsedInput: id }) => {
+        await requireAdmin()
+
         try {
             const post = await prisma.post.findUnique({
                 where: { id },

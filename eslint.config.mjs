@@ -42,6 +42,6 @@ export default [
     },
     // Ignored files
     {
-        ignores: ['.next/', 'tailwind.config.ts', 'next.config.js', '*.js'],
+        ignores: ['.next/', 'next.config.js', '*.js'],
     },
 ]

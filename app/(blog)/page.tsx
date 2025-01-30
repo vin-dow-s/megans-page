@@ -9,7 +9,6 @@ import PostsGrid from './_components/PostsGrid'
 const Home = async () => {
     // TODO: check static-site generation
     // TODO: granular streaming and suspense
-    // TODO: medias images
     // ? Search input
     // ? Pagination
     // ? Stats and charts analytics dashboard

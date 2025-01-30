@@ -10,7 +10,6 @@ const AdminLayout = ({
 }: Readonly<{
     children: React.ReactNode
 }>) => {
-    // TODO: authentication
     return (
         <SidebarProvider>
             <AdminSidebar />

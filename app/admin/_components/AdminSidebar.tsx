@@ -19,7 +19,8 @@ import {
 
 // Icons
 import clsx from 'clsx'
-import { Home, Newspaper, Tag } from 'lucide-react'
+import { Home, LogOut, Newspaper, Tag } from 'lucide-react'
+import { signOut } from 'next-auth/react'
 import { usePathname } from 'next/navigation'
 
 const SIDEBAR_ITEMS = [
@@ -34,12 +35,6 @@ const SIDEBAR_ITEMS = [
         icon: Tag,
     },
 ]
-
-const footerItem = {
-    title: 'Back to Blog',
-    url: '/',
-    icon: Home,
-}
 
 export const AdminSidebar = () => {
     const pathname = usePathname()
@@ -73,12 +68,24 @@ export const AdminSidebar = () => {
                 </SidebarGroup>
             </SidebarContent>
             <SidebarFooter>
+                {/* Back to Blog */}
                 <SidebarMenuItem>
                     <SidebarMenuButton asChild className="py-6">
-                        <Link href={footerItem.url}>
-                            <footerItem.icon />
-                            <span>{footerItem.title}</span>
+                        <Link href="/">
+                            <Home />
+                            <span>Back to Blog</span>
                         </Link>
+                    </SidebarMenuButton>
+                </SidebarMenuItem>
+
+                {/* Sign Out Button */}
+                <SidebarMenuItem>
+                    <SidebarMenuButton
+                        className="cursor-pointer py-6 text-red-600 hover:text-red-700"
+                        onClick={() => signOut({ callbackUrl: '/' })}
+                    >
+                        <LogOut />
+                        <span>Sign Out</span>
                     </SidebarMenuButton>
                 </SidebarMenuItem>
             </SidebarFooter>

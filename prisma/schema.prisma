@@ -1,27 +1,11 @@
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-}
-
-model Account {
-  id                 String    @id
-  userId             String
-  providerType       String
-  providerId         String
-  providerAccountId  String
-  refreshToken       String?
-  accessToken        String?
-  accessTokenExpires DateTime?
-  createdAt          DateTime  @default(now())
-  updatedAt          DateTime
-  User               User      @relation(fields: [userId], references: [id], map: "Account_userId_fk")
-
-  @@unique([providerId, providerAccountId])
-  @@index([userId])
 }
 
 model Category {
@@ -44,38 +28,34 @@ model Post {
   Category    Category  @relation(fields: [categoryId], references: [id])
 }
 
-model Session {
-  id           String   @id
-  userId       String
-  expires      DateTime
-  sessionToken String   @unique
-  accessToken  String   @unique
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime
-  User         User     @relation(fields: [userId], references: [id], map: "Session_userId_fk")
-
-  @@index([userId])
-}
-
 model User {
-  id            String    @id
+  id            String    @id @default(uuid())
   name          String?
   email         String?   @unique
   emailVerified DateTime?
   image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime
-  Account       Account[]
-  Session       Session[]
+  role          String    @default("admin")
+  accounts      Account[]
 }
 
-model VerificationRequest {
-  id         String   @id
-  identifier String
-  token      String   @unique
-  expires    DateTime
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime
+model Account {
+  id                String   @id @default(uuid())
+  userId            String
+  type              String 
+  provider          String
+  providerAccountId String   @unique
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 
-  @@unique([identifier, token])
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
 }

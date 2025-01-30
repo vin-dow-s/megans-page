@@ -3,9 +3,13 @@
 import { prisma } from '@/lib/prisma'
 import { cache } from 'react'
 import { z } from 'zod'
+import { requireAdmin } from './check-auth'
 import { actionClient, ActionError } from './safe-action'
 import { categorySchema } from './schemas'
 
+/*
+ * Public actions
+ */
 export const getCategories = cache(
     actionClient.action(async () => {
         try {
@@ -30,9 +34,14 @@ export const getCategories = cache(
     }),
 )
 
+/*
+ * Admin actions
+ */
 export const getCategoryById = actionClient
     .schema(z.number())
     .action(async ({ parsedInput: id }) => {
+        await requireAdmin()
+
         try {
             const category = await prisma.category.findUnique({ where: { id } })
 
@@ -54,6 +63,8 @@ export const getCategoryById = actionClient
 export const createCategory = actionClient
     .schema(categorySchema)
     .action(async ({ parsedInput }) => {
+        await requireAdmin()
+
         const { name, color } = parsedInput
 
         try {
@@ -86,6 +97,8 @@ export const createCategory = actionClient
 export const updateCategory = actionClient
     .schema(categorySchema.extend({ id: z.number() }))
     .action(async ({ parsedInput }) => {
+        await requireAdmin()
+
         const { id, ...data } = parsedInput
 
         try {
@@ -103,6 +116,8 @@ export const updateCategory = actionClient
 export const deleteCategory = actionClient
     .schema(z.number())
     .action(async ({ parsedInput: id }) => {
+        await requireAdmin()
+
         try {
             const category = await prisma.category.findUnique({
                 where: { id },
