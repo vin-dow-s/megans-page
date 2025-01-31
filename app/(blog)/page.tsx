@@ -19,7 +19,9 @@ const Home = async () => {
     ])
 
     const posts = postsResult?.data
-    const categories = categoriesResult?.data
+    const categories = categoriesResult?.data?.filter(
+        (category) => category._count.Posts > 0,
+    )
 
     if (!posts || !categories) {
         return (

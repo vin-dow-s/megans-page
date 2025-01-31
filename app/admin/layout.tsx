@@ -3,7 +3,13 @@ import '../globals.css'
 
 // Components
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
+import { Metadata } from 'next'
 import { AdminSidebar } from './_components/AdminSidebar'
+
+export const metadata: Metadata = {
+    title: 'Admin Dashboard | Blog Test',
+    robots: 'noindex, nofollow',
+}
 
 const AdminLayout = ({
     children,

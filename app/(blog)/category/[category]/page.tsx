@@ -13,8 +13,10 @@ import { getPublishedPostsByCategory } from '@/lib/posts'
 import CategoriesList from '../../_components/CategoriesList'
 import PostsGrid from '../../_components/PostsGrid'
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL
+
 // Generate static params for all categories
-export async function generateStaticParams() {
+export const generateStaticParams = async () => {
     const categoriesResult = await getCategories()
     const categories = categoriesResult?.data || []
 
@@ -35,9 +37,40 @@ export const generateMetadata = async ({
 
     const posts = postResult?.data
 
+    if (!posts) {
+        return {
+            title: 'No Posts found for this Category - My Blog',
+            description: 'Sorry, this Category does not contain any posts.',
+        }
+    }
+
     return {
-        title: `Posts filtered by category: ${category}`,
-        description: posts?.map((post) => post.title).join(', '),
+        title: `Posts filtered by category: ${category} - Blog Test`,
+        description:
+            posts.length > 0
+                ? `Explore ${posts.length} posts about ${category}`
+                : `No posts found for category: ${category}`,
+        openGraph: {
+            title: `Category: ${category} - Blog Test`,
+            description:
+                posts.length > 0
+                    ? `Explore ${posts.length} posts about ${category}`
+                    : `No posts found for category: ${category}`,
+            url: `${SITE_URL}/category/${category}`,
+            images:
+                posts.length > 0
+                    ? [
+                          {
+                              url:
+                                  posts[0].thumbnail ??
+                                  '/default-thumbnail.jpg',
+                              width: 1200,
+                              height: 630,
+                              alt: `Category: ${category}`,
+                          },
+                      ]
+                    : [],
+        },
     }
 }
 
