@@ -27,7 +27,7 @@ export const PostCard = ({ post }: { post: Post }) => {
                     </p>
                 </div>
                 <Image
-                    src={post.thumbnail || testImage}
+                    src={post.thumbnail ?? testImage}
                     alt={'Test image'}
                     width={500}
                     height={500}

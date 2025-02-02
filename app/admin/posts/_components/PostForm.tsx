@@ -17,6 +17,7 @@ import { Category, PostFormValues } from '@/lib/types'
 // Components
 import Badge from '@/components/Badge'
 import TextEditor from '@/components/TextEditor'
+import { CircleX } from 'lucide-react'
 import { Button } from '../../../../src/components/ui/button'
 import {
     Form,
@@ -67,9 +68,13 @@ export const PostForm = ({
             thumbnail: postData?.thumbnail ?? '',
         },
     })
-    const { previewUrl, handleFileChange } = useImagePreview(
-        postData?.thumbnail ?? null,
-    )
+    const {
+        previewUrl,
+        imageInfo,
+        handleFileChange,
+        resetPreview,
+        restoreOriginalImage,
+    } = useImagePreview(postData?.thumbnail ?? null)
 
     const titleLength =
         useWatch({
@@ -121,29 +126,63 @@ export const PostForm = ({
                     render={({ field }) => (
                         <FormItem>
                             <FormLabel>Image</FormLabel>
-                            <FormControl className="me-40 cursor-pointer gap-8">
-                                <Input
-                                    type="file"
-                                    name="thumbnailFile"
-                                    accept="image/*"
-                                    placeholder="Thumbnail image of the post."
-                                    onChange={(e) => handleFileChange(e, form)}
-                                />
-                            </FormControl>
-                            {previewUrl && (
-                                <div className="mt-4">
-                                    <Image
-                                        src={previewUrl}
-                                        alt="Thumbnail Preview"
-                                        width={250}
-                                        height={250}
+                            <FormControl className="gap-8">
+                                {previewUrl ? (
+                                    <div className="relative flex h-30 rounded-lg border shadow-xs">
+                                        <Image
+                                            src={previewUrl}
+                                            alt="Thumbnail Preview"
+                                            width={200}
+                                            height={250}
+                                            className="rounded-r-none"
+                                        />
+                                        <div className="flex flex-col justify-center text-xs sm:text-sm">
+                                            <p className="font-medium">
+                                                {imageInfo?.name ??
+                                                    'Current Image'}
+                                            </p>
+
+                                            <p className="text-gray-500">
+                                                {imageInfo ? (
+                                                    <span>
+                                                        {' '}
+                                                        {imageInfo.size} -{' '}
+                                                        {imageInfo.width}x
+                                                        {imageInfo.height}px -{' '}
+                                                        {imageInfo.type}
+                                                    </span>
+                                                ) : (
+                                                    <span className="text-xs">
+                                                        {previewUrl.toString()}
+                                                    </span>
+                                                )}
+                                            </p>
+                                        </div>
+                                        <CircleX
+                                            size={20}
+                                            strokeWidth={1.25}
+                                            onClick={() => resetPreview(form)}
+                                            className="absolute top-0 right-0 m-4 cursor-pointer"
+                                        />
+                                    </div>
+                                ) : (
+                                    <Input
+                                        type="file"
+                                        name="thumbnailFile"
+                                        accept="image/*"
+                                        placeholder="Thumbnail image of the post."
+                                        className="cursor-pointer"
+                                        onChange={(e) =>
+                                            handleFileChange(e, form)
+                                        }
                                     />
-                                </div>
-                            )}
+                                )}
+                            </FormControl>
                             <FormMessage />
                         </FormItem>
                     )}
                 />
+
                 <FormField
                     control={form.control}
                     name="categoryId"
@@ -248,7 +287,7 @@ export const PostForm = ({
                 />
                 <Button
                     type="submit"
-                    className="cursor-pointer"
+                    className="cursor-pointer max-sm:w-full"
                     disabled={isLoading}
                 >
                     {isLoading
@@ -257,6 +296,19 @@ export const PostForm = ({
                           ? 'Update Post'
                           : 'Create Post'}
                 </Button>
+                {isEditing && (
+                    <Button
+                        type="reset"
+                        variant="secondary"
+                        onClick={() => {
+                            form.reset()
+                            restoreOriginalImage(form)
+                        }}
+                        className="m-4 cursor-pointer max-sm:w-full"
+                    >
+                        Reset
+                    </Button>
+                )}
             </form>
         </Form>
     )
