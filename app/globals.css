@@ -132,6 +132,10 @@
         font-family: var(--font-heading), serif;
     }
 
+    li {
+        list-style: none;
+    }
+
     .signature {
         font-family: var(--font-decorative);
         font-weight: 400;
