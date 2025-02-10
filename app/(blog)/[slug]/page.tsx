@@ -9,22 +9,22 @@ import { notFound } from 'next/navigation'
 import { getPublishedPostBySlug } from '@/lib/posts'
 
 // Components
-import Badge from '@/components/Badge'
-import { Button } from '@/components/ui/button'
 
 // Assets
-import testImage from '../../public/assets/test.png'
+import { ArrowLeftIcon } from 'lucide-react'
+import testImage from '../../../public/assets/test.png'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL
 
 type Props = {
-    params: Promise<{ slug: string }>
+    params: { slug: string }
+    searchParams: { category?: string }
 }
 
 export const generateMetadata = async ({
     params,
 }: Props): Promise<Metadata> => {
-    const { slug } = await params
+    const { slug } = params
     const postResult = await getPublishedPostBySlug(slug)
 
     const post = postResult?.data
@@ -62,8 +62,10 @@ export const generateMetadata = async ({
     }
 }
 
-const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
-    const { slug } = await params
+const PostPage = async ({ params, searchParams }: Props) => {
+    const { slug } = params
+    const category = searchParams.category
+
     const postResult = await getPublishedPostBySlug(slug)
 
     const post = postResult?.data
@@ -71,37 +73,44 @@ const PostPage = async ({ params }: { params: Promise<{ slug: string }> }) => {
     if (!post) notFound()
 
     return (
-        <section className="rounded-lg border px-4">
-            <nav className="float-right flex items-center justify-between p-6 px-2">
-                <Button asChild variant="secondary">
-                    <Link href="/">Back to Posts</Link>
-                </Button>
-            </nav>
-            <div className="my-8 px-2">
-                <p className="text-muted-foreground text-xs">
-                    Published: {post?.publishedAt?.toLocaleDateString()}
-                </p>
-                <h1 className="text-2xl font-bold">{post?.title}</h1>
+        <>
+            <div className="mb-4 flex gap-10">
+                <Link
+                    href={category ? `/category/${category}` : '/'} // 🟢 Go back to category if available
+                    className="category-link"
+                >
+                    <div className="flex items-center gap-1 font-normal">
+                        <ArrowLeftIcon size={14} /> Back
+                    </div>
+                </Link>
             </div>
-            <div className="prose prose-sm lg:prose-lg mb-4 px-2">
-                <Image
-                    src={post.thumbnail ?? testImage}
-                    alt={'Test image'}
-                    width={500}
-                    height={500}
-                />
-                <div className="my-4 flex gap-2">
-                    <Badge
-                        color={post.Category.color}
-                        label={post.Category.name}
-                    />
+            <section className="rounded-sm bg-white p-6">
+                <div className="p-0">
+                    <div className="flex flex-col gap-2">
+                        <p className="text-xs font-light">
+                            {post.publishedAt?.toLocaleDateString()}
+                        </p>
+                        <div className="tracking-tight">
+                            <h2 className="text-2xl font-semibold">
+                                {post.title}
+                            </h2>
+                        </div>
+                    </div>
                 </div>
-                <div className="my-8">{post?.description}</div>
-                {post?.content && (
-                    <div className="prose">{parse(post?.content)}</div>
-                )}
-            </div>
-        </section>
+                <div className="prose prose-sm lg:prose-lg my-4">
+                    <Image
+                        src={post.thumbnail ?? testImage}
+                        alt={'Test image'}
+                        width={250}
+                        height={250}
+                    />
+                    <div className="my-8 italic">{post?.description}</div>
+                    {post?.content && (
+                        <div className="prose">{parse(post?.content)}</div>
+                    )}
+                </div>
+            </section>
+        </>
     )
 }
 

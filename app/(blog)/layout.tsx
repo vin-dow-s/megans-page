@@ -42,11 +42,11 @@ const BlogLayout = ({
     children: React.ReactNode
 }>) => {
     return (
-        <>
+        <div className="text-foreground mx-auto flex min-h-screen w-full max-w-7xl flex-col bg-transparent px-4 antialiased">
             <Header />
-            <main className="grow px-4">{children}</main>
+            <main className="mx-auto my-8 w-full grow">{children}</main>{' '}
             <Footer />
-        </>
+        </div>
     )
 }
 

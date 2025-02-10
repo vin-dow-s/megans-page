@@ -21,7 +21,7 @@ export const generateStaticParams = async () => {
     const categories = categoriesResult?.data || []
 
     return categories.map((category) => ({
-        category: category.name.toLowerCase(),
+        category: category.name.toLowerCase().replace(/\s+/g, '-'),
     }))
 }
 
@@ -80,10 +80,11 @@ const FilteredPostsPage = async ({
     params: Promise<{ category: string }>
 }) => {
     const { category } = await params
+    const decodedCategory = category.replace(/-/g, ' ')
 
     const [categoriesResult, filteredPostsResult] = await Promise.all([
         getCategories(),
-        getPublishedPostsByCategory(category),
+        getPublishedPostsByCategory(decodedCategory),
     ])
 
     const categories = categoriesResult?.data
@@ -92,7 +93,8 @@ const FilteredPostsPage = async ({
     if (!categories || categories.length === 0 || !posts) return notFound()
 
     const currentCategory = categories?.find(
-        (cat: Category) => cat.name.toLowerCase() === category.toLowerCase(),
+        (cat: Category) =>
+            cat.name.toLowerCase() === decodedCategory.toLowerCase(),
     )
 
     return (
@@ -101,7 +103,7 @@ const FilteredPostsPage = async ({
                 categories={categories}
                 currentCategory={currentCategory}
             />
-            <PostsGrid posts={posts} />
+            <PostsGrid posts={posts} currentCategory={currentCategory} />
         </>
     )
 }

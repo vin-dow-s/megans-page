@@ -1,8 +1,5 @@
-'use client'
-
-import { Badge } from '@/components/ui/badge'
 import { Category } from '@/lib/types'
-import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 type CategoriesListProps = {
     categories: Category[]
@@ -13,35 +10,31 @@ const CategoriesList = ({
     categories,
     currentCategory,
 }: CategoriesListProps) => {
-    const router = useRouter()
-
-    const handleCategoryClick = (categoryName: string) => {
-        if (
-            currentCategory?.name.toLowerCase() === categoryName.toLowerCase()
-        ) {
-            router.push('/')
-        } else {
-            router.push(`/category/${categoryName.toLowerCase()}`)
-        }
-    }
-
     return (
-        <div className="my-8 flex justify-center gap-10">
+        <div className="mb-4 flex gap-10">
+            <Link
+                href={'/'}
+                passHref
+                className={`${!currentCategory ? 'font-bold underline' : 'font-normal'} category-link`}
+            >
+                All posts
+            </Link>
             {categories.map((category) => {
                 const isActive = category.name === currentCategory?.name
-                const variant = isActive ? 'default' : 'outline'
 
                 return (
-                    <Badge
+                    <Link
                         key={category.id}
-                        variant={variant}
-                        className={`cursor-pointer px-4 py-2 text-sm font-medium ${
-                            variant === 'outline' ? 'hover:bg-gray-100' : ''
-                        }`}
-                        onClick={() => handleCategoryClick(category.name)}
+                        href={
+                            isActive
+                                ? '/'
+                                : `/category/${category.name.toLowerCase().replace(/\s+/g, '-')}` // Replace spaces with dashes
+                        }
+                        className={`${isActive ? 'font-bold underline' : 'font-normal'} category-link`}
+                        passHref
                     >
                         {category.name}
-                    </Badge>
+                    </Link>
                 )
             })}
         </div>

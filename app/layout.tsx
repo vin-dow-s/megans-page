@@ -1,18 +1,7 @@
 import { Toaster } from '@/components/ui/toaster'
 import { cn } from '@/lib/utils'
-import localFont from 'next/font/local'
+import { ebGaramond, greatVibes, jost } from '../public/fonts/fonts'
 import './globals.css'
-
-const geistSans = localFont({
-    src: './public/fonts/GeistVF.woff',
-    variable: '--font-geist-sans',
-    weight: '100 900',
-})
-const geistMono = localFont({
-    src: './public/fonts/GeistMonoVF.woff',
-    variable: '--font-geist-mono',
-    weight: '100 900',
-})
 
 const RootLayout = ({
     children,
@@ -20,12 +9,16 @@ const RootLayout = ({
     children: React.ReactNode
 }>) => {
     return (
-        <html lang="en" className="h-full">
-            <body
-                className={cn(
-                    `${geistSans.variable} ${geistMono.variable} flex min-h-screen flex-col antialiased`,
-                )}
-            >
+        <html
+            lang="en"
+            className={cn(
+                ebGaramond.variable,
+                jost.variable,
+                greatVibes.variable,
+                'h-full',
+            )}
+        >
+            <body>
                 {children}
                 <Toaster />
             </body>

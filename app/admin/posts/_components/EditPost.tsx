@@ -17,7 +17,7 @@ import { Button } from '@/components/ui/button'
 import { PostForm } from './PostForm'
 
 // Assets
-import testImage from '../../../public/assets/test.png'
+import testImage from '../../../../public/assets/test.png'
 
 export const EditPost = ({
     postData,

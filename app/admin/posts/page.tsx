@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { getPosts } from '@/lib/posts'
 
 // Components
-import { Button } from '@/components/ui/button'
 import PostsTable from './_components/PostsTable'
 
 const PostsGrid = async () => {
@@ -16,12 +15,17 @@ const PostsGrid = async () => {
     const posts = postsResult?.data || []
 
     return (
-        <section className="mx-4 rounded-lg border px-4">
+        <section className="mx-4 rounded-lg border border-(--color-main-purple) bg-white px-4">
             <nav className="flex items-center justify-between p-6 px-2 pb-12">
-                <h2 className="text-lg font-bold">Posts</h2>
-                <Button asChild>
-                    <Link href="/admin/posts/create">Create a Post</Link>
-                </Button>
+                <h2 className="text-lg font-bold text-(--color-dark-accent)">
+                    Posts
+                </h2>
+                <Link
+                    href="/admin/posts/create"
+                    className="rounded-sm bg-(--color-main-purple) p-2 text-(--color-dark-accent)"
+                >
+                    Create a Post
+                </Link>
             </nav>
             <PostsTable posts={posts} />
         </section>

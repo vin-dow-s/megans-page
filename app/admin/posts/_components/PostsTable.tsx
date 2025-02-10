@@ -60,13 +60,13 @@ const PostsTable = ({ posts }: PostsTableProps) => {
 
     return (
         <Table>
-            <TableHeader>
+            <TableHeader className="text-(--color-dark-accent)">
                 <TableRow>
                     <TableHead className="w-10">#</TableHead>
                     <TableHead className="w-80">Title</TableHead>
                     <TableHead className="w-16">Category</TableHead>
                     <TableHead className="w-48">Description</TableHead>
-                    <TableHead className="w-16">Publication Date</TableHead>
+                    <TableHead className="w-16">Creation Date</TableHead>
                     <TableHead className="w-12">Status</TableHead>
                     <TableHead className="w-4"></TableHead>
                 </TableRow>

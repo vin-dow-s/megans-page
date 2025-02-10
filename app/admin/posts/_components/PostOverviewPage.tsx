@@ -15,7 +15,7 @@ import { Button } from '@/components/ui/button'
 import { Post } from '@/lib/types'
 
 // Assets
-import testImage from '../../../../app/public/assets/test.png'
+import testImage from '../../../public/assets/test.png'
 
 type PostOverviewPageProps = {
     post: Post

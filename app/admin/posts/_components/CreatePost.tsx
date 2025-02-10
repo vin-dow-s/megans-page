@@ -37,7 +37,7 @@ export const CreatePost = ({ categories }: { categories: Category[] }) => {
     }
 
     return (
-        <section className="mx-4 rounded-lg border p-4">
+        <section className="mx-4 rounded-lg border bg-white p-4">
             <nav className="flex items-center justify-between p-4 px-2 pb-12">
                 <h1 className="text-lg font-bold">Create Post</h1>
                 <Button asChild variant="secondary">

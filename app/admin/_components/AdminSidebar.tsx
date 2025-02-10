@@ -40,21 +40,27 @@ export const AdminSidebar = () => {
     const pathname = usePathname()
 
     return (
-        <Sidebar>
+        <Sidebar className="border-(--color-main-purple) bg-white">
             <SidebarHeader />
             <SidebarContent>
                 <SidebarGroup>
-                    <SidebarGroupLabel>Admin panel</SidebarGroupLabel>
+                    <SidebarGroupLabel className="text-gray-500">
+                        Admin panel
+                    </SidebarGroupLabel>
                     <SidebarGroupContent>
                         <SidebarMenu>
                             {SIDEBAR_ITEMS.map((item) => (
                                 <SidebarMenuItem key={item.title}>
-                                    <SidebarMenuButton asChild className="py-6">
+                                    <SidebarMenuButton
+                                        asChild
+                                        className="rounded-sm py-6"
+                                    >
                                         <Link
                                             href={item.url}
                                             className={clsx(
-                                                pathname === item.url &&
-                                                    'bg-gray-100 text-black',
+                                                pathname === item.url
+                                                    ? 'border-none bg-[#DDD9FF] text-(--color-dark-accent)'
+                                                    : 'text-(--color-dark-accent) hover:bg-[#F1EFFF]',
                                             )}
                                         >
                                             <item.icon />
@@ -71,7 +77,10 @@ export const AdminSidebar = () => {
                 {/* Back to Blog */}
                 <SidebarMenuItem>
                     <SidebarMenuButton asChild className="py-6">
-                        <Link href="/">
+                        <Link
+                            href="/"
+                            className="text-(--color-dark-accent) hover:bg-[#F1EFFF]"
+                        >
                             <Home />
                             <span>Back to Blog</span>
                         </Link>
@@ -81,7 +90,7 @@ export const AdminSidebar = () => {
                 {/* Sign Out Button */}
                 <SidebarMenuItem>
                     <SidebarMenuButton
-                        className="cursor-pointer py-6 text-red-600 hover:text-red-700"
+                        className="cursor-pointer bg-(--color-light-accent) py-6 text-red-700 hover:bg-red-100"
                         onClick={() => signOut({ callbackUrl: '/' })}
                     >
                         <LogOut />
