@@ -1,9 +1,8 @@
 // Actions
-import { getCategories } from '@/lib/categories'
+import { getCategoriesWithPublishedPosts } from '@/lib/categories'
 import { getPublishedPosts } from '@/lib/posts'
 
 // Components
-import { Category } from '@/lib/types'
 import CategoriesList from './_components/CategoriesList'
 import PostsGrid from './_components/PostsGrid'
 
@@ -18,13 +17,11 @@ const Home = async () => {
 
     const [postsResult, categoriesResult] = await Promise.all([
         getPublishedPosts(),
-        getCategories(),
+        getCategoriesWithPublishedPosts(),
     ])
 
     const posts = postsResult?.data
-    const categories = categoriesResult?.data?.filter(
-        (category: Category) => (category?._count?.Posts ?? 0) > 0,
-    )
+    const categories = categoriesResult?.data
 
     if (!posts || !categories) {
         return (

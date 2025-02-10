@@ -10,6 +10,43 @@ import { categorySchema } from './schemas'
 /*
  * Public actions
  */
+export const getCategoriesWithPublishedPosts = cache(
+    actionClient.action(async () => {
+        try {
+            return await prisma.category.findMany({
+                where: {
+                    Posts: {
+                        some: {
+                            isPublished: true,
+                        },
+                    },
+                },
+                select: {
+                    id: true,
+                    name: true,
+                    color: true,
+                    _count: {
+                        select: { Posts: true },
+                    },
+                },
+            })
+        } catch (error) {
+            console.error(
+                'Error fetching categories with published posts:',
+                error,
+            )
+            throw new ActionError(
+                error instanceof Error
+                    ? error.message
+                    : 'Failed to get categories with published posts.',
+            )
+        }
+    }),
+)
+
+/*
+ * Admin actions
+ */
 export const getCategories = cache(
     actionClient.action(async () => {
         try {
@@ -34,9 +71,6 @@ export const getCategories = cache(
     }),
 )
 
-/*
- * Admin actions
- */
 export const getCategoryById = actionClient
     .schema(z.number())
     .action(async ({ parsedInput: id }) => {

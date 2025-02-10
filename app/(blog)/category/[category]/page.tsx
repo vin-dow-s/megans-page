@@ -6,7 +6,7 @@ import { notFound } from 'next/navigation'
 import { Category } from '@/lib/types'
 
 // Actions
-import { getCategories } from '@/lib/categories'
+import { getCategoriesWithPublishedPosts } from '@/lib/categories'
 import { getPublishedPostsByCategory } from '@/lib/posts'
 
 // Components
@@ -17,7 +17,7 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL
 
 // Generate static params for all categories
 export const generateStaticParams = async () => {
-    const categoriesResult = await getCategories()
+    const categoriesResult = await getCategoriesWithPublishedPosts()
     const categories = categoriesResult?.data || []
 
     return categories.map((category) => ({
@@ -83,7 +83,7 @@ const FilteredPostsPage = async ({
     const decodedCategory = category.replace(/-/g, ' ')
 
     const [categoriesResult, filteredPostsResult] = await Promise.all([
-        getCategories(),
+        getCategoriesWithPublishedPosts(),
         getPublishedPostsByCategory(decodedCategory),
     ])
 

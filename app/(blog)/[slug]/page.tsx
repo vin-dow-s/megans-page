@@ -86,10 +86,17 @@ const PostPage = async ({ params, searchParams }: Props) => {
             </div>
             <section className="rounded-sm bg-white p-6">
                 <div className="p-0">
-                    <div className="flex flex-col gap-2">
-                        <p className="text-xs font-light">
-                            {post.publishedAt?.toLocaleDateString()}
-                        </p>
+                    <div className="flex flex-col gap-4">
+                        <div className="flex gap-8">
+                            <span className="text-xs font-light">
+                                Last updated:{' '}
+                                {post.updatedAt?.toLocaleDateString()}
+                            </span>
+                            <span className="text-xs font-light">
+                                First published:{' '}
+                                {post.publishedAt?.toLocaleDateString()}
+                            </span>
+                        </div>
                         <div className="tracking-tight">
                             <h2 className="text-4xl">{post.title}</h2>
                         </div>

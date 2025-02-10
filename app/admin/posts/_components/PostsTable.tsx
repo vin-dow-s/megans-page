@@ -64,9 +64,9 @@ const PostsTable = ({ posts }: PostsTableProps) => {
                 <TableRow>
                     <TableHead className="w-10">#</TableHead>
                     <TableHead className="w-80">Title</TableHead>
-                    <TableHead className="w-16">Category</TableHead>
-                    <TableHead className="w-48">Description</TableHead>
-                    <TableHead className="w-16">Creation Date</TableHead>
+                    <TableHead className="w-20">Category</TableHead>
+                    <TableHead className="w-40">Last Updated</TableHead>
+                    <TableHead className="w-40">Publication Date</TableHead>
                     <TableHead className="w-12">Status</TableHead>
                     <TableHead className="w-4"></TableHead>
                 </TableRow>
@@ -91,7 +91,7 @@ const PostsTable = ({ posts }: PostsTableProps) => {
                                     />
                                 </TableCell>
                                 <TableCell>
-                                    {post.description.substring(0, 40)}
+                                    {post.updatedAt.toLocaleString()}
                                 </TableCell>
                                 <TableCell>
                                     {post.publishedAt?.toLocaleDateString()}

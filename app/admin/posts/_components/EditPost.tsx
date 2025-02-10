@@ -36,6 +36,7 @@ export const EditPost = ({
 
     const handleSubmit = async (formData: PostFormValues) => {
         setLoading(true)
+
         try {
             await updateExistingPost(formData, postId, existingThumbnail)
             displaySuccessToast('Post successfully updated.')

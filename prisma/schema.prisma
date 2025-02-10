@@ -23,6 +23,7 @@ model Post {
   description String
   content     String
   publishedAt DateTime? @db.Date
+  updatedAt   DateTime  @updatedAt
   isPublished Boolean   @default(false)
   thumbnail   String?
   Category    Category  @relation(fields: [categoryId], references: [id])

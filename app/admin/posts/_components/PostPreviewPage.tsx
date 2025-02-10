@@ -41,19 +41,25 @@ const PostPreviewPage = ({ post }: PostPreviewPageProps) => {
             </div>
             <h2 className="p-4 px-2 text-xl font-bold">Post Preview</h2>
             <div className="px-2">
-                <div className="p-0">
-                    <div className="flex flex-col gap-2">
-                        <div className="flex items-center text-xs font-light">
-                            {post?.publishedAt?.toLocaleDateString()} - &nbsp;
+                <div className="flex flex-col gap-4">
+                    <div className="flex items-center gap-8 text-xs font-light">
+                        <p>
                             {post?.isPublished ? (
                                 <Badge color="green" label="Published" />
                             ) : (
                                 <Badge color="darkgrey" label="Draft" />
                             )}
-                        </div>
-                        <div className="tracking-tight">
-                            <h1 className="text-4xl">{post.title}</h1>
-                        </div>
+                        </p>
+                        <p>
+                            Last updated: {post.updatedAt?.toLocaleDateString()}
+                        </p>
+                        <p>
+                            First published:{' '}
+                            {post.publishedAt?.toLocaleDateString()}
+                        </p>
+                    </div>
+                    <div className="tracking-tight">
+                        <h1 className="text-4xl">{post.title}</h1>
                     </div>
                 </div>
                 <div className="my-4">

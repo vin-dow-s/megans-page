@@ -23,6 +23,7 @@ export const CreatePost = ({ categories }: { categories: Category[] }) => {
 
     const handleSubmit = async (formData: PostFormValues) => {
         setLoading(true)
+
         try {
             await createNewPost(formData)
             displaySuccessToast('Post successfully created.')

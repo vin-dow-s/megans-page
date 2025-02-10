@@ -19,6 +19,7 @@ export type Post = {
     description: string
     content: string
     publishedAt?: Date | null
+    updatedAt: Date
     isPublished: boolean
     thumbnail?: string | null
     Category: Category

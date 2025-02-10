@@ -47,7 +47,12 @@ const PostsTableDropdown = ({
         try {
             const result = await updatePost({
                 id: post.id,
-                data: { isPublished: !post.isPublished },
+                data: {
+                    isPublished: !post.isPublished,
+                    publishedAt:
+                        post.publishedAt ??
+                        (post.isPublished ? new Date() : undefined),
+                },
             })
 
             if (!isActionSuccessful(result)) {
@@ -61,7 +66,11 @@ const PostsTableDropdown = ({
                 return
             }
 
-            onStatusChange(post.id, { isPublished: !post.isPublished })
+            onStatusChange(post.id, {
+                isPublished: result.data.isPublished,
+                publishedAt: result.data.publishedAt,
+                updatedAt: result.data.updatedAt,
+            })
 
             displaySuccessToast(
                 `Post successfully ${post.isPublished ? 'unpublished' : 'published'}.`,

@@ -74,7 +74,7 @@ export const getPublishedPostBySlug = cache(
         const slug = parsedInput
 
         try {
-            const post = await prisma.post.findUnique({
+            const post = await prisma.post.findFirst({
                 where: { slug, isPublished: true },
                 include: {
                     Category: true,
@@ -169,7 +169,10 @@ export const createPost = actionClient
             }
 
             const createdPost = await prisma.post.create({
-                data: parsedInput,
+                data: {
+                    ...parsedInput,
+                    publishedAt: parsedInput.isPublished ? new Date() : null,
+                },
                 include: { Category: true },
             })
 
@@ -211,7 +214,12 @@ export const updatePost = actionClient
 
             const updatedPost = await prisma.post.update({
                 where: { id },
-                data,
+                data: {
+                    ...data,
+                    publishedAt:
+                        post.publishedAt ??
+                        (data.isPublished ? new Date() : null),
+                },
                 include: { Category: true },
             })
 
