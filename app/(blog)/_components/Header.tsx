@@ -3,6 +3,8 @@ import { auth } from '../../../auth'
 
 export const Header = async () => {
     const session = await auth()
+    const userEmail = session?.user?.email
+    const isAdmin = userEmail === process.env.AUTH_ADMIN_EMAIL
 
     return (
         <header className="my-4 flex items-center rounded-sm bg-(--color-main-purple) p-8">
@@ -13,7 +15,7 @@ export const Header = async () => {
                     </h1>
                 </Link>
                 <div className="ml-auto flex gap-2">
-                    {session && (
+                    {isAdmin && (
                         <Link
                             href="/admin/posts"
                             className="main-button max-md:text-sm"
