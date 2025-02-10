@@ -15,7 +15,7 @@ import { Category, CategoryFormValues } from '@/lib/types'
 import { useCustomToast } from '@/hooks/useCustomToast'
 
 // Components
-import { Button } from '../../../../src/components/ui/button'
+import { ArrowLeftIcon } from 'lucide-react'
 import {
     Form,
     FormControl,
@@ -48,13 +48,15 @@ export const CreateCategoryFormWrapper = () => {
     }
 
     return (
-        <section className="mx-4 rounded-lg border p-4">
-            <nav className="flex items-center justify-between p-4 px-2 pb-12">
-                <h1 className="text-lg font-bold">Create Category</h1>
-                <Button asChild variant="secondary">
-                    <Link href="/admin/categories">Back to Categories</Link>
-                </Button>
-            </nav>
+        <section className="mx-4 rounded-sm border-none bg-white p-4">
+            <div className="mb-4 flex gap-10">
+                <Link href={`/admin/categories`} className="category-link">
+                    <div className="flex items-center gap-1 font-normal">
+                        <ArrowLeftIcon size={14} /> Back
+                    </div>
+                </Link>
+            </div>
+            <h1 className="p-4 px-2 text-xl font-bold">Create Category</h1>
             <CategoryForm onSubmit={handleFormSubmit} />
         </section>
     )
@@ -88,13 +90,15 @@ export const EditCategoryFormWrapper = ({
     }
 
     return (
-        <section className="mx-4 rounded-lg border p-4">
-            <nav className="flex items-center justify-between p-4 px-2 pb-12">
-                <h1 className="text-lg font-bold">Edit Category</h1>
-                <Button asChild variant="secondary">
-                    <Link href="/admin/categories">Back to Categories</Link>
-                </Button>
-            </nav>
+        <section className="mx-4 rounded-sm border-none bg-white p-4">
+            <div className="mb-4 flex gap-10">
+                <Link href={`/admin/categories`} className="category-link">
+                    <div className="flex items-center gap-1 font-normal">
+                        <ArrowLeftIcon size={14} /> Back
+                    </div>
+                </Link>
+            </div>
+            <h1 className="p-4 px-2 text-xl font-bold">Edit Category</h1>
             <CategoryForm
                 onSubmit={handleUpdateCategory}
                 categoryData={categoryData}
@@ -162,9 +166,9 @@ export const CategoryForm = ({
                     />
                 </div>
 
-                <Button type="submit" className="cursor-pointer">
-                    {isEditing ? 'Update Category' : 'Create Category'}
-                </Button>
+                <button type="submit" className="admin-button cursor-pointer">
+                    {isEditing ? 'Update' : 'Create'}
+                </button>
             </form>
         </Form>
     )

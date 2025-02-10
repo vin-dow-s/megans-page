@@ -17,14 +17,14 @@ import testImage from '../../../public/assets/test.png'
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL
 
 type Props = {
-    params: { slug: string }
-    searchParams: { category?: string }
+    params: Promise<{ slug: string }>
+    searchParams: Promise<{ category?: string }>
 }
 
 export const generateMetadata = async ({
     params,
 }: Props): Promise<Metadata> => {
-    const { slug } = params
+    const { slug } = await params
     const postResult = await getPublishedPostBySlug(slug)
 
     const post = postResult?.data
@@ -63,8 +63,8 @@ export const generateMetadata = async ({
 }
 
 const PostPage = async ({ params, searchParams }: Props) => {
-    const { slug } = params
-    const category = searchParams.category
+    const { slug } = await params
+    const { category } = await searchParams
 
     const postResult = await getPublishedPostBySlug(slug)
 
@@ -76,7 +76,7 @@ const PostPage = async ({ params, searchParams }: Props) => {
         <>
             <div className="mb-4 flex gap-10">
                 <Link
-                    href={category ? `/category/${category}` : '/'} // 🟢 Go back to category if available
+                    href={category ? `/category/${category}` : '/'}
                     className="category-link"
                 >
                     <div className="flex items-center gap-1 font-normal">
@@ -91,13 +91,11 @@ const PostPage = async ({ params, searchParams }: Props) => {
                             {post.publishedAt?.toLocaleDateString()}
                         </p>
                         <div className="tracking-tight">
-                            <h2 className="text-2xl font-semibold">
-                                {post.title}
-                            </h2>
+                            <h2 className="text-4xl">{post.title}</h2>
                         </div>
                     </div>
                 </div>
-                <div className="prose prose-sm lg:prose-lg my-4">
+                <div className="my-4">
                     <Image
                         src={post.thumbnail ?? testImage}
                         alt={'Test image'}

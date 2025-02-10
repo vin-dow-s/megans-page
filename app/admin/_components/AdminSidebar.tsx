@@ -40,11 +40,11 @@ export const AdminSidebar = () => {
     const pathname = usePathname()
 
     return (
-        <Sidebar className="border-(--color-main-purple) bg-white">
+        <Sidebar className="border-none">
             <SidebarHeader />
             <SidebarContent>
                 <SidebarGroup>
-                    <SidebarGroupLabel className="text-gray-500">
+                    <SidebarGroupLabel className="text-gray-400">
                         Admin panel
                     </SidebarGroupLabel>
                     <SidebarGroupContent>
@@ -58,7 +58,7 @@ export const AdminSidebar = () => {
                                         <Link
                                             href={item.url}
                                             className={clsx(
-                                                pathname === item.url
+                                                pathname.includes(item.url)
                                                     ? 'border-none bg-[#DDD9FF] text-(--color-dark-accent)'
                                                     : 'text-(--color-dark-accent) hover:bg-[#F1EFFF]',
                                             )}

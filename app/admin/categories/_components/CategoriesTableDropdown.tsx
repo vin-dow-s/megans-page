@@ -78,7 +78,7 @@ const CategoriesTableDropdown = ({
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                    <DropdownMenuItem asChild className="gap-4 p-2">
+                    <DropdownMenuItem asChild className="gap-4 p-2 font-normal">
                         <Link href={`/admin/categories/${category.id}/edit`}>
                             <Pencil />
                             Edit

@@ -108,7 +108,7 @@ const PostsTableDropdown = ({
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                    <DropdownMenuItem asChild className="gap-4 p-2">
+                    <DropdownMenuItem asChild className="gap-4 p-2 font-normal">
                         <Link href={`/admin/posts/${post.id}/edit`}>
                             <Pencil />
                             Edit

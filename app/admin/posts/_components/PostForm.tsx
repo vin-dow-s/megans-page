@@ -18,7 +18,6 @@ import { Category, PostFormValues } from '@/lib/types'
 import Badge from '@/components/Badge'
 import TextEditor from '@/components/TextEditor'
 import { CircleX } from 'lucide-react'
-import { Button } from '../../../../src/components/ui/button'
 import {
     Form,
     FormControl,
@@ -128,13 +127,13 @@ export const PostForm = ({
                             <FormLabel>Image</FormLabel>
                             <FormControl className="gap-8">
                                 {previewUrl ? (
-                                    <div className="relative flex h-30 rounded-lg border shadow-xs">
+                                    <div className="relative flex h-30 rounded-sm border shadow-xs">
                                         <Image
                                             src={previewUrl}
                                             alt="Thumbnail Preview"
                                             width={200}
                                             height={250}
-                                            className="rounded-r-none"
+                                            className="rounded-r-none object-contain"
                                         />
                                         <div className="flex flex-col justify-center text-xs sm:text-sm">
                                             <p className="font-medium">
@@ -229,7 +228,7 @@ export const PostForm = ({
                             </FormControl>
                             <FormDescription>
                                 Short description of the post for the card
-                                overview.
+                                preview.
                             </FormDescription>
                             <FormMessage />
                         </FormItem>
@@ -285,29 +284,28 @@ export const PostForm = ({
                         </RadioGroup>
                     )}
                 />
-                <Button
+                <button
                     type="submit"
-                    className="cursor-pointer max-sm:w-full"
+                    className="admin-button cursor-pointer max-sm:w-full"
                     disabled={isLoading}
                 >
                     {isLoading
                         ? 'Processing...'
                         : isEditing
-                          ? 'Update Post'
-                          : 'Create Post'}
-                </Button>
+                          ? 'Update'
+                          : 'Create'}
+                </button>
                 {isEditing && (
-                    <Button
+                    <button
                         type="reset"
-                        variant="secondary"
                         onClick={() => {
                             form.reset()
                             restoreOriginalImage(form)
                         }}
-                        className="m-4 cursor-pointer max-sm:w-full"
+                        className="admin-button m-4 cursor-pointer border border-(--color-text-secondary) bg-white max-sm:w-full"
                     >
                         Reset
-                    </Button>
+                    </button>
                 )}
             </form>
         </Form>

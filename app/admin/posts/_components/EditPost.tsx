@@ -13,10 +13,10 @@ import { updateExistingPost } from '@/hooks/usePostActions'
 import { Category, PostFormValues } from '@/lib/types'
 
 // Components
-import { Button } from '@/components/ui/button'
 import { PostForm } from './PostForm'
 
 // Assets
+import { ArrowLeftIcon } from 'lucide-react'
 import testImage from '../../../../public/assets/test.png'
 
 export const EditPost = ({
@@ -50,13 +50,15 @@ export const EditPost = ({
     }
 
     return (
-        <section className="mx-4 rounded-lg border p-4">
-            <nav className="flex items-center justify-between p-4 px-2 pb-12">
-                <h1 className="text-lg font-bold">Edit Post</h1>
-                <Button asChild variant="secondary">
-                    <Link href="/admin/posts">Back to Posts</Link>
-                </Button>
-            </nav>
+        <section className="mx-4 rounded-sm border-none bg-white p-4">
+            <div className="mb-4 flex gap-10">
+                <Link href={`/admin/posts`} className="category-link">
+                    <div className="flex items-center gap-1 font-normal">
+                        <ArrowLeftIcon size={14} /> Back
+                    </div>
+                </Link>
+            </div>
+            <h1 className="p-4 px-2 text-xl font-bold">Edit Post</h1>
             <PostForm
                 onSubmit={handleSubmit}
                 postData={{ ...postData, thumbnail: existingThumbnail }}

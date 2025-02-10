@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation'
 import { getPostById } from '@/lib/posts'
 
 // Components
-import PostOverviewPage from '../_components/PostOverviewPage'
+import PostPreviewPage from '../_components/PostPreviewPage'
 
 const PostPage = async ({ params }: { params: Promise<{ id: string }> }) => {
     const { id } = await params
@@ -17,7 +17,7 @@ const PostPage = async ({ params }: { params: Promise<{ id: string }> }) => {
 
     if (!post) notFound()
 
-    return <PostOverviewPage post={post} />
+    return <PostPreviewPage post={post} />
 }
 
 export default PostPage

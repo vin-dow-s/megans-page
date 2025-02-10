@@ -26,12 +26,12 @@ export const PostCard = ({ post }: { post: Post }) => {
                         {post.publishedAt?.toLocaleDateString()}
                     </p>
                     <CardTitle>
-                        <h2 className="text-2xl">{post.title}</h2>
+                        <h2 className="text-2xl font-normal">{post.title}</h2>
                     </CardTitle>
                 </div>
             </CardHeader>
             <CardContent className="flex items-end justify-between p-0 leading-none">
-                <CardDescription className="leading-none font-light">
+                <CardDescription className="leading-none font-light text-(--color-text-main)">
                     {post.Category.name}
                 </CardDescription>
                 <div className="h-[50px] w-[50px] overflow-hidden md:h-[150px] md:w-[150px]">

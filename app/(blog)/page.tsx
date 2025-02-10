@@ -3,6 +3,7 @@ import { getCategories } from '@/lib/categories'
 import { getPublishedPosts } from '@/lib/posts'
 
 // Components
+import { Category } from '@/lib/types'
 import CategoriesList from './_components/CategoriesList'
 import PostsGrid from './_components/PostsGrid'
 
@@ -22,12 +23,12 @@ const Home = async () => {
 
     const posts = postsResult?.data
     const categories = categoriesResult?.data?.filter(
-        (category) => category._count.Posts > 0,
+        (category: Category) => (category?._count?.Posts ?? 0) > 0,
     )
 
     if (!posts || !categories) {
         return (
-            <section className="mx-4 rounded-lg border px-4">
+            <section className="mx-4 rounded-sm border px-4">
                 <h2 className="text-lg font-bold">Failed to load data</h2>
             </section>
         )

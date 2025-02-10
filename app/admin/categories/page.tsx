@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { getCategories } from '@/lib/categories'
 
 // Components
-import { Button } from '@/components/ui/button'
 import CategoriesTable from './_components/CategoriesTable'
 
 const CategoriesPage = async () => {
@@ -16,14 +15,12 @@ const CategoriesPage = async () => {
     const categories = categoriesResult?.data || []
 
     return (
-        <section className="mx-4 rounded-lg border border-(--color-main-purple) bg-white px-4">
+        <section className="mx-4 rounded-sm border-none bg-white px-4">
             <nav className="flex items-center justify-between p-6 px-2 pb-12">
-                <h2 className="text-lg font-bold">Categories</h2>
-                <Button asChild>
-                    <Link href="/admin/categories/create">
-                        Create a Category
-                    </Link>
-                </Button>
+                <h2 className="text-xl font-bold">Categories</h2>
+                <Link href="/admin/categories/create" className="admin-button">
+                    Create a Category
+                </Link>
             </nav>
             <CategoriesTable categories={categories} />
         </section>

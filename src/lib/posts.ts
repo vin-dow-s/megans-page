@@ -246,6 +246,12 @@ export const deletePost = actionClient
                 throw new ActionError('Post not found.')
             }
 
+            if (post.isPublished) {
+                throw new ActionError(
+                    'Post needs to be unpublished before being deleted.',
+                )
+            }
+
             const thumbnailToDelete = post.thumbnail
 
             await prisma.post.delete({
