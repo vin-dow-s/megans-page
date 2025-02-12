@@ -27,8 +27,14 @@ const Home = async () => {
 
     return (
         <>
-            <CategoriesList categories={categories} />
-            <PostsGrid posts={posts} />
+            {categories.length > 0 ? (
+                <CategoriesList categories={categories} />
+            ) : (
+                <div className="mt-8 text-center text-gray-500 italic">
+                    Work in progress...
+                </div>
+            )}
+            {posts.length > 0 && <PostsGrid posts={posts} />}
         </>
     )
 }

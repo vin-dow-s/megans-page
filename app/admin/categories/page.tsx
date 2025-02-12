@@ -15,10 +15,13 @@ const CategoriesPage = async () => {
     const categories = categoriesResult?.data || []
 
     return (
-        <section className="mx-4 rounded-sm border-none bg-white px-4">
+        <section className="mx-4 rounded-sm border-none bg-white px-4 shadow-xs">
             <nav className="flex items-center justify-between p-6 px-2 pb-12">
                 <h2 className="text-4xl font-medium">Categories</h2>
-                <Link href="/admin/categories/create" className="main-button">
+                <Link
+                    href="/admin/categories/create"
+                    className="main-button shadow-xs"
+                >
                     Create a Category
                 </Link>
             </nav>

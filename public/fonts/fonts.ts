@@ -1,16 +1,4 @@
-import {
-    EB_Garamond,
-    Great_Vibes,
-    Jost,
-    Playfair_Display,
-} from 'next/font/google'
-
-export const playfairDisplay = Playfair_Display({
-    subsets: ['latin'],
-    weight: ['400', '500', '600', '700', '800', '900'],
-    variable: '--font-playfair',
-    display: 'swap',
-})
+import { EB_Garamond, Great_Vibes, Jost } from 'next/font/google'
 
 export const ebGaramond = EB_Garamond({
     subsets: ['latin'],

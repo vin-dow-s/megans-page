@@ -40,7 +40,7 @@ export const AdminSidebar = () => {
     const pathname = usePathname()
 
     return (
-        <Sidebar className="border-none">
+        <Sidebar className="border-none shadow-xs">
             <SidebarHeader />
             <SidebarContent>
                 <SidebarGroup>

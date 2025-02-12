@@ -28,9 +28,11 @@ const ConfirmationDialog = ({
 }: ConfirmationDialogProps) => {
     return (
         <AlertDialog open={isOpen} onOpenChange={onClose}>
-            <AlertDialogContent>
+            <AlertDialogContent className="rounded-sm shadow-xs">
                 <AlertDialogHeader>
-                    <AlertDialogTitle>{title}</AlertDialogTitle>
+                    <AlertDialogTitle className="text-2xl font-medium">
+                        {title}
+                    </AlertDialogTitle>
                     <AlertDialogDescription>
                         {description}
                     </AlertDialogDescription>
@@ -38,14 +40,14 @@ const ConfirmationDialog = ({
                 <AlertDialogFooter>
                     <AlertDialogCancel
                         onClick={onClose}
-                        className="cursor-pointer"
+                        className="cursor-pointer rounded-sm shadow-xs"
                     >
                         Cancel
                     </AlertDialogCancel>
                     <Button
                         variant="destructive"
                         onClick={onConfirm}
-                        className="cursor-pointer"
+                        className="cursor-pointer rounded-sm shadow-xs"
                     >
                         Delete
                     </Button>

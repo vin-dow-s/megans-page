@@ -175,7 +175,7 @@ export const CategoryForm = ({
                     />
                 </div>
 
-                <button type="submit" className="main-button">
+                <button type="submit" className="main-button shadow-xs">
                     {isEditing ? 'Update' : 'Create'}
                 </button>
             </form>
