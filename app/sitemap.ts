@@ -16,16 +16,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const categories = categoriesResult?.data || []
 
     // Static pages
-    const staticRoutes = ['', '/about', '/contact', '/auth/sign-in'].map(
-        (route) => ({
-            url: `${baseUrl}${route}`,
-            lastModified: new Date().toISOString(),
-        }),
-    )
+    const staticRoutes = ['', '/contact', '/auth/sign-in'].map((route) => ({
+        url: `${baseUrl}${route}`,
+        lastModified: new Date().toISOString(),
+    }))
 
     // Dynamic post pages
     const postRoutes = posts.map((post) => ({
-        url: `${baseUrl}/${post.slug}`,
+        url: `${baseUrl}/post/${post.slug}`,
         lastModified: post.publishedAt || new Date().toISOString(),
     }))
 

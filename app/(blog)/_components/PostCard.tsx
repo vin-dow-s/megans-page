@@ -14,11 +14,11 @@ import {
 } from '@/components/ui/card'
 
 // Assets
-import testImage from '../../../public/assets/test.png'
+import defaultThumbnail from '../../../public/assets/default-thumbnail.png'
 
 export const PostCard = ({ post }: { post: Post }) => {
     return (
-        <Card className="group flex flex-col justify-between rounded-sm border-none bg-white p-6 shadow-none transition duration-100 ease-in-out hover:bg-(--color-hover-grey) md:h-[400px]">
+        <Card className="group flex flex-col justify-between rounded-sm border-none bg-white p-6 shadow-xs transition duration-100 ease-in-out hover:bg-(--color-hover-grey) md:h-[400px]">
             {' '}
             <CardHeader className="p-0">
                 <div className="flex flex-col gap-2">
@@ -36,7 +36,7 @@ export const PostCard = ({ post }: { post: Post }) => {
                 </CardDescription>
                 <div className="h-[50px] w-[50px] overflow-hidden md:h-[150px] md:w-[150px]">
                     <Image
-                        src={post.thumbnail ?? testImage}
+                        src={post.thumbnail ?? defaultThumbnail}
                         alt="Test image"
                         width={150}
                         height={150}

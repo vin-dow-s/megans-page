@@ -17,8 +17,8 @@ const CategoriesPage = async () => {
     return (
         <section className="mx-4 rounded-sm border-none bg-white px-4">
             <nav className="flex items-center justify-between p-6 px-2 pb-12">
-                <h2 className="text-xl font-bold">Categories</h2>
-                <Link href="/admin/categories/create" className="admin-button">
+                <h2 className="text-4xl font-medium">Categories</h2>
+                <Link href="/admin/categories/create" className="main-button">
                     Create a Category
                 </Link>
             </nav>

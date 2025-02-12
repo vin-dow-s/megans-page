@@ -21,7 +21,7 @@ const SignInPage = () => {
                 </svg>
                 Sign in with Google
             </Button>
-            <Link href="/" className="main-button">
+            <Link href="/" className="main-link">
                 Go Back to the Home Page
             </Link>
         </section>

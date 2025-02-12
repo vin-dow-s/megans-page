@@ -22,8 +22,8 @@ const PostsGrid = ({ posts, currentCategory }: PostsGridProps) => {
                     <Link
                         href={
                             currentCategory
-                                ? `/${post.slug}?category=${currentCategory.name.toLowerCase().replace(/\s+/g, '-')}`
-                                : `/${post.slug}`
+                                ? `/post/${post.slug}?category=${currentCategory.name.toLowerCase().replace(/\s+/g, '-')}`
+                                : `/post/${post.slug}`
                         }
                         key={post.id}
                     >

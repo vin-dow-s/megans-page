@@ -39,19 +39,19 @@ export const generateMetadata = async ({
 
     if (!posts) {
         return {
-            title: 'No Posts found for this Category - My Blog',
+            title: `Category not found`,
             description: 'Sorry, this Category does not contain any posts.',
         }
     }
 
     return {
-        title: `Posts filtered by category: ${category} - Blog Test`,
+        title: `${category}`,
         description:
             posts.length > 0
                 ? `Explore ${posts.length} posts about ${category}`
                 : `No posts found for category: ${category}`,
         openGraph: {
-            title: `Category: ${category} - Blog Test`,
+            title: `Category: ${category}`,
             description:
                 posts.length > 0
                     ? `Explore ${posts.length} posts about ${category}`
@@ -63,7 +63,7 @@ export const generateMetadata = async ({
                           {
                               url:
                                   posts[0].thumbnail ??
-                                  '/default-thumbnail.jpg',
+                                  '/default-thumbnail.png',
                               width: 1200,
                               height: 630,
                               alt: `Category: ${category}`,

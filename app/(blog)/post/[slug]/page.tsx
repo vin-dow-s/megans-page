@@ -8,11 +8,9 @@ import { notFound } from 'next/navigation'
 // Actions
 import { getPublishedPostBySlug } from '@/lib/posts'
 
-// Components
-
 // Assets
 import { ArrowLeftIcon } from 'lucide-react'
-import testImage from '../../../public/assets/test.png'
+import defaultThumbnail from '../../../../public/assets/default-thumbnail.png'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL
 
@@ -31,22 +29,22 @@ export const generateMetadata = async ({
 
     if (!post) {
         return {
-            title: 'Post Not Found - My Blog',
+            title: `Post not found`,
             description: 'Sorry, this post does not exist.',
         }
     }
 
     return {
-        title: `${post.title} - Blog Test`,
+        title: `${post.title}`,
         description: post.description,
         openGraph: {
             title: post.title,
             description: post.description,
-            url: `${SITE_URL}/${post.slug}`,
+            url: `${SITE_URL}/post/${post.slug}`,
             type: 'article',
             images: [
                 {
-                    url: post.thumbnail ?? '/default-thumbnail.jpg',
+                    url: post.thumbnail ?? '/default-thumbnail.png',
                     width: 1200,
                     height: 630,
                     alt: post.title,
@@ -57,7 +55,7 @@ export const generateMetadata = async ({
             card: 'summary_large_image',
             title: post.title,
             description: post.description,
-            images: [post.thumbnail ?? '/default-thumbnail.jpg'],
+            images: [post.thumbnail ?? '/default-thumbnail.png'],
         },
     }
 }
@@ -84,7 +82,7 @@ const PostPage = async ({ params, searchParams }: Props) => {
                     </div>
                 </Link>
             </div>
-            <section className="rounded-sm bg-white p-6">
+            <section className="rounded-sm bg-white p-6 shadow-xs">
                 <div className="p-0">
                     <div className="flex flex-col gap-4">
                         <div className="flex gap-8">
@@ -104,7 +102,7 @@ const PostPage = async ({ params, searchParams }: Props) => {
                 </div>
                 <div className="my-4">
                     <Image
-                        src={post.thumbnail ?? testImage}
+                        src={post.thumbnail ?? defaultThumbnail}
                         alt={'Test image'}
                         width={250}
                         height={250}

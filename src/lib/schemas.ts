@@ -55,3 +55,9 @@ export const categorySchema = z.object({
         .regex(/^#[0-9A-F]{6}$/i, 'Invalid color format.')
         .default('#FFFFFF'),
 })
+
+export const contactFormSchema = z.object({
+    name: z.string().min(1, 'Name is required.'),
+    email: z.string().email('Invalid email address.'),
+    message: z.string().min(1, 'Message is required.'),
+})

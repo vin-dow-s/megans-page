@@ -7,7 +7,7 @@ export const Header = async () => {
     const isAdmin = userEmail === process.env.AUTH_ADMIN_EMAIL
 
     return (
-        <header className="my-4 flex items-center rounded-sm bg-(--color-main-purple) p-8">
+        <header className="my-4 flex items-center rounded-sm bg-(--color-main-purple) p-8 shadow-xs">
             <nav className="flex w-full items-center">
                 <Link href="/" className="bg-transparent">
                     <h1 className="signature text-2xl md:text-4xl">
@@ -18,15 +18,12 @@ export const Header = async () => {
                     {isAdmin && (
                         <Link
                             href="/admin/posts"
-                            className="main-button max-md:text-sm"
+                            className="main-link max-md:text-sm"
                         >
                             Admin
                         </Link>
                     )}
-                    <Link
-                        href="/contact"
-                        className="main-button max-md:text-sm"
-                    >
+                    <Link href="/contact" className="main-link max-md:text-sm">
                         Contact me
                     </Link>
                 </div>

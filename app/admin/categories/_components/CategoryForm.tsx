@@ -56,7 +56,9 @@ export const CreateCategoryFormWrapper = () => {
                     </div>
                 </Link>
             </div>
-            <h1 className="p-4 px-2 text-xl font-bold">Create Category</h1>
+            <h1 className="mb-4 p-4 px-2 text-4xl font-medium">
+                Create Category
+            </h1>
             <CategoryForm onSubmit={handleFormSubmit} />
         </section>
     )
@@ -98,7 +100,9 @@ export const EditCategoryFormWrapper = ({
                     </div>
                 </Link>
             </div>
-            <h1 className="p-4 px-2 text-xl font-bold">Edit Category</h1>
+            <h1 className="mb-4 p-4 px-2 text-4xl font-medium">
+                Edit Category
+            </h1>
             <CategoryForm
                 onSubmit={handleUpdateCategory}
                 categoryData={categoryData}
@@ -144,6 +148,7 @@ export const CategoryForm = ({
                                 <FormControl>
                                     <Input
                                         placeholder="Name of the category."
+                                        className="rounded-sm shadow-xs"
                                         {...field}
                                     />
                                 </FormControl>
@@ -158,7 +163,11 @@ export const CategoryForm = ({
                             <FormItem className="col-span-1">
                                 <FormLabel>Color</FormLabel>
                                 <FormControl className="cursor-pointer">
-                                    <Input type="color" {...field} />
+                                    <Input
+                                        type="color"
+                                        className="rounded-sm shadow-xs"
+                                        {...field}
+                                    />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -166,7 +175,7 @@ export const CategoryForm = ({
                     />
                 </div>
 
-                <button type="submit" className="admin-button cursor-pointer">
+                <button type="submit" className="main-button">
                     {isEditing ? 'Update' : 'Create'}
                 </button>
             </form>

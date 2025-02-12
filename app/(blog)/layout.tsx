@@ -10,29 +10,29 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL
 
 export const metadata: Metadata = {
     title: {
-        default: 'Blog Test',
-        template: `%s | Blog Test`,
+        default: `Megan's Page`,
+        template: `%s  • Megan's Page`,
     },
-    description: 'Discover high-quality posts about X.',
+    description: '',
     openGraph: {
-        title: 'Blog Test - X',
-        description: 'Discover high-quality posts about X.',
+        title: `Megan's Page - X`,
+        description: '',
         url: SITE_URL,
         type: 'website',
         images: [
             {
-                url: `${SITE_URL}/default-thumbnail.jpg`,
+                url: `${SITE_URL}/default-homepage.png`,
                 width: 1200,
                 height: 630,
-                alt: 'Blog Test - X',
+                alt: `Megan's Page - X`,
             },
         ],
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'Blog Test - X',
-        description: 'Discover high-quality posts about X.',
-        images: [`${SITE_URL}/default-thumbnail.jpg`],
+        title: `Megan's Page - X`,
+        description: '',
+        images: [`${SITE_URL}/default-homepage.png`],
     },
 }
 
@@ -44,7 +44,9 @@ const BlogLayout = ({
     return (
         <div className="text-foreground mx-auto flex min-h-screen w-full max-w-7xl flex-col bg-transparent px-4 antialiased">
             <Header />
-            <main className="mx-auto my-8 w-full grow">{children}</main>{' '}
+            <main className="mx-auto my-8 flex w-full grow flex-col">
+                {children}
+            </main>{' '}
             <Footer />
         </div>
     )

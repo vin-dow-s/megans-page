@@ -7,7 +7,7 @@ import { Metadata } from 'next'
 import { AdminSidebar } from './_components/AdminSidebar'
 
 export const metadata: Metadata = {
-    title: 'Admin Dashboard | Blog Test',
+    title: `Admin Dashboard | Megan's Page`,
     robots: 'noindex, nofollow',
 }
 

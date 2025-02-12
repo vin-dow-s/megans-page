@@ -17,7 +17,7 @@ import { PostForm } from './PostForm'
 
 // Assets
 import { ArrowLeftIcon } from 'lucide-react'
-import testImage from '../../../../public/assets/test.png'
+import defaultThumbnail from '../../../../public/assets/default-thumbnail.png'
 
 export const EditPost = ({
     postData,
@@ -32,7 +32,8 @@ export const EditPost = ({
     const router = useRouter()
     const [loading, setLoading] = useState(false)
 
-    const existingThumbnail: string = postData.thumbnail.trim() || testImage.src
+    const existingThumbnail: string =
+        postData.thumbnail.trim() || defaultThumbnail.src
 
     const handleSubmit = async (formData: PostFormValues) => {
         setLoading(true)
@@ -59,7 +60,7 @@ export const EditPost = ({
                     </div>
                 </Link>
             </div>
-            <h1 className="p-4 px-2 text-xl font-bold">Edit Post</h1>
+            <h1 className="mb-4 p-4 px-2 text-4xl font-medium">Edit Post</h1>
             <PostForm
                 onSubmit={handleSubmit}
                 postData={{ ...postData, thumbnail: existingThumbnail }}

@@ -58,9 +58,10 @@ export const AdminSidebar = () => {
                                         <Link
                                             href={item.url}
                                             className={clsx(
+                                                'font-medium text-(--color-dark-accent)',
                                                 pathname.includes(item.url)
-                                                    ? 'border-none bg-[#DDD9FF] text-(--color-dark-accent)'
-                                                    : 'text-(--color-dark-accent) hover:bg-[#F1EFFF]',
+                                                    ? 'border-none bg-[#DDD9FF]'
+                                                    : 'hover:bg-[#F1EFFF]',
                                             )}
                                         >
                                             <item.icon />
@@ -79,7 +80,7 @@ export const AdminSidebar = () => {
                     <SidebarMenuButton asChild className="py-6">
                         <Link
                             href="/"
-                            className="text-(--color-dark-accent) hover:bg-[#F1EFFF]"
+                            className="rounded-sm font-medium text-(--color-dark-accent) hover:bg-[#F1EFFF]"
                         >
                             <Home />
                             <span>Back to Blog</span>
@@ -90,7 +91,7 @@ export const AdminSidebar = () => {
                 {/* Sign Out Button */}
                 <SidebarMenuItem>
                     <SidebarMenuButton
-                        className="cursor-pointer bg-(--color-light-accent) py-6 text-red-700 hover:bg-red-100"
+                        className="cursor-pointer rounded-sm bg-(--color-light-accent) py-6 font-medium text-red-700 hover:bg-red-100"
                         onClick={() => signOut({ callbackUrl: '/' })}
                     >
                         <LogOut />

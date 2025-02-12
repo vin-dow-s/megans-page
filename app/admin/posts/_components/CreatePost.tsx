@@ -46,7 +46,7 @@ export const CreatePost = ({ categories }: { categories: Category[] }) => {
                     </div>
                 </Link>
             </div>
-            <h1 className="p-4 px-2 text-xl font-bold">Create Post</h1>
+            <h1 className="mb-4 p-4 px-2 text-4xl font-medium">Create Post</h1>
             <PostForm
                 onSubmit={handleSubmit}
                 categories={categories}

@@ -15,7 +15,7 @@ import { Post } from '@/lib/types'
 
 // Assets
 import { ArrowLeftIcon } from 'lucide-react'
-import testImage from '../../../../public/assets/test.png'
+import defaultThumbnail from '../../../../public/assets/default-thumbnail.png'
 
 type PostPreviewPageProps = {
     post: Post
@@ -64,7 +64,7 @@ const PostPreviewPage = ({ post }: PostPreviewPageProps) => {
                 </div>
                 <div className="my-4">
                     <Image
-                        src={post?.thumbnail ?? testImage}
+                        src={post?.thumbnail ?? defaultThumbnail}
                         alt={'Test Image'}
                         width={250}
                         height={250}

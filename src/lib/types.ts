@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { categorySchema, postFormSchema } from './schemas'
+import { categorySchema, contactFormSchema, postFormSchema } from './schemas'
 
 export type Category = {
     id: number
@@ -27,3 +27,4 @@ export type Post = {
 
 export type PostFormValues = z.infer<typeof postFormSchema>
 export type CategoryFormValues = z.infer<typeof categorySchema>
+export type ContactFormValues = z.infer<typeof contactFormSchema>

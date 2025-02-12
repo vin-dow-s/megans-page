@@ -9,12 +9,6 @@ import PostsGrid from './_components/PostsGrid'
 const Home = async () => {
     // TODO: check static-site generation
     // TODO: granular streaming and suspense
-    // ? Search input
-    // ? Pagination
-    // ? Grid/List layout options
-    // ? Get notified when new posts are published
-    // ? Stats and charts analytics dashboard
-
     const [postsResult, categoriesResult] = await Promise.all([
         getPublishedPosts(),
         getCategoriesWithPublishedPosts(),

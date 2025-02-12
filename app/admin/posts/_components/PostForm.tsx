@@ -100,6 +100,7 @@ export const PostForm = ({
                             <FormControl>
                                 <Input
                                     placeholder="Public title of the post."
+                                    className="rounded-sm shadow-xs"
                                     {...field}
                                 />
                             </FormControl>
@@ -133,7 +134,7 @@ export const PostForm = ({
                                             alt="Thumbnail Preview"
                                             width={200}
                                             height={250}
-                                            className="rounded-r-none object-contain"
+                                            className="rounded-r-none object-contain shadow-xs"
                                         />
                                         <div className="flex flex-col justify-center text-xs sm:text-sm">
                                             <p className="font-medium">
@@ -170,7 +171,7 @@ export const PostForm = ({
                                         name="thumbnailFile"
                                         accept="image/*"
                                         placeholder="Thumbnail image of the post."
-                                        className="cursor-pointer"
+                                        className="cursor-pointer rounded-sm shadow-xs"
                                         onChange={(e) =>
                                             handleFileChange(e, form)
                                         }
@@ -195,7 +196,7 @@ export const PostForm = ({
                                     }}
                                     value={String(field.value)}
                                 >
-                                    <SelectTrigger className="w-[180px]">
+                                    <SelectTrigger className="w-[180px] rounded-sm shadow-xs">
                                         <SelectValue placeholder="Select Category" />
                                     </SelectTrigger>
                                     <SelectContent>
@@ -223,6 +224,7 @@ export const PostForm = ({
                             <FormControl>
                                 <Input
                                     placeholder="Ex: Just open this it's juicy"
+                                    className="rounded-sm shadow-xs"
                                     {...field}
                                 />
                             </FormControl>
@@ -286,7 +288,7 @@ export const PostForm = ({
                 />
                 <button
                     type="submit"
-                    className="admin-button cursor-pointer max-sm:w-full"
+                    className="main-button w-24 max-sm:w-full"
                     disabled={isLoading}
                 >
                     {isLoading
@@ -302,7 +304,7 @@ export const PostForm = ({
                             form.reset()
                             restoreOriginalImage(form)
                         }}
-                        className="admin-button m-4 cursor-pointer border border-(--color-text-secondary) bg-white max-sm:w-full"
+                        className="main-button m-4 cursor-pointer border border-(--color-text-secondary) bg-white max-sm:w-full"
                     >
                         Reset
                     </button>

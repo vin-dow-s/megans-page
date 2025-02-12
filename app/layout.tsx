@@ -1,5 +1,6 @@
 import { Toaster } from '@/components/ui/toaster'
 import { cn } from '@/lib/utils'
+import { ReCaptchaProvider } from 'next-recaptcha-v3'
 import { ebGaramond, greatVibes, jost } from '../public/fonts/fonts'
 import './globals.css'
 
@@ -18,9 +19,17 @@ const RootLayout = ({
                 'h-full',
             )}
         >
+            <head>
+                <link rel="manifest" href="/manifest.json" />
+                <link rel="icon" href="/icons/favicon.ico" />
+            </head>
             <body>
-                {children}
-                <Toaster />
+                <ReCaptchaProvider
+                    reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+                >
+                    {children}
+                    <Toaster />
+                </ReCaptchaProvider>
             </body>
         </html>
     )

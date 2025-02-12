@@ -1,0 +1,27 @@
+{
+    "name": "Megan's Page",
+    "short_name": "Megan's Page",
+    "description": "",
+    "lang": "en",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#faf9f6",
+    "theme_color": "#ddd9ff",
+    "icons": [
+        {
+            "src": "/icons/favicon.ico",
+            "sizes": "48x48",
+            "type": "image/x-icon"
+        },
+        {
+            "src": "/icons/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/icons/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

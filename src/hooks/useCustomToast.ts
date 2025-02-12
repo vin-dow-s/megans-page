@@ -7,7 +7,7 @@ export const useCustomToast = () => {
         toast({
             description,
             className:
-                'bg-green-50 border-green-600 text-green-950 top-0 right-0 flex fixed max-w-[420px] top-4 right-4',
+                'bg-green-50 border-green-600 text-green-950 top-0 right-0 flex fixed rounded-sm shadow-xs max-w-[420px] top-4 right-4',
         })
     }
 
@@ -15,7 +15,7 @@ export const useCustomToast = () => {
         toast({
             description,
             className:
-                'bg-blue-50 border-blue-600 text-blue-950 top-0 right-0 flex fixed max-w-[420px] top-4 right-4',
+                'bg-blue-50 border-blue-600 text-blue-950 top-0 right-0 flex fixed rounded-sm shadow-xs max-w-[420px] top-4 right-4',
         })
     }
 
@@ -23,7 +23,7 @@ export const useCustomToast = () => {
         toast({
             description,
             className:
-                'bg-yellow-50 border-yellow-600 text-yellow-950 top-0 right-0 flex fixed max-w-[420px] top-4 right-4',
+                'bg-yellow-50 border-yellow-600 text-yellow-950 top-0 right-0 flex fixed rounded-sm shadow-xs max-w-[420px] top-4 right-4',
         })
     }
 
@@ -31,7 +31,7 @@ export const useCustomToast = () => {
         toast({
             description,
             className:
-                'bg-red-50 border-red-600 text-red-950 top-0 right-0 flex fixed max-w-[420px] top-4 right-4',
+                'bg-red-50 border-red-600 text-red-950 top-0 right-0 flex fixed rounded-sm shadow-xs max-w-[420px] top-4 right-4',
         })
     }
 
