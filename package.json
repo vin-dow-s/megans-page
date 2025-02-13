@@ -1,5 +1,5 @@
 {
-    "name": "blog-v2",
+    "name": "megans-page",
     "version": "0.1.0",
     "private": true,
     "scripts": {
@@ -47,7 +47,7 @@
         "@eslint/compat": "^1.2.6",
         "@eslint/js": "^9.20.0",
         "@hookform/resolvers": "^4.0.0",
-        "@types/node": "^22.13.1",
+        "@types/node": "^22.13.2",
         "@types/quill": "^2.0.14",
         "@types/react": "^19.0.8",
         "@types/react-dom": "^19.0.3",
@@ -58,7 +58,7 @@
         "eslint-plugin-react-hooks": "^5.1.0",
         "eslint-plugin-readable-tailwind": "^1.9.0",
         "eslint-plugin-tailwindcss": "^3.18.0",
-        "globals": "^15.14.0",
+        "globals": "^15.15.0",
         "prettier": "^3.5.0",
         "prettier-plugin-tailwindcss": "^0.6.11",
         "prisma": "^6.3.1",
@@ -67,5 +67,15 @@
         "typescript": "^5.7.3",
         "typescript-eslint": "^8.24.0"
     },
-    "type-check": "tsc -b"
+    "type-check": "tsc -b",
+    "pnpm": {
+        "ignoredBuiltDependencies": [
+            "@prisma/engines",
+            "sharp"
+        ],
+        "onlyBuiltDependencies": [
+            "@prisma/client",
+            "prisma"
+        ]
+    }
 }
