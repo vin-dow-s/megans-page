@@ -16,7 +16,7 @@ const RootLayout = ({
                 ebGaramond.variable,
                 jost.variable,
                 greatVibes.variable,
-                'h-full',
+                'h-dvh',
             )}
         >
             <head>
