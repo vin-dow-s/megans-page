@@ -15,24 +15,24 @@ export const metadata: Metadata = {
     },
     description: 'Welcome to my blog!',
     openGraph: {
-        title: `Megan's Page - X`,
+        title: `Megan's Page`,
         description: 'Welcome to my blog!',
         url: SITE_URL,
         type: 'website',
         images: [
             {
-                url: `${SITE_URL}/default-homepage.png`,
+                url: `${SITE_URL}/assets/default-homepage.png`,
                 width: 1200,
                 height: 630,
-                alt: `Megan's Page - X`,
+                alt: `Megan's Page`,
             },
         ],
     },
     twitter: {
         card: 'summary_large_image',
-        title: `Megan's Page - X`,
+        title: `Megan's Page`,
         description: 'Welcome to my blog!',
-        images: [`${SITE_URL}/default-homepage.png`],
+        images: [`${SITE_URL}/icons/icon-512x512.png`],
     },
 }
 
