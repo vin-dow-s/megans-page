@@ -21,7 +21,7 @@ export const metadata: Metadata = {
         type: 'website',
         images: [
             {
-                url: `${SITE_URL}/icons/icon-192x192.png`,
+                url: `${SITE_URL}/assets/default-homepage.png`,
                 width: 1200,
                 height: 630,
                 alt: `Megan's Page`,
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
         card: 'summary_large_image',
         title: `Megan's Page`,
         description: 'Welcome to my blog!',
-        images: [`${SITE_URL}/icons/icon-48x48.png`],
+        images: [`${SITE_URL}/icons/icon-192x192.png`],
     },
 }
 
