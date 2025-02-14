@@ -65,16 +65,16 @@ const PrivacyPolicyPage = () => {
                         </p>
                         <ul className="list-disc pl-5">
                             <li>
-                                <strong>Name:</strong> Your name as provided in
-                                the form.
+                                - <strong>Name:</strong> Your name as provided
+                                in the form.
                             </li>
                             <li>
-                                <strong>Email Address:</strong> Your email so we
-                                can respond.
+                                - <strong>Email Address:</strong> Your email so
+                                we can respond.
                             </li>
                             <li>
-                                <strong>Message Content:</strong> The details of
-                                your inquiry.
+                                - <strong>Message Content:</strong> The details
+                                of your inquiry.
                             </li>
                         </ul>
                         <p>
@@ -93,12 +93,13 @@ const PrivacyPolicyPage = () => {
                         </p>
                         <ul className="list-disc pl-5">
                             <li>
-                                <strong>Respond to inquiries:</strong> We use
+                                - <strong>Respond to inquiries:</strong> We use
                                 your provided details to reply to your messages.
                             </li>
                             <li>
-                                <strong>Improve our services:</strong> Feedback
-                                may be used to enhance our website and content.
+                                - <strong>Improve our services:</strong>{' '}
+                                Feedback may be used to enhance our website and
+                                content.
                             </li>
                         </ul>
                         <p>
@@ -131,15 +132,15 @@ const PrivacyPolicyPage = () => {
                         <p>However, please note:</p>
                         <ul className="list-disc pl-5">
                             <li>
-                                No method of data transmission over the Internet
-                                is 100% secure.
+                                - No method of data transmission over the
+                                Internet is 100% secure.
                             </li>
                             <li>
-                                We do <strong>not</strong> store contact form
+                                - We do <strong>not</strong> store contact form
                                 data in our database or website.
                             </li>
                             <li>
-                                If you have security concerns, you may contact
+                                - If you have security concerns, you may contact
                                 us directly via email.
                             </li>
                         </ul>

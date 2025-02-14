@@ -60,23 +60,21 @@ const TermsOfUsePage = () => {
 
                     <div className="space-y-4">
                         <h2 className="text-xl font-bold">
-                            2. Intellectual Property Rights{' '}
+                            2. Intellectual Property Rights
                         </h2>
-                        <ul className="list-disc pl-5">
-                            <li>
-                                All blog posts, articles, images, and other
-                                content published on this Website are owned by
-                                Megan's Page and protected by copyright laws.
-                            </li>
-                            <li>
-                                You may not reproduce, distribute, modify, or
-                                use content without permission.
-                            </li>
-                            <li>
-                                You may share excerpts with proper credit and a
-                                link to the original post.
-                            </li>
-                        </ul>
+                        <p>
+                            All blog posts, articles, images, and other content
+                            published on this Website are owned by Megan's Page
+                            and protected by copyright laws.
+                        </p>
+                        <p>
+                            You may not reproduce, distribute, modify, or use
+                            content without permission.
+                        </p>
+                        <p>
+                            You may share excerpts with proper credit and a link
+                            to the original post.
+                        </p>
                         <p>
                             We do not collect additional personal information
                             unless you voluntarily provide it.
@@ -84,18 +82,16 @@ const TermsOfUsePage = () => {
                     </div>
 
                     <div className="space-y-4">
-                        <h2 className="text-xl font-bold">
-                            3. Acceptable Use{' '}
-                        </h2>
+                        <h2 className="text-xl font-bold">3. Acceptable Use</h2>
                         <p>When using this Website, you agree to:</p>
                         <ul className="list-disc pl-5">
-                            <li>Use it lawfully and respectfully.</li>
+                            <li>- Use it lawfully and respectfully.</li>
                             <li>
-                                Not post spam, offensive, or harmful content.
+                                - Not post spam, offensive, or harmful content.
                             </li>
                             <li>
-                                Not attempt to hack, disrupt, or misuse the
-                                Website{' '}
+                                - Not attempt to hack, disrupt, or misuse the
+                                Website
                             </li>
                         </ul>
                     </div>
@@ -109,11 +105,11 @@ const TermsOfUsePage = () => {
                         </p>
                         <ul className="list-disc pl-5">
                             <li>
-                                <strong>Resend</strong>: Sends contact form
+                                - <strong>Resend</strong>: Sends contact form
                                 submissions via email.
                             </li>
                             <li>
-                                <strong>Google reCAPTCHA v3</strong>: Protects
+                                - <strong>Google reCAPTCHA v3</strong>: Protects
                                 the contact form from spam.
                             </li>
                         </ul>
