@@ -6,7 +6,7 @@ import Link from 'next/link'
 
 const SignInPage = () => {
     return (
-        <section className="flex min-h-screen flex-col items-center justify-center">
+        <section className="flex min-h-[100dvh] flex-col items-center justify-center">
             <h1 className="text-4xl font-bold">Sign In</h1>
             <Button
                 onClick={() => signIn('google')}

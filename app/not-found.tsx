@@ -1,10 +1,10 @@
-import Link from 'next/link'
 import Footer from '@/components/blog/Footer'
 import { Header } from '@/components/blog/Header'
+import Link from 'next/link'
 
 export default async function RoutePage() {
     return (
-        <div className="text-foreground mx-auto flex min-h-screen w-full max-w-7xl flex-col bg-transparent px-4 antialiased">
+        <div className="text-foreground mx-auto flex min-h-[100dvh] w-full max-w-7xl flex-col bg-transparent px-4 antialiased">
             <Header />
             <main className="mx-auto my-8 flex w-full grow flex-col">
                 <section className="flex flex-col items-center justify-center">
