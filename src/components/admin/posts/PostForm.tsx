@@ -231,8 +231,8 @@ export const PostForm = ({
                                 />
                             </FormControl>
                             <FormDescription>
-                                Short description of the post for the card
-                                preview.
+                                Short description used for the preview of the
+                                post on Google or when sharing the page.
                             </FormDescription>
                             <FormMessage />
                         </FormItem>
@@ -290,7 +290,7 @@ export const PostForm = ({
                 />
                 <button
                     type="submit"
-                    className="main-button w-24 max-sm:w-full"
+                    className="main-button max-sm:w-full"
                     disabled={isLoading}
                 >
                     {buttonText}

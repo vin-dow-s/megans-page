@@ -38,7 +38,8 @@ const CategoriesTableDropdown = ({
     category,
     onCategoryDelete,
 }: CategoriesTableDropdownProps) => {
-    const { displaySuccessToast, displayErrorToast } = useCustomToast()
+    const { displaySuccessToast, displayWarningToast, displayErrorToast } =
+        useCustomToast()
     const [isDialogOpen, setIsDialogOpen] = useState(false)
 
     const handleDeleteCategory = async () => {
@@ -46,9 +47,18 @@ const CategoriesTableDropdown = ({
             const result = await deleteCategory(category.id)
 
             if (!isActionSuccessful(result)) {
+                if (
+                    result?.serverError ==
+                    'Category has associated posts and cannot be deleted.'
+                ) {
+                    displayWarningToast(result?.serverError)
+                    setIsDialogOpen(false)
+                    return
+                }
                 displayErrorToast(
                     result?.serverError ?? 'Failed to delete category.',
                 )
+                setIsDialogOpen(false)
                 return
             }
 
