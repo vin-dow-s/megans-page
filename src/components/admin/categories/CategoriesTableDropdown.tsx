@@ -46,7 +46,6 @@ const CategoriesTableDropdown = ({
             const result = await deleteCategory(category.id)
 
             if (!isActionSuccessful(result)) {
-                console.error('Error deleting category:', result?.serverError)
                 displayErrorToast(
                     result?.serverError ?? 'Failed to delete category.',
                 )
@@ -56,8 +55,6 @@ const CategoriesTableDropdown = ({
             onCategoryDelete(category.id)
             displaySuccessToast(`Category successfully deleted.`)
         } catch (error) {
-            console.error('Error deleting category:', error)
-
             const errorMessage =
                 (error as Error)?.message ?? 'Failed to delete the category.'
 

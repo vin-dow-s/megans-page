@@ -26,20 +26,17 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
-} from '../../../../src/components/ui/form'
-import { Input } from '../../../../src/components/ui/input'
-import { Label } from '../../../../src/components/ui/label'
-import {
-    RadioGroup,
-    RadioGroupItem,
-} from '../../../../src/components/ui/radio-group'
+} from '../../ui/form'
+import { Input } from '../../ui/input'
+import { Label } from '../../ui/label'
+import { RadioGroup, RadioGroupItem } from '../../ui/radio-group'
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from '../../../../src/components/ui/select'
+} from '../../ui/select'
 
 type PostFormProps = {
     onSubmit: (formData: PostFormValues) => void
@@ -84,6 +81,11 @@ export const PostForm = ({
     const handleChange = (value: string) => {
         form.setValue('content', value)
     }
+
+    let buttonText = ''
+
+    if (isLoading) buttonText = isEditing ? 'Updating...' : 'Creating...'
+    else buttonText = isEditing ? 'Update' : 'Create'
 
     return (
         <Form {...form}>
@@ -291,11 +293,7 @@ export const PostForm = ({
                     className="main-button w-24 max-sm:w-full"
                     disabled={isLoading}
                 >
-                    {isLoading
-                        ? 'Processing...'
-                        : isEditing
-                          ? 'Update'
-                          : 'Create'}
+                    {buttonText}
                 </button>
                 {isEditing && (
                     <button

@@ -3,20 +3,20 @@ import { Metadata } from 'next'
 import '../globals.css'
 
 // Components
-import { Footer } from './_components/Footer'
-import { Header } from './_components/Header'
+import { Footer } from '@/components/blog/Footer'
+import { Header } from '@/components/blog/Header'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL
 
 export const metadata: Metadata = {
     title: {
         default: `Megan's Page`,
-        template: `%s  • Megan's Page`,
+        template: `%s • Megan's Page`,
     },
-    description: '',
+    description: 'Welcome to my blog!',
     openGraph: {
         title: `Megan's Page - X`,
-        description: '',
+        description: 'Welcome to my blog!',
         url: SITE_URL,
         type: 'website',
         images: [
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     twitter: {
         card: 'summary_large_image',
         title: `Megan's Page - X`,
-        description: '',
+        description: 'Welcome to my blog!',
         images: [`${SITE_URL}/default-homepage.png`],
     },
 }

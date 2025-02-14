@@ -29,9 +29,9 @@ export const CreatePost = ({ categories }: { categories: Category[] }) => {
             displaySuccessToast('Post successfully created.')
             router.push('/admin/posts')
         } catch (error) {
-            displayErrorToast(
-                error instanceof Error ? error.message : 'An error occurred.',
-            )
+            const errorMessage =
+                (error as Error)?.message ?? 'Failed to create the post.'
+            displayErrorToast(errorMessage)
         } finally {
             setLoading(false)
         }

@@ -3,8 +3,8 @@ import { getCategoriesWithPublishedPosts } from '@/lib/categories'
 import { getPublishedPosts } from '@/lib/posts'
 
 // Components
-import CategoriesList from './_components/CategoriesList'
-import PostsGrid from './_components/PostsGrid'
+import CategoriesList from '@/components/blog/CategoriesList'
+import PostsGrid from '@/components/blog/PostsGrid'
 
 const Home = async () => {
     // TODO: check static-site generation

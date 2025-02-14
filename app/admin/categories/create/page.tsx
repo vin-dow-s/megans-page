@@ -1,4 +1,4 @@
-import { CreateCategoryFormWrapper } from '../_components/CategoryForm'
+import { CreateCategoryFormWrapper } from '@/components/admin/categories/CategoryForm'
 
 const CreateCategoryPage = async () => {
     return <CreateCategoryFormWrapper />

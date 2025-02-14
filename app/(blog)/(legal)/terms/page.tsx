@@ -1,6 +1,37 @@
 import { ArrowLeftIcon } from 'lucide-react'
 import Link from 'next/link'
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL
+
+export const metadata = {
+    title: 'Terms of Use',
+    description:
+        "These Terms of Use outlines the rules and regulations for using Megan's Page.",
+    openGraph: {
+        title: 'Terms of Use',
+        description:
+            "These Terms of Use outlines the rules and regulations for using Megan's Page.",
+        url: `${SITE_URL}/terms`,
+        type: 'website',
+        images: [
+            {
+                url: '/default-thumbnail.png',
+                width: 1200,
+                height: 630,
+                alt: 'Terms of Use',
+            },
+        ],
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'Terms of Use',
+        description:
+            "These Terms of Use outlines the rules and regulations for using Megan's Page.",
+        images: ['/default-thumbnail.png'],
+    },
+    robots: 'noindex, nofollow',
+}
+
 const TermsOfUsePage = () => {
     return (
         <>

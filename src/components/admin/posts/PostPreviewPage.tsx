@@ -65,7 +65,7 @@ const PostPreviewPage = ({ post }: PostPreviewPageProps) => {
                 <div className="my-4">
                     <Image
                         src={post?.thumbnail ?? defaultThumbnail}
-                        alt={'Test Image'}
+                        alt={'Post thumbnail'}
                         width={250}
                         height={250}
                     />

@@ -6,7 +6,7 @@ import { getCategories } from '@/lib/categories'
 import { getPostById } from '@/lib/posts'
 
 // Components
-import { EditPost } from '../../_components/EditPost'
+import { EditPost } from '@/components/admin/posts/EditPost'
 
 const EditPostPage = async ({
     params,

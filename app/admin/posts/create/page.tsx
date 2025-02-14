@@ -5,7 +5,7 @@ import { notFound, redirect } from 'next/navigation'
 import { getCategories } from '@/lib/categories'
 
 // Components
-import { CreatePost } from '../_components/CreatePost'
+import { CreatePost } from '@/components/admin/posts/CreatePost'
 
 const CreatePostPage = async () => {
     const categoriesResult = await getCategories()

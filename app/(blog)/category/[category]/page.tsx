@@ -10,8 +10,8 @@ import { getCategoriesWithPublishedPosts } from '@/lib/categories'
 import { getPublishedPostsByCategory } from '@/lib/posts'
 
 // Components
-import CategoriesList from '../../_components/CategoriesList'
-import PostsGrid from '../../_components/PostsGrid'
+import CategoriesList from '@/components/blog/CategoriesList'
+import PostsGrid from '@/components/blog/PostsGrid'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL
 

@@ -1,6 +1,36 @@
 import { ArrowLeftIcon } from 'lucide-react'
 import Link from 'next/link'
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL
+
+export const metadata = {
+    title: 'Privacy Policy',
+    description:
+        "This Privacy Policy outlines how we collect, use, and protect your personal information when you visit Megan's Page.",
+    openGraph: {
+        title: 'Contact',
+        description: 'Feel free to send me a message!',
+        url: `${SITE_URL}/privacy-policy`,
+        type: 'website',
+        images: [
+            {
+                url: '/default-thumbnail.png',
+                width: 1200,
+                height: 630,
+                alt: 'Privacy Policy',
+            },
+        ],
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'Privacy Policy',
+        description:
+            "This Privacy Policy outlines how we collect, use, and protect your personal information when you visit Megan's Page.",
+        images: ['/default-thumbnail.png'],
+    },
+    robots: 'noindex, nofollow',
+}
+
 const PrivacyPolicyPage = () => {
     return (
         <>

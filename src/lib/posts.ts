@@ -163,10 +163,8 @@ export const createPost = actionClient
                 where: { title: parsedInput.title },
             })
 
-            if (existingPost) {
-                console.log('Post with this slug already exists.')
+            if (existingPost)
                 throw new ActionError('A post with this title already exists.')
-            }
 
             const createdPost = await prisma.post.create({
                 data: {
@@ -182,6 +180,7 @@ export const createPost = actionClient
             return createdPost
         } catch (error) {
             console.error('Error in createPost:', error)
+
             throw new ActionError(
                 error instanceof Error
                     ? error.message

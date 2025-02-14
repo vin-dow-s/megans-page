@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { getCategories } from '@/lib/categories'
 
 // Components
-import CategoriesTable from './_components/CategoriesTable'
+import CategoriesTable from '@/components/admin/categories/CategoriesTable'
 
 const CategoriesPage = async () => {
     const categoriesResult = await getCategories()
@@ -15,8 +15,8 @@ const CategoriesPage = async () => {
     const categories = categoriesResult?.data || []
 
     return (
-        <section className="mx-4 rounded-sm border-none bg-white px-4 shadow-xs">
-            <nav className="flex items-center justify-between p-6 px-2 pb-12">
+        <section className="mx-4 rounded-sm border-none bg-white p-6 shadow-xs">
+            <nav className="mb-12 flex items-center justify-between">
                 <h2 className="text-4xl font-medium">Categories</h2>
                 <Link
                     href="/admin/categories/create"

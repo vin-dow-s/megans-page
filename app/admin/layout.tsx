@@ -4,10 +4,10 @@ import '../globals.css'
 // Components
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
 import { Metadata } from 'next'
-import { AdminSidebar } from './_components/AdminSidebar'
+import { AdminSidebar } from '@/components/admin/AdminSidebar'
 
 export const metadata: Metadata = {
-    title: `Admin Dashboard | Megan's Page`,
+    title: `Admin Dashboard • Megan's Page`,
     robots: 'noindex, nofollow',
 }
 

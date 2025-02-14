@@ -56,10 +56,6 @@ const PostsTableDropdown = ({
             })
 
             if (!isActionSuccessful(result)) {
-                console.error(
-                    'Error updating post status:',
-                    result?.serverError,
-                )
                 displayErrorToast(
                     result?.serverError ?? 'Failed to update post status.',
                 )
@@ -76,7 +72,6 @@ const PostsTableDropdown = ({
                 `Post successfully ${post.isPublished ? 'unpublished' : 'published'}.`,
             )
         } catch (error) {
-            console.error('Error updating post status:', error)
             displayErrorToast(`Failed to update the post status.`)
         }
     }
@@ -86,7 +81,6 @@ const PostsTableDropdown = ({
             const result = await deletePost(post.id)
 
             if (!isActionSuccessful(result)) {
-                console.error('Error deleting post:', result?.serverError)
                 displayErrorToast(
                     result?.serverError ?? 'Failed to delete post.',
                 )
@@ -97,7 +91,6 @@ const PostsTableDropdown = ({
 
             displaySuccessToast(`Post successfully deleted.`)
         } catch (error) {
-            console.error('Error deleting post:', error)
             displayErrorToast(`Failed to delete the post.`)
         }
     }

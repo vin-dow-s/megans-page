@@ -23,8 +23,8 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
-} from '../../../../src/components/ui/form'
-import { Input } from '../../../../src/components/ui/input'
+} from '../../ui/form'
+import { Input } from '../../ui/input'
 
 export const CreateCategoryFormWrapper = () => {
     const router = useRouter()
@@ -32,17 +32,15 @@ export const CreateCategoryFormWrapper = () => {
 
     const handleFormSubmit = async (formData: CategoryFormValues) => {
         try {
-            await createCategory(formData)
-
+            await createCategory({
+                name: formData.name.trim(),
+                color: formData.color,
+            })
             displaySuccessToast('Category successfully created.')
-
             router.push('/admin/categories')
         } catch (error) {
-            console.error('Error creating category:', error)
-
             const errorMessage =
                 (error as Error)?.message ?? 'Failed to create the category.'
-
             displayErrorToast(errorMessage)
         }
     }
@@ -78,7 +76,7 @@ export const EditCategoryFormWrapper = ({
         try {
             await updateCategory({
                 id: categoryData.id,
-                name: formData.name,
+                name: formData.name.trim(),
                 color: formData.color,
             })
 
@@ -86,7 +84,6 @@ export const EditCategoryFormWrapper = ({
 
             router.push('/admin/categories')
         } catch (error) {
-            console.error('Error updating category:', error)
             displayErrorToast('Failed to update the category.')
         }
     }

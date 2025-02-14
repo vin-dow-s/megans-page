@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import Footer from './(blog)/_components/Footer'
-import { Header } from './(blog)/_components/Header'
+import Footer from '@/components/blog/Footer'
+import { Header } from '@/components/blog/Header'
 
 export default async function RoutePage() {
     return (

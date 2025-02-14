@@ -96,22 +96,25 @@ const PostPage = async ({ params, searchParams }: Props) => {
                             </span>
                         </div>
                         <div className="tracking-tight">
-                            <h2 className="text-4xl">{post.title}</h2>
+                            <h2 className="text-2xl sm:text-3xl md:text-4xl">
+                                {post.title}
+                            </h2>
                         </div>
                     </div>
                 </div>
                 <div className="my-4">
                     <Image
-                        src={post.thumbnail ?? defaultThumbnail}
-                        alt={'Test image'}
+                        src={post.thumbnail || defaultThumbnail}
+                        alt={'Post thumbnail'}
                         width={250}
                         height={250}
+                        className="max-[420px]:w-full"
                     />
-                    <div className="my-8 italic">{post?.description}</div>
-                    {post?.content && (
-                        <div className="prose">{parse(post?.content)}</div>
-                    )}
                 </div>
+                <div className="my-8 italic">{post?.description}</div>
+                {post?.content && (
+                    <div className="prose">{parse(post?.content)}</div>
+                )}
             </section>
         </>
     )

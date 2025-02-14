@@ -48,17 +48,19 @@ export const updateExistingPost = async (
         newThumbnailUrl = await uploadFile(formData.thumbnailFile)
     }
 
+    const updateData = {
+        ...formData,
+        content: sanitizedContent,
+        ...(formData.thumbnailFile && { thumbnail: newThumbnailUrl }),
+    }
+
     const result = await updatePost({
         id: postId,
-        data: {
-            ...formData,
-            content: sanitizedContent,
-            thumbnail: newThumbnailUrl,
-        },
+        data: updateData,
     })
 
     if (!isActionSuccessful(result))
         throw new Error(result?.serverError ?? 'Failed to update post.')
 
-    if (oldThumbnail) await deleteFile(oldThumbnail)
+    if (formData.thumbnailFile && oldThumbnail) await deleteFile(oldThumbnail)
 }

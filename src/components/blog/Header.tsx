@@ -10,7 +10,7 @@ export const Header = async () => {
         <header className="my-4 flex items-center rounded-sm bg-(--color-main-purple) p-4 shadow-xs sm:p-8">
             <nav className="flex w-full items-center">
                 <Link href="/" className="bg-transparent">
-                    <h1 className="signature text-3xl md:text-4xl">
+                    <h1 className="signature text-3xl max-[370px]:text-2xl sm:text-4xl">
                         Megan's Page
                     </h1>
                 </Link>
