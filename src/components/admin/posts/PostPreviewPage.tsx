@@ -15,7 +15,7 @@ import { Post } from '@/lib/types'
 
 // Assets
 import { ArrowLeftIcon } from 'lucide-react'
-import defaultThumbnail from '../../../../public/assets/default-thumbnail.png'
+import defaultThumbnail from '../../../../public/assets/default-thumbnail.webp'
 
 type PostPreviewPageProps = {
     post: Post

@@ -113,8 +113,11 @@
     }
 
     body {
-        background-image: url('/assets/background.png');
-        background-size: 440px;
+        background-image: image-set(
+            url('/assets/background.avif') type('image/avif'),
+            url('/assets/background.webp') type('image/webp'),
+            url('/assets/background.png') type('image/png')
+        );
         background-repeat: repeat;
         background-attachment: fixed;
         background-color: var(--color-background);

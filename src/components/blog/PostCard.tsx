@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/card'
 
 // Assets
-import defaultThumbnail from '../../../public/assets/default-thumbnail.png'
+import defaultThumbnail from '../../../public/assets/default-thumbnail.webp'
 
 export const PostCard = ({ post }: { post: Post }) => {
     return (

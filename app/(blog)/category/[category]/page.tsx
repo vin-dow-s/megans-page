@@ -63,7 +63,7 @@ export const generateMetadata = async ({
                           {
                               url:
                                   posts[0].thumbnail ??
-                                  '/default-thumbnail.png',
+                                  '/assets/default-thumbnail.avif',
                               width: 1200,
                               height: 630,
                               alt: `Category: ${category}`,

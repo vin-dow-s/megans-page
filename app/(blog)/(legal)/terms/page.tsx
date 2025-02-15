@@ -15,7 +15,13 @@ export const metadata = {
         type: 'website',
         images: [
             {
-                url: '/default-thumbnail.png',
+                url: '/assets/default-homepage.avif',
+                width: 1200,
+                height: 630,
+                alt: 'Terms of Use',
+            },
+            {
+                url: '/assets/default-homepage.webp',
                 width: 1200,
                 height: 630,
                 alt: 'Terms of Use',
@@ -27,7 +33,10 @@ export const metadata = {
         title: 'Terms of Use',
         description:
             "These Terms of Use outlines the rules and regulations for using Megan's Page.",
-        images: ['/default-thumbnail.png'],
+        images: [
+            '/assets/default-homepage.avif',
+            '/assets/default-homepage.webp',
+        ],
     },
     robots: 'noindex, nofollow',
 }

@@ -14,7 +14,13 @@ export const metadata = {
         type: 'website',
         images: [
             {
-                url: '/default-thumbnail.png',
+                url: '/assets/default-homepage.avif',
+                width: 1200,
+                height: 630,
+                alt: 'Privacy Policy',
+            },
+            {
+                url: '/assets/default-homepage.webp',
                 width: 1200,
                 height: 630,
                 alt: 'Privacy Policy',
@@ -26,7 +32,10 @@ export const metadata = {
         title: 'Privacy Policy',
         description:
             "This Privacy Policy outlines how we collect, use, and protect your personal information when you visit Megan's Page.",
-        images: ['/default-thumbnail.png'],
+        images: [
+            '/assets/default-homepage.avif',
+            '/assets/default-homepage.webp',
+        ],
     },
     robots: 'noindex, nofollow',
 }

@@ -17,7 +17,7 @@ import { PostForm } from './PostForm'
 
 // Assets
 import { ArrowLeftIcon } from 'lucide-react'
-import defaultThumbnail from '../../../../public/assets/default-thumbnail.png'
+import defaultThumbnail from '../../../../public/assets/default-thumbnail.webp'
 
 export const EditPost = ({
     postData,

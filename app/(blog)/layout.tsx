@@ -21,7 +21,13 @@ export const metadata: Metadata = {
         type: 'website',
         images: [
             {
-                url: `${SITE_URL}/assets/default-homepage.png`,
+                url: `${SITE_URL}/assets/default-homepage.avif`,
+                width: 1200,
+                height: 630,
+                alt: `Megan's Page`,
+            },
+            {
+                url: `${SITE_URL}/assets/default-homepage.webp`,
                 width: 1200,
                 height: 630,
                 alt: `Megan's Page`,
@@ -32,7 +38,10 @@ export const metadata: Metadata = {
         card: 'summary_large_image',
         title: `Megan's Page`,
         description: 'Welcome to my blog!',
-        images: [`${SITE_URL}/icons/icon-192x192.png`],
+        images: [
+            `${SITE_URL}/icons/icon-192x192.webp`,
+            `${SITE_URL}/icons/icon-192x192.png`,
+        ],
     },
 }
 

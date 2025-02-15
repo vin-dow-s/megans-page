@@ -10,7 +10,7 @@ import { getPublishedPostBySlug } from '@/lib/posts'
 
 // Assets
 import { ArrowLeftIcon } from 'lucide-react'
-import defaultThumbnail from '../../../../public/assets/default-thumbnail.png'
+import defaultThumbnail from '../../../../public/assets/default-thumbnail.webp'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL
 
@@ -44,7 +44,13 @@ export const generateMetadata = async ({
             type: 'article',
             images: [
                 {
-                    url: post.thumbnail ?? '/default-thumbnail.png',
+                    url: post.thumbnail ?? '/assets/default-thumbnail.avif',
+                    width: 1200,
+                    height: 630,
+                    alt: post.title,
+                },
+                {
+                    url: post.thumbnail ?? '/assets/default-thumbnail.webp',
                     width: 1200,
                     height: 630,
                     alt: post.title,
@@ -55,7 +61,7 @@ export const generateMetadata = async ({
             card: 'summary_large_image',
             title: post.title,
             description: post.description,
-            images: [post.thumbnail ?? '/default-thumbnail.png'],
+            images: [post.thumbnail ?? '/assets/default-thumbnail.webp'],
         },
     }
 }

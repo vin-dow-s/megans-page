@@ -14,7 +14,13 @@ export const metadata = {
         type: 'website',
         images: [
             {
-                url: '/default-thumbnail.png',
+                url: '/assets/default-homepage.avif',
+                width: 1200,
+                height: 630,
+                alt: 'Contact',
+            },
+            {
+                url: '/assets/default-homepage.webp',
                 width: 1200,
                 height: 630,
                 alt: 'Contact',
@@ -25,7 +31,10 @@ export const metadata = {
         card: 'summary_large_image',
         title: 'Contact',
         description: 'Feel free to send me a message!',
-        images: ['/default-thumbnail.png'],
+        images: [
+            '/assets/default-homepage.avif',
+            '/assets/default-homepage.webp',
+        ],
     },
 }
 
