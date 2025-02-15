@@ -4,11 +4,6 @@ import { Button } from '@/components/ui/button'
 import { signIn } from 'next-auth/react'
 import Link from 'next/link'
 
-export const metadata = {
-    title: `Sign In • Megan's Page`,
-    robots: 'noindex, nofollow',
-}
-
 const SignInPage = () => {
     return (
         <section className="flex min-h-[100dvh] flex-col items-center justify-center">
