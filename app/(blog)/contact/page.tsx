@@ -1,6 +1,6 @@
+import { ContactForm } from '@/components/blog/ContactForm'
 import { ArrowLeftIcon } from 'lucide-react'
 import Link from 'next/link'
-import { ContactForm } from '@/components/blog/ContactForm'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL
 

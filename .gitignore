@@ -37,5 +37,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# Text files
-*.txt
+# Markdown files
+*.md
