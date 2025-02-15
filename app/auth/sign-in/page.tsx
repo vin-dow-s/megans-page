@@ -1,11 +1,10 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { Metadata } from 'next'
 import { signIn } from 'next-auth/react'
 import Link from 'next/link'
 
-export const metadata: Metadata = {
+export const metadata = {
     title: `Sign In • Megan's Page`,
     robots: 'noindex, nofollow',
 }
