@@ -60,7 +60,7 @@ const PostsTable = ({ posts }: PostsTableProps) => {
 
     return (
         <Table>
-            <TableHeader className="text-(--color-dark-accent)">
+            <TableHeader className="text-(--color-dark-purple)">
                 <TableRow>
                     <TableHead className="w-10">#</TableHead>
                     <TableHead className="w-80">Title</TableHead>

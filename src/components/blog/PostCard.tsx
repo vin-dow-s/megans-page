@@ -18,7 +18,7 @@ import defaultThumbnail from '../../../public/assets/default-thumbnail.webp'
 
 export const PostCard = ({ post }: { post: Post }) => {
     return (
-        <Card className="group flex flex-col justify-between rounded-sm border-none bg-white p-6 shadow-xs transition duration-100 ease-in-out hover:bg-(--color-hover-grey) lg:aspect-square">
+        <Card className="group flex flex-col justify-between rounded-sm border-none bg-white p-6 shadow-xs transition duration-100 ease-in-out hover:bg-(--color-light-accent) lg:aspect-square">
             <CardHeader className="p-0">
                 <div className="flex flex-col gap-2">
                     <p className="text-xs font-light">

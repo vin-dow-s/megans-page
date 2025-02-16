@@ -10,7 +10,7 @@ const SignInPage = () => {
             <h1 className="text-4xl font-bold">Sign In</h1>
             <Button
                 onClick={() => signIn('google')}
-                className="mt-4 mb-8 cursor-pointer gap-8 rounded-sm bg-(--color-strong-purple) p-6 text-lg text-white hover:bg-(--color-dark-accent)"
+                className="mt-4 mb-8 cursor-pointer gap-8 rounded-sm bg-(--color-strong-purple) p-6 text-lg text-white hover:bg-(--color-dark-purple)"
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"

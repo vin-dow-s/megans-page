@@ -58,10 +58,10 @@ export const AdminSidebar = () => {
                                         <Link
                                             href={item.url}
                                             className={clsx(
-                                                'font-medium text-(--color-dark-accent)',
+                                                'font-medium text-(--color-dark-purple)',
                                                 pathname.includes(item.url)
-                                                    ? 'border-none bg-[#DDD9FF]'
-                                                    : 'hover:bg-[#F1EFFF]',
+                                                    ? 'border-none bg-(--color-main-purple)'
+                                                    : 'hover:bg-(--color-hover-purple)',
                                             )}
                                         >
                                             <item.icon />
@@ -80,7 +80,7 @@ export const AdminSidebar = () => {
                     <SidebarMenuButton asChild className="py-6">
                         <Link
                             href="/"
-                            className="rounded-sm font-medium text-(--color-dark-accent) hover:bg-[#F1EFFF]"
+                            className="rounded-sm font-medium text-(--color-dark-purple) hover:bg-(--color-hover-purple)"
                         >
                             <Home />
                             <span>Back to Blog</span>
