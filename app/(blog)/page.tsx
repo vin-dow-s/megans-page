@@ -6,8 +6,9 @@ import { getPublishedPosts } from '@/lib/posts'
 import CategoriesList from '@/components/blog/CategoriesList'
 import PostsGrid from '@/components/blog/PostsGrid'
 
+export const dynamic = 'force-static'
+
 const Home = async () => {
-    // TODO: granular streaming and suspense
     const [postsResult, categoriesResult] = await Promise.all([
         getPublishedPosts(),
         getCategoriesWithPublishedPosts(),
