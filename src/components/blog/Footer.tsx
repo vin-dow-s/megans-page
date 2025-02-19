@@ -7,7 +7,7 @@ export const Footer = () => {
                 <p className="mb-2">
                     &copy; {new Date().getFullYear()} Megan's Page.{' '}
                     <a
-                        href="mailto:contact@vindows.dev"
+                        href="mailto:vincent@vindows.dev"
                         className="border-none bg-transparent bg-none font-normal hover:underline"
                     >
                         Developed by Vincent S.
