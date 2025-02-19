@@ -113,18 +113,23 @@
 
     body {
         background-image: url('/assets/background.png');
-
-        background-image: image-set(
-            url('/assets/background.avif') type('image/avif'),
-            url('/assets/background.webp') type('image/webp'),
-            url('/assets/background.png') type('image/png')
-        );
-
         background-repeat: repeat;
         background-attachment: fixed;
         background-color: var(--color-background);
         color: var(--color-text-main);
         font-family: var(--font-primary), sans-serif;
+    }
+
+    @supports (background-image: url('data:image/avif;base64,UklGRg==')) {
+        body {
+            background-image: url('/assets/background.avif');
+        }
+    }
+
+    @supports (background-image: url('data:image/webp;base64,UklGRg==')) {
+        body {
+            background-image: url('/assets/background.webp');
+        }
     }
 
     li {
