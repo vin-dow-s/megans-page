@@ -6,13 +6,23 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 // Actions
-import { getPublishedPostBySlug } from '@/lib/posts'
+import { getPublishedPostBySlug, getPublishedPostSlugs } from '@/lib/posts'
 
 // Assets
 import { ArrowLeftIcon } from 'lucide-react'
 import defaultThumbnail from '../../../../public/assets/default-thumbnail.webp'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL
+
+export const generateStaticParams = async () => {
+    const postsSlugsResult = await getPublishedPostSlugs()
+
+    const postsSlugs = postsSlugsResult?.data || []
+
+    return postsSlugs.map((postSlug) => ({
+        slug: postSlug.slug,
+    }))
+}
 
 type Props = {
     params: Promise<{ slug: string }>

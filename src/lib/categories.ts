@@ -1,7 +1,7 @@
 'use server'
 
 import { prisma } from '@/lib/prisma'
-import { cache } from 'react'
+import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 import { requireAdmin } from './check-auth'
 import { actionClient, ActionError } from './safe-action'
@@ -10,66 +10,59 @@ import { categorySchema } from './schemas'
 /*
  * Public actions
  */
-export const getCategoriesWithPublishedPosts = cache(
-    actionClient.action(async () => {
-        try {
-            return await prisma.category.findMany({
-                where: {
-                    Posts: {
-                        some: {
-                            isPublished: true,
-                        },
+export const getCategoriesWithPublishedPosts = actionClient.action(async () => {
+    try {
+        return await prisma.category.findMany({
+            where: {
+                Posts: {
+                    some: {
+                        isPublished: true,
                     },
                 },
-                select: {
-                    id: true,
-                    name: true,
-                    color: true,
-                    _count: {
-                        select: { Posts: true },
-                    },
+            },
+            select: {
+                id: true,
+                name: true,
+                color: true,
+                _count: {
+                    select: { Posts: true },
                 },
-            })
-        } catch (error) {
-            console.error(
-                'Error fetching categories with published posts:',
-                error,
-            )
-            throw new ActionError(
-                error instanceof Error
-                    ? error.message
-                    : 'Failed to get categories with published posts.',
-            )
-        }
-    }),
-)
+            },
+        })
+    } catch (error) {
+        console.error('Error fetching categories with published posts:', error)
+        throw new ActionError(
+            error instanceof Error
+                ? error.message
+                : 'Failed to get categories with published posts.',
+        )
+    }
+})
 
 /*
  * Admin actions
  */
-export const getCategories = cache(
-    actionClient.action(async () => {
-        try {
-            return await prisma.category.findMany({
-                select: {
-                    id: true,
-                    name: true,
-                    color: true,
-                    _count: {
-                        select: { Posts: true },
-                    },
+export const getCategories = actionClient.action(async () => {
+    try {
+        return await prisma.category.findMany({
+            select: {
+                id: true,
+                name: true,
+                color: true,
+                _count: {
+                    select: { Posts: true },
                 },
-            })
-        } catch (error) {
-            console.error('Error fetching categories:', error)
-            throw new ActionError(
-                error instanceof Error
-                    ? error.message
-                    : 'Failed to get categories.',
-            )
-        }
-    }),
-)
+            },
+        })
+    } catch (error) {
+        console.error('Error fetching categories:', error)
+        throw new ActionError(
+            error instanceof Error
+                ? error.message
+                : 'Failed to get categories.',
+        )
+    }
+})
 
 export const getCategoryById = actionClient
     .schema(z.number())
@@ -114,9 +107,14 @@ export const createCategory = actionClient
             if (existingCategory)
                 throw new ActionError('Category already exists.')
 
-            return await prisma.category.create({
+            const newCategory = await prisma.category.create({
                 data: { name, color },
             })
+
+            revalidatePath('/')
+            revalidatePath(`/category/${newCategory.name}`)
+
+            return newCategory
         } catch (error) {
             console.error('Error creating category:', error)
 
@@ -136,7 +134,15 @@ export const updateCategory = actionClient
         const { id, ...data } = parsedInput
 
         try {
-            return await prisma.category.update({ where: { id }, data })
+            const updatedCategory = await prisma.category.update({
+                where: { id },
+                data,
+            })
+
+            revalidatePath('/')
+            revalidatePath(`/category/${updatedCategory.name}`)
+
+            return updatedCategory
         } catch (error) {
             console.error(`Error updating category with id ${id}:`, error)
             throw new ActionError(
@@ -168,7 +174,10 @@ export const deleteCategory = actionClient
                 )
             }
 
-            return await prisma.category.delete({ where: { id } })
+            await prisma.category.delete({ where: { id } })
+
+            revalidatePath('/')
+            revalidatePath(`/category/${category.name}`)
         } catch (error) {
             console.error(`Error deleting category with id ${id}:`, error)
 

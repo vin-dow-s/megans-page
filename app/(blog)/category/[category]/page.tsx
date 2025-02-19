@@ -15,7 +15,6 @@ import PostsGrid from '@/components/blog/PostsGrid'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL
 
-// Generate static params for all categories
 export const generateStaticParams = async () => {
     const categoriesResult = await getCategoriesWithPublishedPosts()
     const categories = categoriesResult?.data || []
@@ -107,7 +106,5 @@ const FilteredPostsPage = async ({
         </>
     )
 }
-
-export const revalidate = 3600
 
 export default FilteredPostsPage

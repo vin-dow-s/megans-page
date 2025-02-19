@@ -16,20 +16,44 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const categories = categoriesResult?.data || []
 
     // Static pages
-    const staticRoutes = ['', '/contact'].map((route) => ({
-        url: `${baseUrl}${route}`,
-        lastModified: new Date().toISOString(),
-    }))
+    const latestUpdate =
+        posts.length > 0
+            ? new Date(
+                  Math.max(
+                      ...posts.map((post) =>
+                          new Date(post.updatedAt).getTime(),
+                      ),
+                  ),
+              ).toISOString()
+            : new Date().toISOString()
+
+    const staticRoutes = [
+        { url: `${baseUrl}/`, lastModified: latestUpdate },
+        {
+            url: `${baseUrl}/contact`,
+            lastModified: new Date('2025-02-12').toISOString(),
+        },
+        {
+            url: `${baseUrl}/terms`,
+            lastModified: new Date('2025-02-12').toISOString(),
+        },
+        {
+            url: `${baseUrl}/privacy-policy`,
+            lastModified: new Date('2025-02-12').toISOString(),
+        },
+    ]
 
     // Dynamic post pages
     const postRoutes = posts.map((post) => ({
         url: `${baseUrl}/post/${post.slug}`,
-        lastModified: post.publishedAt || new Date().toISOString(),
+        lastModified: post.updatedAt
+            ? new Date(post.updatedAt).toISOString()
+            : new Date().toISOString(),
     }))
 
     // Dynamic category pages
     const categoryRoutes = categories.map((category) => ({
-        url: `${baseUrl}/category/${category.name.toLowerCase()}`,
+        url: `${baseUrl}/category/${encodeURIComponent(category.name.toLowerCase())}`,
         lastModified: new Date().toISOString(),
     }))
 

@@ -7,7 +7,6 @@ import CategoriesList from '@/components/blog/CategoriesList'
 import PostsGrid from '@/components/blog/PostsGrid'
 
 const Home = async () => {
-    // TODO: check static-site generation
     // TODO: granular streaming and suspense
     const [postsResult, categoriesResult] = await Promise.all([
         getPublishedPosts(),
@@ -38,7 +37,5 @@ const Home = async () => {
         </>
     )
 }
-
-export const revalidate = 3600
 
 export default Home

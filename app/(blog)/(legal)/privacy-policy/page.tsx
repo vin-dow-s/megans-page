@@ -1,6 +1,8 @@
 import { ArrowLeftIcon } from 'lucide-react'
 import Link from 'next/link'
 
+export const dynamic = 'force-static'
+
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL
 
 export const metadata = {
