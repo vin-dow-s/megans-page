@@ -38,6 +38,7 @@ export const metadata = {
             '/assets/default-homepage.webp',
         ],
     },
+    robots: 'noindex, follow',
 }
 
 const ContactPage = () => {

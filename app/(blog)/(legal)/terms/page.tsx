@@ -40,7 +40,7 @@ export const metadata = {
             '/assets/default-homepage.webp',
         ],
     },
-    robots: 'noindex, nofollow',
+    robots: 'noindex, follow',
 }
 
 const TermsOfUsePage = () => {
