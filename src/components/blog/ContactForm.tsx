@@ -72,7 +72,16 @@ const ContactFormContent = () => {
                 body: JSON.stringify({ ...data, token }),
             })
 
-            const responseData = await response.json()
+            // Safely parse the response
+            let responseData
+            try {
+                responseData = await response.json()
+            } catch (parseError) {
+                console.error('Error parsing response:', parseError)
+                throw new Error(
+                    'Server returned an invalid response. Please try again later.',
+                )
+            }
 
             if (!response.ok) {
                 const errorMessage =
