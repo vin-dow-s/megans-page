@@ -4,6 +4,7 @@ export const publicRoutes = [
     '/privacy-policy',
     '/terms',
     '/contact',
+    '/api/contact',
     '/auth/sign-in',
     '/auth/error',
 ]

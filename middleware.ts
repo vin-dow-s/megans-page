@@ -22,8 +22,9 @@ export default auth(async (req) => {
     const isAuthRoute = authRoutes.includes(pathname)
     const isAdminRoute = pathname.startsWith('/admin')
     const isApiAuthRoute = pathname.startsWith(apiAuthPrefix)
+    const isApiContactRoute = pathname.startsWith('/api/contact')
 
-    if (isApiAuthRoute) return NextResponse.next()
+    if (isApiAuthRoute || isApiContactRoute) return NextResponse.next()
 
     // Allow access to sign-in page when user is not logged in
     if (isAuthRoute && !isLoggedIn) return NextResponse.next()
