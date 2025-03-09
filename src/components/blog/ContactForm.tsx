@@ -25,7 +25,18 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import Link from 'next/link'
 
-export const ContactForm = () => {
+const ContactFormWithRecaptcha = () => {
+    return (
+        <ReCaptchaProvider
+            reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}
+            useEnterprise={false}
+        >
+            <ContactFormContent />
+        </ReCaptchaProvider>
+    )
+}
+
+const ContactFormContent = () => {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [successMessage, setSuccessMessage] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
@@ -61,123 +72,126 @@ export const ContactForm = () => {
                 body: JSON.stringify({ ...data, token }),
             })
 
-            if (!response.ok) throw new Error('Something went wrong')
+            const responseData = await response.json()
+
+            if (!response.ok) {
+                const errorMessage =
+                    responseData.error || 'Something went wrong'
+                throw new Error(errorMessage)
+            }
 
             setSuccessMessage('Message sent. Thanks!')
-
             form.reset()
         } catch (error) {
-            setErrorMessage('Failed to send the message. Please try again.')
+            console.error('Form submission error:', error)
+            setErrorMessage(
+                error instanceof Error
+                    ? error.message
+                    : 'Failed to send the message. Please try again.',
+            )
         } finally {
             setIsSubmitting(false)
         }
     }
 
     return (
-        <>
-            {captchaLoaded && (
-                <ReCaptchaProvider
-                    reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+        <Form {...form}>
+            <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                onFocus={handleInteraction}
+                className="w-full px-2 sm:w-80"
+            >
+                {/* Name Field */}
+                <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                        <FormItem className="mb-8">
+                            <FormLabel>Name</FormLabel>
+                            <FormControl>
+                                <Input
+                                    placeholder="Enter your name"
+                                    className="rounded-sm shadow-xs"
+                                    {...field}
+                                />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
                 />
-            )}
-            <Form {...form}>
-                <form
-                    onSubmit={form.handleSubmit(onSubmit)}
-                    onFocus={handleInteraction}
-                    className="w-full space-y-8 px-2 sm:w-80"
+
+                {/* Email Field */}
+                <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                        <FormItem className="mb-8">
+                            <FormLabel>Email</FormLabel>
+                            <FormControl>
+                                <Input
+                                    type="email"
+                                    placeholder="Enter your email"
+                                    className="rounded-sm shadow-xs"
+                                    {...field}
+                                />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+
+                {/* Message Field */}
+                <FormField
+                    control={form.control}
+                    name="message"
+                    render={({ field }) => (
+                        <FormItem className="mb-4">
+                            <FormLabel>Message</FormLabel>
+                            <FormControl>
+                                <Textarea
+                                    rows={5}
+                                    placeholder="Write your message..."
+                                    className="rounded-sm shadow-xs"
+                                    {...field}
+                                />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+
+                {/* Submit Button */}
+                <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="main-button mb-2 w-full shadow-xs"
                 >
-                    {/* Name Field */}
-                    <FormField
-                        control={form.control}
-                        name="name"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Name</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        placeholder="Enter your name"
-                                        className="rounded-sm shadow-xs"
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
+                    {isSubmitting ? 'Sending...' : 'Send Message'}
+                </button>
+                <div className="mb-8 text-xs text-gray-400">
+                    This site is protected by reCAPTCHA and the Google{' '}
+                    <Link href="https://policies.google.com/privacy">
+                        Privacy Policy
+                    </Link>{' '}
+                    and{' '}
+                    <Link href="https://policies.google.com/terms">
+                        Terms of Service
+                    </Link>{' '}
+                    apply.
+                </div>
 
-                    {/* Email Field */}
-                    <FormField
-                        control={form.control}
-                        name="email"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Email</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        type="email"
-                                        placeholder="Enter your email"
-                                        className="rounded-sm shadow-xs"
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-
-                    {/* Message Field */}
-                    <FormField
-                        control={form.control}
-                        name="message"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Message</FormLabel>
-                                <FormControl>
-                                    <Textarea
-                                        rows={5}
-                                        placeholder="Write your message..."
-                                        className="rounded-sm shadow-xs"
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-
-                    {/* Submit Button */}
-                    <button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="main-button mb-2 w-full shadow-xs"
-                    >
-                        {isSubmitting ? 'Sending...' : 'Send Message'}
-                    </button>
-                    <div className="text-xs text-gray-400">
-                        This site is protected by reCAPTCHA and the Google{' '}
-                        <Link href="https://policies.google.com/privacy">
-                            Privacy Policy
-                        </Link>{' '}
-                        and{' '}
-                        <Link href="https://policies.google.com/terms">
-                            Terms of Service
-                        </Link>{' '}
-                        apply.
-                    </div>
-
-                    {/* Success/Error Messages */}
-                    {successMessage && (
-                        <p className="text-center text-green-700">
-                            {successMessage}
-                        </p>
-                    )}
-                    {errorMessage && (
-                        <p className="text-center text-red-700">
-                            {errorMessage}
-                        </p>
-                    )}
-                </form>
-            </Form>
-        </>
+                {/* Success/Error Messages */}
+                {successMessage && (
+                    <p className="text-center text-green-700">
+                        {successMessage}
+                    </p>
+                )}
+                {errorMessage && (
+                    <p className="text-center text-red-700">{errorMessage}</p>
+                )}
+            </form>
+        </Form>
     )
 }
+
+export default ContactFormWithRecaptcha

@@ -26,7 +26,7 @@ export async function POST(req: Request) {
 
         // Send the email
         const response = await resend.emails.send({
-            from: 'no-reply@meganspage.com',
+            from: "Megan's Page <no-reply@meganspage.com>",
             to: 'contact.meganspage@gmail.com',
             subject: `New Blog Message`,
             text: `You have received a new message from the Contact form:\n\nName: ${validatedData.name}\nEmail: ${validatedData.email}\n\nMessage:\n${validatedData.message}`,

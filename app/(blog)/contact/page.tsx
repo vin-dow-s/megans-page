@@ -1,4 +1,4 @@
-import { ContactForm } from '@/components/blog/ContactForm'
+import ContactForm from '@/components/blog/ContactForm'
 import { ArrowLeftIcon } from 'lucide-react'
 import Link from 'next/link'
 
